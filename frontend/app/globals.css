@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+@plugin 'lightswind/plugin';
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+
+.cascade-slider_container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 400px;
+}
+
+.cascade-slider_slides {
+  position: relative;
+  height: 100%;
+}
+
+.cascade-slider_item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.cascade-slider_item.now {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  z-index: 5;
+}
+
+.cascade-slider_item.next {
+  transform: translate(-120%, -50%) scale(0.6);
+  opacity: 1;
+  z-index: 4;
+}
+
+.cascade-slider_item.prev {
+  transform: translate(20%, -50%) scale(0.6);
+  opacity: 1;
+  z-index: 4;
+}
+
+.cascade-slider_slides img {
+  max-width: 300px;
+  border-radius: 20px;
+}
