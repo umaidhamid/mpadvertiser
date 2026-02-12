@@ -51,7 +51,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black/50" />
 
       {/* Controls */}
-      <div className="absolute top-5 right-5 z-50 flex gap-3">
+      <div className="absolute top-15 right-5 z-50 flex gap-3">
         <button
           onClick={() => setMuted((p) => !p)}
           className="p-2 bg-black/60 rounded-full text-white hover:scale-110 transition"

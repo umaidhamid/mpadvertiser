@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,7 +14,20 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 30);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+        setMenuOpen(false);
+    }, [pathname]);
 
     const navItems = [
         { href: "/", label: "Home" },
@@ -35,18 +48,22 @@ const Navbar = () => {
     return (
         <>
             {/* HEADER */}
-            <header className="w-full sticky bg-primary/10 top-0 z-50 bg-gradient-to-r from-brand-primary via-brand-accent to-brand-secondary shadow-brand backdrop-blur-lg">
+            <header
+                className={`fixed w-full top-0 z-50 transition-all duration-300 
+        ${scrolled
+                        ? "bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-lg"
+                        : "bg-transparent"
+                    }`}
+            >
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
                     {/* LOGO */}
-                    <Link href="/" className="flex items-center group">
-                        <span className="text-white text-xl font-bold tracking-wide group-hover:text-brand-highlight transition">
-                            MP Advertisers
-                        </span>
+                    <Link href="/" className="text-white text-2xl font-bold tracking-wide">
+                        MP Advertisers
                     </Link>
 
                     {/* DESKTOP NAV */}
-                    <nav className="hidden md:flex items-center gap-6">
+                    <nav className="hidden md:flex items-center gap-8 relative">
                         {navItems.map((item) => {
                             const isActive = pathname === item.href;
 
@@ -54,13 +71,15 @@ const Navbar = () => {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className={`px-4 py-2 rounded-brand text-sm font-semibold uppercase tracking-wider transition-all duration-300
-                  ${isActive
-                                            ? "bg-brand-highlight text-brand-dark shadow-glow"
-                                            : "text-white hover:bg-white/15 hover:-translate-y-1"
-                                        }`}
+                                    className="relative text-lg font-medium text-white/80 hover:text-white transition"
                                 >
                                     {item.label}
+
+                                    {/* Animated underline */}
+                                    <span
+                                        className={`absolute left-0 -bottom-2 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 
+                    ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                                    />
                                 </Link>
                             );
                         })}
@@ -74,9 +93,15 @@ const Navbar = () => {
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 hover:bg-brand-highlight hover:text-brand-dark transition-all duration-300"
+                                className="w-9 h-9 flex items-center justify-center rounded-full 
+                bg-white/5 border border-white/10 
+                hover:bg-indigo-600 hover:border-indigo-600 
+                transition duration-300"
                             >
-                                <FontAwesomeIcon icon={social.icon} className="text-white text-sm" />
+                                <FontAwesomeIcon
+                                    icon={social.icon}
+                                    className="text-white text-sm"
+                                />
                             </a>
                         ))}
                     </div>
@@ -87,35 +112,37 @@ const Navbar = () => {
                         className="md:hidden flex flex-col gap-1.5"
                     >
                         <span
-                            className={`w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""
-                                }`}
+                            className={`w-6 h-0.5 bg-white transition-all duration-300 
+              ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
                         />
                         <span
-                            className={`w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""
-                                }`}
+                            className={`w-6 h-0.5 bg-white transition-all duration-300 
+              ${menuOpen ? "opacity-0" : ""}`}
                         />
                         <span
-                            className={`w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""
-                                }`}
+                            className={`w-6 h-0.5 bg-white transition-all duration-300 
+              ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
                         />
                     </button>
                 </div>
             </header>
 
-            {/* BACKDROP OVERLAY */}
+            {/* BACKDROP */}
             {menuOpen && (
                 <div
                     onClick={() => setMenuOpen(false)}
-                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
                 />
             )}
 
             {/* MOBILE MENU */}
             <div
-                className={`fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-brand-primary to-brand-secondary shadow-2xl transform transition-transform duration-300 z-50 md:hidden
+                className={`fixed top-0 right-0 h-full w-80 bg-black 
+        border-l border-white/10 shadow-2xl 
+        transform transition-transform duration-300 z-50 md:hidden
         ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
             >
-                <div className="flex flex-col mt-24 px-6 gap-4">
+                <div className="flex flex-col mt-28 px-6 gap-6">
 
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
@@ -124,11 +151,8 @@ const Navbar = () => {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                onClick={() => setMenuOpen(false)}
-                                className={`px-4 py-3 rounded-brand font-semibold transition-all duration-300
-                ${isActive
-                                        ? "bg-brand-highlight text-brand-dark"
-                                        : "text-white hover:bg-white/15"
+                                className={`text-lg font-medium transition 
+                ${isActive ? "text-indigo-400" : "text-white/80 hover:text-white"
                                     }`}
                             >
                                 {item.label}
@@ -136,21 +160,26 @@ const Navbar = () => {
                         );
                     })}
 
-                    {/* MOBILE SOCIAL */}
-                    <div className="flex justify-center gap-4 mt-8 pt-6 border-t border-white/20">
+                    {/* Divider */}
+                    <div className="border-t border-white/10 pt-6 mt-6 flex gap-4">
                         {socialLinks.map((social, i) => (
                             <a
                                 key={i}
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-brand-highlight hover:text-brand-dark transition-all duration-300"
+                                className="w-10 h-10 flex items-center justify-center rounded-full 
+                bg-white/5 border border-white/10 
+                hover:bg-indigo-600 hover:border-indigo-600 
+                transition duration-300"
                             >
-                                <FontAwesomeIcon icon={social.icon} className="text-white" />
+                                <FontAwesomeIcon
+                                    icon={social.icon}
+                                    className="text-white"
+                                />
                             </a>
                         ))}
                     </div>
-
                 </div>
             </div>
         </>

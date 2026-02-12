@@ -1,5 +1,7 @@
 import "../globals.css";
 import Navbar from "../components/client/Navbar.jsx"
+import ScrollProgress from "../components/client/ScrollProgress";
+import FloatingWhatsApp from "../components/client/FloatingWhatsApp";
 // import Footer from "@/components/client/Footer";
 
 export const metadata = {
@@ -11,6 +13,8 @@ export default function ClientLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-white text-gray-800">
+        <ScrollProgress />
+        <FloatingWhatsApp />
         <Navbar />
         
         <main className="min-h-screen">
