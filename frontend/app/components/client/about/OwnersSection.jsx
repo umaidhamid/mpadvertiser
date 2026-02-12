@@ -1,0 +1,131 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Linkedin, Mail } from "lucide-react";
+
+export default function OwnersSection({ owners }) {
+  return (
+    <section className="relative py-28 px-6 overflow-hidden">
+
+      {/* Background depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.02] to-black pointer-events-none" />
+      <div className="absolute -top-20 right-0 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto">
+
+        {/* Section Heading */}
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6">
+            Leadership
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Visionary leadership driving innovation, growth, and long-term impact.
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid lg:grid-cols-2 gap-16">
+
+          {owners.map((owner, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="group p-10 rounded-3xl 
+              bg-white/[0.04] border border-white/10 
+              backdrop-blur-xl transition duration-500
+              hover:border-indigo-500/40"
+            >
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
+
+                {/* Image */}
+                <div className="relative w-40 h-40 rounded-full overflow-hidden border border-white/10 shrink-0">
+                  <Image
+                    src={owner.image}
+                    alt={owner.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="text-center md:text-left">
+
+                  <h4 className="text-2xl font-semibold mb-2">
+                    {owner.name}
+                  </h4>
+
+                  <p className="text-indigo-400 mb-4">
+                    {owner.role}
+                  </p>
+
+                  {/* Experience */}
+                  {owner.experience && (
+                    <div className="text-sm text-white/60 mb-4">
+                      {owner.experience}
+                    </div>
+                  )}
+
+                  {/* Bio */}
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    {owner.bio}
+                  </p>
+
+                  {/* Expertise Tags */}
+                  {owner.expertise && (
+                    <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
+                      {owner.expertise.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="px-4 py-1 text-xs rounded-full 
+                          bg-white/5 border border-white/10 text-gray-300"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Social Links */}
+                  <div className="flex gap-4 justify-center md:justify-start">
+
+                    {owner.social?.linkedin && (
+                      <a
+                        href={owner.social.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center 
+                        rounded-full bg-white/5 border border-white/10 
+                        hover:bg-indigo-600 hover:border-indigo-600 transition duration-300"
+                      >
+                        <Linkedin size={16} />
+                      </a>
+                    )}
+
+                    {owner.social?.email && (
+                      <a
+                        href={owner.social.email}
+                        className="w-9 h-9 flex items-center justify-center 
+                        rounded-full bg-white/5 border border-white/10 
+                        hover:bg-purple-600 hover:border-purple-600 transition duration-300"
+                      >
+                        <Mail size={16} />
+                      </a>
+                    )}
+
+                  </div>
+
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+        </div>
+
+      </div>
+    </section>
+  );
+}

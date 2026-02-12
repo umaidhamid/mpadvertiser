@@ -1,8 +1,14 @@
 "use client";
 
 import HeroSection from "../components/client/HeroSection";
+import OfferBanner from "../components/client/OfferBanner";
 import StatsSection from "../components/client/StatsSection";
+import WhyChooseUsSection from "../components/client/WhyChooseUsSection";
 import ServicesSection from "../components/client/ServicesSection";
+import ProcessSection from "../components/client/ProcessSection";
+import MidCTASection from "../components/client/MidCTASection";
+import HomeProductsSection from "../components/client/HomeProductsSection";
+import FeaturedClientsSection from "../components/client/FeaturedClientsSection";
 import Carousel from "../components/client/Carousel";
 import TestimonialsSection from "../components/client/TestimonialsSection";
 import VisionSection from "../components/client/VisionSection";
@@ -12,25 +18,43 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white overflow-x-hidden">
 
-      {/* 1️⃣ Hero Section */}
+      {/* 1️⃣ Hero – Hook */}
       <HeroSection />
 
-      {/* 2️⃣ Social Proof Stats */}
+      {/* 2️⃣ Limited Offer – Urgency */}
+      <OfferBanner />
+
+      {/* 3️⃣ Stats – Instant Trust */}
       <StatsSection />
 
-      {/* 3️⃣ Services Overview */}
+      {/* 4️⃣ Why Choose Us – Authority */}
+      <WhyChooseUsSection />
+
+      {/* 5️⃣ Services – What You Do */}
       <ServicesSection />
 
-      {/* 4️⃣ Work Showcase Carousel */}
+      {/* 6️⃣ Process – How You Work */}
+      <ProcessSection />
+
+      {/* 7️⃣ Mid CTA – Momentum Push */}
+      <MidCTASection />
+
+      {/* 8️⃣ Featured Products – What You Sell */}
+      <HomeProductsSection />
+
+      {/* 9️⃣ Featured Clients – Social Proof */}
+      <FeaturedClientsSection />
+
+      {/* 🔟 Work Showcase – Visual Proof */}
       <Carousel />
 
-      {/* 5️⃣ Client Testimonials */}
+      {/* 1️⃣1️⃣ Testimonials – Emotional Proof */}
       <TestimonialsSection />
 
-      {/* 6️⃣ Vision / Mission / Purpose */}
+      {/* 1️⃣2️⃣ Vision – Brand Depth */}
       <VisionSection />
 
-      {/* 7️⃣ Final Call To Action */}
+      {/* 1️⃣3️⃣ Final CTA – Strong Close */}
       <CTASection />
 
     </main>
