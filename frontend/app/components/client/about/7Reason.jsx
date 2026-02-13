@@ -5,41 +5,42 @@ import { motion } from "framer-motion";
 export default function ReasonsSection() {
   const reasons = [
     {
-      img: "/Slide1.webp",
-      title: "Premium Print Quality",
-      desc: "High-resolution, vibrant printing that makes your brand stand out instantly.",
+      img: "./Reasons/MARKETTING PROFESSIONAL.webp",
+      title: "Marketing Professional Focus",
+      desc: "Confidence in print and project execution.",
     },
     {
-      img: "/Slide2.webp",
-      title: "Fast Turnaround",
-      desc: "Quick production & delivery without compromising on quality.",
+      img: "./Reasons/RAPID RESPONSE SERVICE.webp",
+      title: "Rapid Response Service",
+      desc: "Fast quotes, tracking & guaranteed timelines.",
     },
     {
-      img: "/Slide3.webp",
-      title: "Creative Expertise",
-      desc: "Professional designs tailored to your business identity.",
+      img: "./Reasons/ONE STOP SHOP.webp",
+      title: "One Stop Shop",
+      desc: "From concept to delivery with full accountability.",
     },
     {
-      img: "/Slide4.webp",
-      title: "Local Market Expertise",
-      desc: "We understand regional branding and audience behavior.",
+      img: "./Reasons/GRAPHIC DESIGN.webp",
+      title: "Graphic Design",
+      desc: "Modern tools turning ideas into visuals.",
     },
     {
-      img: "/Slide5.webp",
-      title: "Competitive Pricing",
-      desc: "Premium quality at affordable and transparent pricing.",
+      img: "./Reasons/DEDICATED TEAM.webp",
+      title: "Dedicated Team",
+      desc: "Experienced professionals focused on success.",
     },
     {
-      img: "/slider1.webp",
-      title: "Reliable Support",
-      desc: "Dedicated assistance from concept to final installation.",
+      img: "./Reasons/PRODUCTION SAMPLES.webp",
+      title: "Production Samples",
+      desc: "Pre-production digital assurance.",
     },
     {
-      img: "/slider2.webp",
-      title: "Trusted by Businesses",
-      desc: "Hundreds of satisfied clients across industries.",
+      img: "./Reasons/PRINT MANAGEMENT.webp",
+      title: "Print Management",
+      desc: "End-to-end print handled perfectly.",
     },
   ];
+
 
   return (
     <section className="relative py-32 px-6 bg-black text-white overflow-hidden">

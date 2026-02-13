@@ -28,19 +28,20 @@ export default function HomePage() {
       <StatsSection />
 
       {/* 4️⃣ Why Choose Us – Authority */}
-      <WhyChooseUsSection />
 
+
+      <HomeProductsSection />
       {/* 5️⃣ Services – What You Do */}
       <ServicesSection />
 
       {/* 6️⃣ Process – How You Work */}
       <ProcessSection />
 
+      <WhyChooseUsSection />
       {/* 7️⃣ Mid CTA – Momentum Push */}
       <MidCTASection />
 
       {/* 8️⃣ Featured Products – What You Sell */}
-      <HomeProductsSection />
 
       {/* 9️⃣ Featured Clients – Social Proof */}
       <FeaturedClientsSection />

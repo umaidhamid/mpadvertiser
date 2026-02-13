@@ -41,51 +41,36 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="bg-black text-white py-20 sm:py-24 md:py-28 px-4 sm:px-6">
+    <section className="bg-black text-white py-28 px-6">
 
-      {/* Heading */}
-      <div className="text-center mb-14 sm:mb-16 max-w-4xl xl:max-w-5xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
-          Proven Results That Speak for Themselves
+      <div className="text-center mb-20 max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6">
+          Proven Results
         </h2>
 
-        <p className="text-gray-400 text-base sm:text-lg">
-          We don’t just create campaigns — we build measurable growth strategies
-          that deliver real business impact.
+        <p className="text-gray-500 text-base">
+          Real numbers. Real growth. Real impact.
         </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12 text-center">
-
+      <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-14 text-center">
         {stats.map((stat, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.15 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="relative group"
           >
-            {/* Number */}
-            <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold 
-              bg-gradient-to-r from-indigo-500 to-pink-500 
-              bg-clip-text text-transparent">
+            <div className="text-4xl md:text-5xl font-bold text-white">
               <Counter end={stat.number} suffix={stat.suffix} />
             </div>
 
-            {/* Label */}
-            <p className="mt-4 text-sm sm:text-base text-gray-400 tracking-wide">
+            <p className="mt-3 text-sm text-gray-500 tracking-wide">
               {stat.label}
             </p>
-
-            {/* Subtle glow */}
-            <div className="absolute inset-0 blur-3xl opacity-0 
-              group-hover:opacity-10 bg-indigo-500 
-              transition duration-500 rounded-full pointer-events-none" />
           </motion.div>
         ))}
-
       </div>
     </section>
   );

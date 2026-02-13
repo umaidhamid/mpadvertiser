@@ -140,28 +140,28 @@ export const servicesSummary = [
 
 export const owners = [
     {
-        name: "Umaid Hamid",
-        role: "Founder & Managing Director",
-        image: "/Slide2.webp",
-        bio:
-            "Umaid Hamid founded MP Advertisers with a vision to bring strategy-driven advertising to regional businesses. He leads company growth, strategic partnerships, and innovation.",
+        name: "Mr. Owais Hamid",
+        role: "Co-Founder & Operations Head",
+        bio: "Mr. Owais Hamid brings over twelve years of hands-on experience in graphic design, acrylic fabrication, signage solutions, and visual communication. As the creative backbone of MP Advertisers, he oversees design execution, production quality, and operational workflows with exceptional precision. His deep understanding of contemporary design trends, materials, and fabrication techniques allows him to transform client concepts into impactful visual identities. Through his leadership, the creative and production teams consistently deliver high-quality branding, advertising, and promotional solutions that combine aesthetic excellence with functional durability, ensuring each project reflects the client’s vision while maintaining the company’s commitment to quality and innovation.",
+
+        image: "/owner1.webp",
         experience: "10+ Years Experience",
         expertise: ["Brand Strategy", "Campaign Execution", "Business Development"],
         social: {
-            linkedin: "#",
+        
             email: "mailto:founder@mpadvertisers.com"
         }
     },
     {
-        name: "Co-Founder Name",
-        role: "Operations Director",
-        image: "/Slide3.webp",
-        bio:
-            "Oversees operations, client coordination, and production management to ensure every project is delivered with precision and efficiency.",
-        experience: "8+ Years Experience",
+        name: "Mr. Shahid Beigh",
+        role: "Founder & Managing Director",
+        bio: "Mr. Shahid Beigh is a highly accomplished IT professional and entrepreneur with extensive experience in IT infrastructure, cloud solutions, and technology-driven business development. With a strong vision to bridge the gap between innovation and accessibility, he founded MP Advertisers to deliver reliable, high-quality, and affordable printing and advertising solutions across Kashmir and beyond. Under his leadership, the company has evolved into a trusted brand known for professionalism, timely delivery, and technical excellence. His strategic mindset, combined with a commitment to sustainable growth and innovation, has enabled MP Advertisers to collaborate with reputed national and international organizations while continuously adapting to modern market demands and technological advancements.",
+
+        image: "/owner2.webp",
+        experience: "13+ Years Experience",
         expertise: ["Operations", "Client Management", "Production Oversight"],
         social: {
-            linkedin: "#",
+          
             email: "mailto:operations@mpadvertisers.com"
         }
     }

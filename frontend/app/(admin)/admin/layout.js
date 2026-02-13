@@ -1,5 +1,5 @@
-import "../globals.css";
-// import Sidebar from "@/components/admin/Sidebar";
+import "../../globals.css";
+import Sidebar from "../../components/admin/AdminSidebar";
 // import Topbar from "@/components/admin/Topbar";
 
 export default function AdminLayout({ children }) {
@@ -8,7 +8,7 @@ export default function AdminLayout({ children }) {
       <body className="bg-gray-100">
         <div className="flex min-h-screen">
           
-          {/* <Sidebar /> */}
+          <Sidebar />
 
           <div className="flex-1 flex flex-col">
             {/* <Topbar /> */}

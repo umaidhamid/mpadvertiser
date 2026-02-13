@@ -6,13 +6,13 @@ import { Linkedin, Mail } from "lucide-react";
 
 export default function OwnersSection({ owners }) {
   return (
-    <section className="relative py-28 px-6 overflow-hidden">
+    <section className="relative py-12 px-6 overflow-hidden">
 
       {/* Background depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.02] to-black pointer-events-none" />
       <div className="absolute -top-20 right-0 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative  mx-auto">
 
         {/* Section Heading */}
         <div className="text-center mb-20">
@@ -25,7 +25,7 @@ export default function OwnersSection({ owners }) {
         </div>
 
         {/* Grid */}
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10">
 
           {owners.map((owner, i) => (
             <motion.div

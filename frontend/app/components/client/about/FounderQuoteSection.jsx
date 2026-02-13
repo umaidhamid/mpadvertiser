@@ -25,11 +25,11 @@ export default function FounderQuoteSection() {
           </p>
 
           <div className="text-lg font-semibold">
-            Umaid Hamid
+            Owais Hamid
           </div>
 
           <div className="text-gray-400 text-sm">
-            Founder & Managing Director
+            Co-Founder & Operations Head
           </div>
 
         </motion.div>
