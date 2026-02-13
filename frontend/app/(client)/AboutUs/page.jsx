@@ -40,7 +40,7 @@ export default function AboutPage() {
       <CoreValues values={coreValues} />
 
       {/* Achievements */}
-      <AchievementsSection achievements={achievements} />
+      {/* <AchievementsSection achievements={achievements} /> */}
 
       {/* Client Logos */}
       <ClientLogosSection clients={clients} />

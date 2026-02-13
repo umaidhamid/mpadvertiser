@@ -27,8 +27,6 @@ export default function HomePage() {
       {/* 3️⃣ Stats – Instant Trust */}
       <StatsSection />
 
-      {/* 4️⃣ Why Choose Us – Authority */}
-
 
       <HomeProductsSection />
       {/* 5️⃣ Services – What You Do */}
@@ -41,9 +39,6 @@ export default function HomePage() {
       {/* 7️⃣ Mid CTA – Momentum Push */}
       <MidCTASection />
 
-      {/* 8️⃣ Featured Products – What You Sell */}
-
-      {/* 9️⃣ Featured Clients – Social Proof */}
       <FeaturedClientsSection />
 
       {/* 🔟 Work Showcase – Visual Proof */}

@@ -1,25 +1,49 @@
-import "../../globals.css";
+"use client";
+
 import Sidebar from "../../components/admin/AdminSidebar";
-// import Topbar from "@/components/admin/Topbar";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import API from "../../lib/api";
 
 export default function AdminLayout({ children }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await API.get("/auth/me");
+        setLoading(false);
+      } catch (error) {
+        console.log("errr", error)
+        router.push("/login");
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+        Checking authentication...
+      </div>
+    );
+  }
+
   return (
-    <html lang="en">
-      <body className="bg-gray-100">
-        <div className="flex min-h-screen">
-          
-          <Sidebar />
+     <div className="h-screen flex overflow-hidden">
 
-          <div className="flex-1 flex flex-col">
-            {/* <Topbar /> */}
-            <h1>Admin Layout</h1>
-            <main className="p-6 flex-1 overflow-y-auto">
-              {children}
-            </main>
-          </div>
+      {/* Sidebar */}
+      <Sidebar />
 
-        </div>
-      </body>
-    </html>
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto">
+        <main className="p-6">
+          {children}
+        </main>
+      </div>
+
+    </div>
   );
 }

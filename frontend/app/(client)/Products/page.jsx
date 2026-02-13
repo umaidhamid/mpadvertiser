@@ -1,142 +1,118 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import ProductsHeader from "../../components/client/products/ProductsHeader";
-import ProductsSidebar from "../../components/client/products/ProductsSidebar";
 import ProductsGrid from "../../components/client/products/ProductsGrid";
-import { productsData } from "../../data/productsData";
+import API from "../../lib/api";
 
 export default function ProductsPage() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(["All"]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+
   const [category, setCategory] = useState("All");
-  const [min, setMin] = useState("");
-  const [max, setMax] = useState("");
   const [discountOnly, setDiscountOnly] = useState(false);
-  const [sort, setSort] = useState("latest");
+  const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  const perPage = 6;
+  const perPage = 15;
 
-  const categories = ["All", "Printing", "Business", "Outdoor"];
+  /* ================= FETCH CATEGORIES ================= */
+
+  const fetchCategories = async () => {
+    try {
+      const res = await API.get("/products/categories");
+      console.log(res)
+      setCategories(["All", ...res.data.categories]);
+    } catch (err) {
+      console.error("Category fetch error:", err);
+    }
+  };
+
+  /* ================= FETCH PRODUCTS ================= */
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+
+      const params = {
+        page,
+        limit: perPage,
+      };
+
+      if (category !== "All") params.category = category;
+      if (discountOnly) params.discountOnly = true;
+      if (search) params.search = search;
+      if (sort) params.sort = sort;
+
+      const res = await API.get("/products/get", { params });
+
+      setProducts(res.data.products);
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.error("Product fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [category, discountOnly, sort, search, page]);
 
   const clearFilters = () => {
     setCategory("All");
-    setMin("");
-    setMax("");
     setDiscountOnly(false);
-    setSort("latest");
+    setSort("");
     setSearch("");
     setPage(1);
   };
 
-  const filteredProducts = useMemo(() => {
-    let products = [...productsData];
-
-    if (category !== "All") {
-      products = products.filter((p) => p.category === category);
-    }
-
-    if (min !== "") {
-      products = products.filter(
-        (p) => p.finalprice >= Number(min)
-      );
-    }
-
-    if (max !== "") {
-      products = products.filter(
-        (p) => p.finalprice <= Number(max)
-      );
-    }
-
-    if (discountOnly) {
-      products = products.filter((p) => p.discount > 0);
-    }
-
-    if (search) {
-      products = products.filter((p) =>
-        p.name.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-
-    switch (sort) {
-      case "priceLow":
-        products.sort((a, b) => a.finalprice - b.finalprice);
-        break;
-      case "priceHigh":
-        products.sort((a, b) => b.finalprice - a.finalprice);
-        break;
-      case "discount":
-        products.sort((a, b) => b.discount - a.discount);
-        break;
-      default:
-        break;
-    }
-
-    return products;
-  }, [category, min, max, discountOnly, sort, search]);
-
-  const paginatedProducts = filteredProducts.slice(
-    (page - 1) * perPage,
-    page * perPage
-  );
-
-  const totalPages = Math.ceil(filteredProducts.length / perPage);
-
   return (
     <section className="min-h-screen bg-black text-white py-24 px-6">
-
-      <div className="mx-auto">
+      <div className="max-w-7xl mx-auto">
 
         <ProductsHeader
           search={search}
-          setSearch={setSearch}
+          setSearch={(val) => {
+            setPage(1);
+            setSearch(val);
+          }}
           sort={sort}
-          setSort={setSort}
-          results={filteredProducts.length}
+          setSort={(val) => {
+            setPage(1);
+            setSort(val);
+          }}
+          results={products.length}
+          categories={categories}
+          category={category}
+          setCategory={(val) => {
+            setPage(1);
+            setCategory(val);
+          }}
+          discountOnly={discountOnly}
+          setDiscountOnly={(val) => {
+            setPage(1);
+            setDiscountOnly(val);
+          }}
+          clearFilters={clearFilters}
         />
 
-        <div className="grid lg:grid-cols-4 gap-14 mt-12">
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <ProductsSidebar
-              categories={categories}
-              category={category}
-              setCategory={setCategory}
-              min={min}
-              max={max}
-              setMin={setMin}
-              setMax={setMax}
-              discountOnly={discountOnly}
-              setDiscountOnly={setDiscountOnly}
-              clearFilters={clearFilters}
-            />
-          </div>
-
-          {/* Grid */}
-          <div className="lg:col-span-3">
-            <ProductsGrid products={paginatedProducts} />
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center mt-12 gap-4">
-                {[...Array(totalPages)].map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setPage(i + 1)}
-                    className={`px-4 py-2 rounded-lg transition ${
-                      page === i + 1
-                        ? "bg-indigo-600"
-                        : "bg-white/5 hover:bg-white/10"
-                    }`}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
+        {/* Products Grid */}
+        <div className="mt-16">
+          {loading ? (
+            <div className="text-center py-20 text-gray-400">
+              Loading products...
+            </div>
+          ) : (
+            <ProductsGrid products={products} />
+          )}
         </div>
 
       </div>
