@@ -34,11 +34,12 @@ function Counter({ end, suffix = "", duration = 2 }) {
 
 export default function StatsSection() {
   const stats = [
-    { number: 150, suffix: "+", label: "Campaigns Launched" },
-    { number: 300, suffix: "%", label: "Average ROI Growth" },
-    { number: 5, suffix: "M+", label: "Monthly Audience Reach" },
-    { number: 98, suffix: "%", label: "Client Retention Rate" },
+    { number: 500, suffix: "+", label: "Projects Completed" },
+    { number: 120, suffix: "+", label: "Happy Clients" },
+    { number: 10, suffix: "+", label: "Years of Experience" },
+    { number: 25, suffix: "+", label: "Cities Served" },
   ];
+
 
   return (
     <section className="bg-black text-white py-28 px-6">

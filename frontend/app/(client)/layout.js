@@ -2,6 +2,8 @@ import "../globals.css";
 import Navbar from "../components/client/Navbar.jsx"
 import ScrollProgress from "../components/client/ScrollProgress";
 import FloatingWhatsApp from "../components/client/FloatingWhatsApp";
+import Link from "next/link";
+
 // import Footer from "@/components/client/Footer";
 
 export const metadata = {
@@ -21,22 +23,23 @@ export default function ClientLayout({ children }) {
           {children}
         </main>
         <section className="relative bg-black border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between text-sm text-white/500">
+          <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
 
+            {/* Copyright */}
             <p>
-              © {new Date().getFullYear()} Your Company Name. All rights reserved.
+              © {new Date().getFullYear()} MP Advertisers. All rights reserved.
             </p>
 
+            {/* Developer Credit */}
             <div className="mt-3 sm:mt-0 flex items-center gap-2">
               <span>Created & Managed by</span>
-              <a
-                href="https://umaidhamid."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-indigo-400 hover:text-indigo-300 transition"
+
+              <Link
+                href="/login"
+                className="text-white hover:text-indigo-400 transition"
               >
                 Umaid Hamid
-              </a>
+              </Link>
             </div>
 
           </div>

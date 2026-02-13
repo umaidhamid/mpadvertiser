@@ -9,109 +9,126 @@ import {
   LogOut,
   Menu,
   X,
+  Package,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import API from "../../lib/api";
+import { toast } from "sonner";
+
 
 export default function AdminSidebar() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   const menuItems = [
-    { name: "Dashboard", icon: <LayoutDashboard size={18} />, href: "/admin" },
-    { name: "Gallery", icon: <Image size={18} />, href: "/admin/gallery" },
-    { name: "Blogs", icon: <FileText size={18} />, href: "/admin/blogs" },
-    { name: "Settings", icon: <Settings size={18} />, href: "/admin/settings" },
+    { label: "Products", icon: Package, href: "/admin/products" },
+    { label: "Gallery", icon: Image, href: "/admin/gallery" },
+    { label: "Blogs", icon: FileText, href: "/admin/blogs" },
+    { label: "Settings", icon: Settings, href: "/admin/settings" },
   ];
 
-  const handleLogout = () => {
-    router.push("/admin/login");
+  const isActiveRoute = (href) =>
+    pathname === href || pathname.startsWith(href + "/");
+
+
+  const handleLogout = async () => {
+    try {
+      await API.post("/auth/logout");
+
+      toast.success("Logged out successfully");
+      setTimeout(() => {
+        router.push("/login")
+      }, 100)
+    } catch (error) {
+      toast.error("Logout failed");
+    }
   };
 
-  return (
-    <>
-      {/* Mobile Top Bar */}
-      <div className="lg:hidden p-4 bg-black text-white flex justify-between items-center border-b border-white/10">
-        <h2 className="font-semibold">Admin Panel</h2>
-        <button onClick={() => setOpen(true)}>
-          <Menu size={22} />
-        </button>
-      </div>
+return (
+  <>
+    {/* ===== MOBILE TOP BAR ===== */}
+    <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-black border-b border-gray-200 flex items-center justify-between px-4 z-40">
+      <h1 className="font-bold text-black">
+        <Link href="/admin" className="text-lg font-bold text-gray-800 hover:text-indigo-600 transition">
+          MP Admin
+        </Link>
+      </h1>
 
-      {/* Overlay */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`fixed lg:static top-0 left-0 h-full w-64 bg-black text-white border-r border-white/10 z-50
-        transform transition-transform duration-300
-        ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="p-2 rounded-md hover:bg-gray-100 transition"
       >
-        <div className="flex flex-col h-full">
+        <Menu size={22} />
+      </button>
+    </header>
 
-          {/* Header */}
-          <div className="p-6 border-b border-white/10 flex justify-between items-center">
-            <h2 className="text-xl font-semibold">MP Admin</h2>
+    {/* Spacer for mobile */}
+    <div className="lg:hidden h-16" />
 
-            <button
-              className="lg:hidden"
-              onClick={() => setOpen(false)}
-            >
-              <X size={20} />
-            </button>
-          </div>
+    {/* ===== MOBILE OVERLAY ===== */}
+    {isOpen && (
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+        onClick={() => setIsOpen(false)}
+      />
+    )}
 
-          {/* Navigation */}
-          <nav className="flex-1 mt-6 space-y-2 px-4">
-            {menuItems.map((item, index) => {
-              const isActive =
-                pathname === item.href ||
-                pathname.startsWith(item.href + "/");
+    {/* ===== SIDEBAR ===== */}
+    <aside
+      className={`fixed lg:static top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0`}
+    >
+      <div className="flex flex-col h-full">
 
-              return (
-                <Link
-                  key={index}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                >
-                  <div
-                    className={`relative flex items-center gap-3 px-4 py-3 rounded-lg transition-all
-                    ${isActive
-                        ? "bg-indigo-600 text-white"
-                        : "text-gray-400 hover:bg-white/5 hover:text-white"
-                      }`}
-                  >
-                    {isActive && (
-                      <span className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-400 rounded-r-md" />
-                    )}
-
-                    {item.icon}
-                    <span className="text-sm">{item.name}</span>
-                  </div>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Logout */}
-          <div className="p-4 border-t border-white/10">
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-gray-400 hover:bg-red-600 hover:text-white transition"
-            >
-              <LogOut size={18} />
-              <span className="text-sm">Logout</span>
-            </button>
-          </div>
-
+        {/* Logo */}
+        <div className="px-6 py-6 border-b border-gray-200">
+          <h2 className="text-lg font-bold text-black">
+            <Link href="/admin" className="text-lg font-bold text-gray-800 hover:text-indigo-600 transition">
+              MP Admin
+            </Link>
+          </h2>
         </div>
-      </aside>
-    </>
-  );
+
+        {/* Navigation */}
+        <nav className="flex-1 mt-6 px-4 space-y-1">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const active = isActiveRoute(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+                  ${active
+                    ? "bg-indigo-50 text-indigo-600 font-medium"
+                    : "text-black hover:bg-gray-100"
+                  }`}
+              >
+                <Icon size={18} />
+                <span className="text-sm">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Logout */}
+        <div className="p-4 border-t border-gray-200">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-gray-600 hover:bg-red-50 hover:text-red-600 transition"
+          >
+            <LogOut size={18} />
+            <span className="text-sm">Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside >
+  </>
+);
 }

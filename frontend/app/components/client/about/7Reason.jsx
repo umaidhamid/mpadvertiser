@@ -10,7 +10,7 @@ export default function ReasonsSection() {
       desc: "Confidence in print and project execution.",
     },
     {
-      img: "./Reasons/RAPID RESPONSE SERVICE.webp",
+      img: "./Reasons/RAPID RESPONSE.webp",
       title: "Rapid Response Service",
       desc: "Fast quotes, tracking & guaranteed timelines.",
     },
