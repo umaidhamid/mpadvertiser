@@ -5,17 +5,37 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import productRoutes from "./routes/productRoutes.js";
-
+import cron from "node-cron";
+import axios from "axios";
 
 dotenv.config();
 
 const app = express();
 
 // Middleware
+
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://mpadvertisers.umaidhamid.in",
+    "https://www.mpadvertisers.umaidhamid.in",
+    "https://mpadvertisers.vercel.app",
+];
+
 app.use(
     cors({
-        origin: "http://localhost:3000", // EXACT frontend URL
+        origin: function (origin, callback) {
+            // allow server-to-server or Postman (no origin)
+            if (!origin) return callback(null, true);
+
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("CORS not allowed for this origin"));
+            }
+        },
         credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
 app.use(express.json());
@@ -23,7 +43,28 @@ app.use(cookieParser());
 app.use("/auth", authRoutes)
 app.use("/products", productRoutes)
 
+cron.schedule("*/10  * * * *", async () => {
+    try {
+        const [apiRes, siteRes] = await Promise.all([
+            axios.get("https://mp-advertisers.onrender.com", { timeout: 8000 }),
+            axios.get("https://www.umaidhamid.in/", { timeout: 8000 }),
+        ]);
 
+        console.log("Health check OK:", {
+            api: apiRes.status,
+            website: siteRes.status,
+            time: new Date().toISOString(),
+        });
+
+    } catch (error) {
+        console.error("Health check failed:", {
+            message: error.message,
+            url: error.config?.url,
+            status: error.response?.status,
+            time: new Date().toISOString(),
+        });
+    }
+});
 app.get("/", (req, res) => {
     res.send("Server is running...");
 });
