@@ -15,12 +15,12 @@ export default function Carousel() {
         <div className=" bg-black/60 text-white">
 
             {/* Website Main Heading */}
-            {/* <header className="text-center pt-16">
+            <header className="text-center pt-16">
 
                 <h2 className="text-4xl md:text-5xl font-bold mb-12 tracking-wide">
                     Our Featured Work
                 </h2>
-            </header> */}
+            </header>
 
             {/* Carousel Section */}
             <section className="flex flex-col items-center justify-center ">

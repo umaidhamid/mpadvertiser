@@ -11,7 +11,7 @@ import AchievementsSection from "../../components/client/about/AchievementsSecti
 import ClientLogosSection from "../../components/client/about/ClientLogosSection.jsx";
 import FounderQuoteSection from "../../components/client/about/FounderQuoteSection.jsx";
 import AboutCTASection from "../../components/client/about/AboutCTASection.jsx";
-
+import ReasonsSection from "../../components/client/about/7Reason.jsx";
 import {
   aboutHero,
   companyStory,
@@ -51,11 +51,14 @@ export default function AboutPage() {
       {/* Founder Quote */}
       <FounderQuoteSection />
 
+      <ReasonsSection />
       {/* Team */}
       <TeamSection team={teamMembers} />
 
       {/* Final CTA */}
       <AboutCTASection />
+
+      {/* 7 Reasons */}
 
     </main>
   );
