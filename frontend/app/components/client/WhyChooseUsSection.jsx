@@ -28,47 +28,43 @@ export default function WhyChooseUsSection() {
   ];
 
   return (
-    <section className="relative py-28 bg-black text-white overflow-hidden">
-      {/* Heading */}
-      <div className="text-center mb-20">
-        <h2 className="text-4xl md:text-5xl font-bold">
-          Why Choose Us
-        </h2>
-        <p className="text-gray-400 mt-5 max-w-2xl mx-auto">
-          We combine creativity, precision, and reliability to deliver
-          exceptional printing solutions.
+   <section className="py-28 bg-black text-white">
+
+  <div className="text-center mb-24 max-w-2xl mx-auto">
+    <h2 className="text-3xl md:text-4xl font-semibold">
+      Why Choose Us
+    </h2>
+    <p className="text-gray-500 mt-4 text-base">
+      Creative precision. Reliable execution.
+    </p>
+  </div>
+
+  <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
+
+    {points.map((item, index) => (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: index * 0.1 }}
+        viewport={{ once: true }}
+        className="text-left"
+      >
+        <div className="mb-5 text-indigo-400">
+          {item.icon}
+        </div>
+
+        <h3 className="text-lg font-semibold mb-3">
+          {item.title}
+        </h3>
+
+        <p className="text-gray-500 text-sm leading-relaxed">
+          {item.description}
         </p>
-      </div>
+      </motion.div>
+    ))}
 
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-        {points.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="group p-8 rounded-3xl 
-            bg-white/[0.03] border border-white/10 
-            backdrop-blur-xl transition-all duration-500
-            hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/10"
-          >
-            <div className="mb-6 text-indigo-400 group-hover:text-indigo-300 transition">
-              {item.icon}
-            </div>
-
-            <h3 className="text-xl font-semibold mb-4">
-              {item.title}
-            </h3>
-
-            <p className="text-gray-400 text-sm leading-relaxed">
-              {item.description}
-            </p>
-          </motion.div>
-        ))}
-
-      </div>
-    </section>
+  </div>
+</section>
   );
 }
