@@ -7,13 +7,19 @@ import cookieParser from "cookie-parser";
 import productRoutes from "./routes/productRoutes.js";
 import cron from "node-cron";
 import axios from "axios";
+import offerRoutes from "./routes/offer.routes.js";
+import morgan from "morgan";
+import galleryRoutes from "./routes/gallery.routes.js";
+import carouselRoutes from "./routes/carousel.routes.js";
+import testimonialRoutes from "./routes/testimonial.routes.js";
+
 
 dotenv.config();
 
 const app = express();
 
 // Middleware
-
+app.use(morgan("dev"));
 const allowedOrigins = [
     "http://localhost:3000",
     "https://mpadvertisers.umaidhamid.in",
@@ -42,11 +48,16 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/auth", authRoutes)
 app.use("/products", productRoutes)
+app.use("/offers", offerRoutes);
+app.use("/testimonials", testimonialRoutes);
+app.use("/gallery", galleryRoutes)
 
-cron.schedule("*/10  * * * *", async () => {
+
+app.use("/carousel", carouselRoutes);;
+cron.schedule("*/10   * * * *", async () => {
     try {
         const [apiRes, siteRes] = await Promise.all([
-            axios.get("https://mp-advertisers.onrender.com", { timeout: 8000 }),
+            axios.get("https://mpadvertisers-backend.onrender.com/", { timeout: 8000 }),
             axios.get("https://www.umaidhamid.in/", { timeout: 8000 }),
         ]);
 

@@ -25,8 +25,9 @@ export default function AdminSidebar() {
   const menuItems = [
     { label: "Products", icon: Package, href: "/admin/products" },
     { label: "Gallery", icon: Image, href: "/admin/gallery" },
-    { label: "Blogs", icon: FileText, href: "/admin/blogs" },
-    { label: "Settings", icon: Settings, href: "/admin/settings" },
+    { label: "offers", icon: FileText, href: "/admin/offers" },
+    { label: "Carousel", icon: Settings, href: "/admin/carousel" },
+    { label: "Testimonials", icon: Settings, href: "/admin/testimonials" },
   ];
 
   const isActiveRoute = (href) =>
