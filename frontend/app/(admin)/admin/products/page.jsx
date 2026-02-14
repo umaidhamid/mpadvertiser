@@ -37,7 +37,7 @@ export default function AdminProductsPage() {
             if (featured) params.featured = true;
             if (bestseller) params.bestseller = true;
             if (discountOnly) params.discountOnly = true;
-          
+
             if (sort) params.sort = sort;
 
             const response = await API.get("/products/get", { params });
@@ -54,7 +54,7 @@ export default function AdminProductsPage() {
 
     useEffect(() => {
         fetchProducts();
-    }, [page, search, category, featured, bestseller, discountOnly,  sort]);
+    }, [page, search, category, featured, bestseller, discountOnly, sort]);
 
     /* ================= DELETE ================= */
 
@@ -112,8 +112,8 @@ export default function AdminProductsPage() {
                     className="p-3 rounded-xl border bg-transparent"
                 />
 
-            
-           
+
+
 
                 <select
                     value={sort}
@@ -160,7 +160,7 @@ export default function AdminProductsPage() {
                         setFeatured(false);
                         setBestseller(false);
                         setDiscountOnly(false);
-                    
+
                         setSort("");
                         setPage(1);
                     }}
@@ -213,12 +213,11 @@ export default function AdminProductsPage() {
 
                                 <div className="flex gap-4 pt-4">
                                     <Link
-                                        href={`/admin/products/edit/${product._id}`}
+                                        href={`/admin/products/edit/${product.slug}`}
                                         className="flex-1 text-center py-2 border rounded-xl hover:border-yellow-500 transition"
                                     >
                                         Edit
                                     </Link>
-
                                     <button
                                         onClick={() => handleDelete(product._id)}
                                         className="flex-1 py-2 border rounded-xl hover:border-red-500 transition"

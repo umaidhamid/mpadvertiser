@@ -2,10 +2,10 @@ export const revalidate = 3600; // Revalidate every 1 hour
 
 export default async function sitemap() {
     const baseUrl =
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
+        process.env.NEXT_PUBLIC_BASE_URL ;
+console.log(baseUrl)
     const apiUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+        process.env.NEXT_PUBLIC_API_URL;
 
     // ===============================
     // Static Public Pages

@@ -7,11 +7,70 @@ import Link from "next/link";
 // import Footer from "@/components/client/Footer";
 
 export const metadata = {
-  title: "MP Advertisers | Advertising & Printing in Kashmir",
-  description: "Complete advertising and printing solutions in Kashmir.",
+  metadataBase: new URL("https://mpadvertisers.umaidhamid.in"),
+
+  title: {
+    default: "MP Advertisers | Advertising & Printing in Kashmir",
+    template: "%s | MP Advertisers",
+  },
+
+  description:
+    "Complete advertising and printing solutions in Kashmir including hoardings, LED boards, branding, and large format printing.",
+
+  keywords: [
+    "Advertising in Kashmir",
+    "Printing services Kashmir",
+    "Hoardings Kashmir",
+    "Branding Kashmir",
+    "MP Advertisers",
+  ],
+
+  authors: [{ name: "MP Advertisers" }],
+
+  creator: "MP Advertisers",
+
+  openGraph: {
+    title: "MP Advertisers | Advertising & Printing in Kashmir",
+    description:
+      "Complete advertising and printing solutions in Kashmir.",
+    url: "https://mpadvertisers.umaidhamid.in",
+    siteName: "MP Advertisers",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/mplogo.png", // add inside public folder
+        width: 1200,
+        height: 630,
+        alt: "MP Advertisers",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "MP Advertisers | Advertising & Printing in Kashmir",
+    description:
+      "Complete advertising and printing solutions in Kashmir.",
+    images: ["/og-image.jpg"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
 };
 
+
 export default function ClientLayout({ children }) {
+
   return (
     <html lang="en">
       <body className=" text-gray-800">

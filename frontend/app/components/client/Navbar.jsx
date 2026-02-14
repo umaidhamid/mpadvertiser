@@ -57,7 +57,7 @@ const Navbar = () => {
             >
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-                    {/* LOGO */}
+                    
                     <Link href="/" className="text-white text-2xl font-bold tracking-wide">
                         MP Advertisers
                     </Link>
