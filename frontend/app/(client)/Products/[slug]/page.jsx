@@ -7,14 +7,14 @@ import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 
 export default function SingleProductPage() {
-    const { id } = useParams();
+    const { slug } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const fetchProduct = async () => {
         try {
             setLoading(true);
-            const res = await API.get(`/products/${id}`);
+            const res = await API.get(`/products/${slug}`);
             setProduct(res.data.product);
         } catch (error) {
             console.error("Product fetch error:", error);
@@ -24,8 +24,8 @@ export default function SingleProductPage() {
     };
 
     useEffect(() => {
-        if (id) fetchProduct();
-    }, [id]);
+        if (slug) fetchProduct();
+    }, [slug]);
 
     if (loading) {
         return (
@@ -63,7 +63,7 @@ Please share more details.
 
                 {/* Breadcrumb */}
                 <div className="mb-10 text-sm text-gray-500">
-                    <Link href="/products" className="hover:text-white transition">
+                    <Link href="/Products" className="hover:text-white transition">
                         Products
                     </Link>
                     <span className="mx-2">/</span>
