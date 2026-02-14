@@ -13,6 +13,8 @@ import galleryRoutes from "./routes/gallery.routes.js";
 import carouselRoutes from "./routes/carousel.routes.js";
 import testimonialRoutes from "./routes/testimonial.routes.js";
 
+import clientRoutes from "./routes/client.routes.js";
+import teamRoutes from "./routes/team.routes.js";
 
 dotenv.config();
 
@@ -51,8 +53,9 @@ app.use("/products", productRoutes)
 app.use("/offers", offerRoutes);
 app.use("/testimonials", testimonialRoutes);
 app.use("/gallery", galleryRoutes)
+app.use("/clients", clientRoutes);
 
-
+app.use("/team", teamRoutes);
 app.use("/carousel", carouselRoutes);;
 cron.schedule("*/10   * * * *", async () => {
     try {
