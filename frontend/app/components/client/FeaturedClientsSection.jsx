@@ -1,18 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Api from "../../lib/api";
 
 export default function FeaturedClientsSection() {
-  const clients = [
-    "Slide1.webp",
-    "Slide2.webp",
-    "Slide3.webp",
-    "Slide4.webp",
-    "Slide5.webp",
-  ];
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      const res = await Api.get("/clients/get");
+      setClients(res.data.clients);
+    };
+
+    fetchClients();
+  }, []);
 
   return (
-    <section className="relative py-2 bg-black text-white overflow-hidden">
+    <section className="relative py-16 bg-black text-white overflow-hidden">
 
       <div className="text-center mb-14">
         <h2 className="text-3xl md:text-4xl font-semibold">
@@ -31,17 +36,20 @@ export default function FeaturedClientsSection() {
           viewport={{ once: true }}
           className="flex flex-wrap justify-center items-center gap-12"
         >
-          {clients.map((logo, index) => (
-            <div
-              key={index}
+          {clients.map((client) => (
+            <a
+              key={client._id}
+              href={client.website || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
               className="opacity-60 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0"
             >
               <img
-                src={logo}
-                alt="Client Logo"
+                src={client.url}
+                alt={client.name}
                 className="h-20 md:h-24 object-contain"
               />
-            </div>
+            </a>
           ))}
         </motion.div>
       </div>

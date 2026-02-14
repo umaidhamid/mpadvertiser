@@ -2,20 +2,17 @@
 
 import { useState } from "react";
 import {
-  LayoutDashboard,
   Image,
   FileText,
   Settings,
   LogOut,
   Menu,
-  X,
   Package,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import API from "../../lib/api";
 import { toast } from "sonner";
-
 
 export default function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,111 +22,113 @@ export default function AdminSidebar() {
   const menuItems = [
     { label: "Products", icon: Package, href: "/admin/products" },
     { label: "Gallery", icon: Image, href: "/admin/gallery" },
-    { label: "offers", icon: FileText, href: "/admin/offers" },
+    { label: "Offers", icon: FileText, href: "/admin/offers" },
     { label: "Carousel", icon: Settings, href: "/admin/carousel" },
     { label: "Testimonials", icon: Settings, href: "/admin/testimonials" },
+    { label: "Team", icon: Settings, href: "/admin/team" },
+    { label: "Clients", icon: Settings, href: "/admin/clients" },
   ];
 
   const isActiveRoute = (href) =>
     pathname === href || pathname.startsWith(href + "/");
 
-
   const handleLogout = async () => {
     try {
       await API.post("/auth/logout");
-
       toast.success("Logged out successfully");
-      setTimeout(() => {
-        router.push("/login")
-      }, 100)
-    } catch (error) {
+      router.push("/login");
+    } catch {
       toast.error("Logout failed");
     }
   };
 
-return (
-  <>
-    {/* ===== MOBILE TOP BAR ===== */}
-    <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-black border-b border-gray-200 flex items-center justify-between px-4 z-40">
-      <h1 className="font-bold text-black">
-        <Link href="/admin" className="text-lg font-bold text-gray-800 hover:text-indigo-600 transition">
+  return (
+    <div className="bg-black text-white">
+
+      {/* ===== MOBILE TOP BAR ===== */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-black border-b border-white/10 flex items-center justify-between px-4 z-40">
+        <Link
+          href="/admin"
+          className="text-lg font-bold text-white"
+        >
           MP Admin
         </Link>
-      </h1>
 
-      <button
-        onClick={() => setIsOpen(true)}
-        className="p-2 rounded-md hover:bg-gray-100 transition"
-      >
-        <Menu size={22} />
-      </button>
-    </header>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="p-2 rounded-md hover:bg-white/10 transition"
+        >
+          <Menu size={22} />
+        </button>
+      </header>
 
-    {/* Spacer for mobile */}
-    <div className="lg:hidden h-16" />
+      <div className="lg:hidden h-16" />
 
-    {/* ===== MOBILE OVERLAY ===== */}
-    {isOpen && (
-      <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
-        onClick={() => setIsOpen(false)}
-      />
-    )}
+      {/* ===== MOBILE OVERLAY ===== */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-    {/* ===== SIDEBAR ===== */}
-    <aside
-      className={`fixed lg:static top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50
+      {/* ===== SIDEBAR ===== */}
+      <aside
+        className={`fixed lg:static top-0 left-0 h-full w-64 bg-black border-r border-white/10 z-50
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0`}
-    >
-      <div className="flex flex-col h-full">
+      >
+        <div className="flex flex-col h-full">
 
-        {/* Logo */}
-        <div className="px-6 py-6 border-b border-gray-200">
-          <h2 className="text-lg font-bold text-black">
-            <Link href="/admin" className="text-lg font-bold text-gray-800 hover:text-indigo-600 transition">
+          {/* Logo */}
+          <div className="px-6 py-6 border-b border-white/10">
+            <Link
+              href="/admin"
+              className="text-xl font-bold text-white"
+            >
               MP Admin
             </Link>
-          </h2>
-        </div>
+          </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 mt-6 px-4 space-y-1">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const active = isActiveRoute(item.href);
+          {/* Navigation */}
+          <nav className="flex-1 mt-6 px-4 space-y-2">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              const active = isActiveRoute(item.href);
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm
                   ${active
-                    ? "bg-indigo-50 text-indigo-600 font-medium"
-                    : "text-black hover:bg-gray-100"
-                  }`}
-              >
-                <Icon size={18} />
-                <span className="text-sm">{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+                      ? "bg-indigo-600 text-white shadow-lg"
+                      : "text-gray-300 hover:bg-white/10 hover:text-white"
+                    }`}
+                >
+                  <Icon size={18} />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        {/* Logout */}
-        <div className="p-4 border-t border-gray-200">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-gray-600 hover:bg-red-50 hover:text-red-600 transition"
-          >
-            <LogOut size={18} />
-            <span className="text-sm">Logout</span>
-          </button>
+          {/* Logout */}
+          <div className="p-4 border-t border-white/10">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-gray-300 hover:bg-red-600/20 hover:text-red-400 transition"
+            >
+              <LogOut size={18} />
+              Logout
+            </button>
+          </div>
+
         </div>
-      </div>
-    </aside >
-  </>
-);
+      </aside>
+
+    </div>
+  );
 }

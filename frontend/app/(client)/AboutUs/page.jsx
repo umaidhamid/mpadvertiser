@@ -43,7 +43,7 @@ export default function AboutPage() {
       {/* <AchievementsSection achievements={achievements} /> */}
 
       {/* Client Logos */}
-      <ClientLogosSection clients={clients} />
+      {/* <ClientLogosSection clients={clients} /> */}
 
       {/* Leadership */}
       <OwnersSection owners={owners} />
