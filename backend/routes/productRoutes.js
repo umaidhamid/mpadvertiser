@@ -2,10 +2,11 @@ import express from "express";
 import {
     createProduct,
     getProducts,
-    getProductById,
+    getProductBySlug,
     updateProduct,
     deleteProduct,
-    getAllCategories
+    getAllCategories,
+    getAllProductSlugs
 } from "../controllers/productController.js";
 
 import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
@@ -16,7 +17,7 @@ const router = express.Router();
 router.get("/categories", getAllCategories);
 // GET all products
 router.get("/get", getProducts);
-
+router.get("/sitemap-products", getAllProductSlugs);
 // POST create new product with image
 router.post(
     "/",
@@ -28,7 +29,7 @@ router.post(
 /* ================= SINGLE PRODUCT ROUTES ================= */
 
 // GET single product
-router.get("/:id", getProductById);
+router.get("/:slug", getProductBySlug);
 
 // UPDATE product (optional new image)
 router.put(

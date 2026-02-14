@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import slugify from "slugify";
 
 const productSchema = new mongoose.Schema(
     {
@@ -10,6 +11,13 @@ const productSchema = new mongoose.Schema(
             trim: true,
             minlength: 2,
             maxlength: 200,
+        },
+
+        slug: {
+            type: String,
+            unique: true,
+            lowercase: true,
+            index: true,
         },
 
         category: {
@@ -113,14 +121,35 @@ const productSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-/* ================= AUTO FINAL PRICE CALCULATION ================= */
+/* ================= AUTO FINAL PRICE & SLUG ================= */
 
-productSchema.pre("save", function () {
+productSchema.pre("save", async function () {
+
+    // Final price calculation
     if (this.price >= 0) {
         this.finalprice =
             this.price - (this.price * this.discount) / 100;
     }
+
+    // Slug generation (only if new or name modified)
+    if (this.isModified("name")) {
+        const baseSlug = slugify(this.name, {
+            lower: true,
+            strict: true,
+        });
+
+        let slug = baseSlug;
+        let counter = 1;
+
+        while (await mongoose.models.Product.findOne({ slug })) {
+            slug = `${baseSlug}-${counter}`;
+            counter++;
+        }
+
+        this.slug = slug;
+    }
 });
+
 
 /* ================= TEXT SEARCH INDEX ================= */
 

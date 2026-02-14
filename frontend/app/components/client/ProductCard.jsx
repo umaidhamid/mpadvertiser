@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
   const savings = price - finalprice;
 
   return (
-    <Link href={`/Products/${product._id}`}>
+    <Link href={`/Products/${product.slug}`}>
       <motion.div
         whileHover={{ y: -8 }}
         transition={{ duration: 0.3 }}

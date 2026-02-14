@@ -153,18 +153,11 @@ export const getProducts = async (req, res) => {
 
 /* ================= GET SINGLE PRODUCT ================= */
 
-export const getProductById = async (req, res) => {
+export const getProductBySlug = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { slug } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid product ID",
-            });
-        }
-
-        const product = await Product.findById(id);
+        const product = await Product.findOne({ slug });
 
         if (!product) {
             return res.status(404).json({
@@ -179,7 +172,7 @@ export const getProductById = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Get Product Error:", error);
+        console.error("Get Product By Slug Error:", error);
         res.status(500).json({
             success: false,
             message: "Server error while fetching product",
@@ -320,6 +313,24 @@ export const getAllCategories = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Server error while fetching categories",
+        });
+    }
+};
+export const getAllProductSlugs = async (req, res) => {
+    try {
+        const products = await Product.find()
+            .select("slug updatedAt")
+            .lean();
+
+        res.status(200).json({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        console.error("Sitemap Products Error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Server error while fetching sitemap products",
         });
     }
 };
