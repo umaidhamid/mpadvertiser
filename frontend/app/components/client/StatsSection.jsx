@@ -40,16 +40,15 @@ export default function StatsSection() {
     { number: 25, suffix: "+", label: "Cities Served" },
   ];
 
-
   return (
-    <section className="bg-black text-white py-28 px-6">
+    <section className="bg-background text-black py-28 px-6">
 
       <div className="text-center mb-20 max-w-2xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6 text-black ">
           Proven Results
         </h2>
 
-        <p className="text-gray-500 text-base">
+        <p className="text-base opacity-70">
           Real numbers. Real growth. Real impact.
         </p>
       </div>
@@ -63,11 +62,11 @@ export default function StatsSection() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
           >
-            <div className="text-4xl md:text-5xl font-bold text-white">
+            <div className="text-4xl md:text-5xl font-bold">
               <Counter end={stat.number} suffix={stat.suffix} />
             </div>
 
-            <p className="mt-3 text-sm text-gray-500 tracking-wide">
+            <p className="mt-3 text-sm opacity-60 tracking-wide">
               {stat.label}
             </p>
           </motion.div>

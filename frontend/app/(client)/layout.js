@@ -14,7 +14,7 @@ export const metadata = {
 export default function ClientLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-white text-gray-800">
+      <body className=" text-gray-800">
         <ScrollProgress />
         <FloatingWhatsApp />
         <Navbar />

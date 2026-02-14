@@ -1,65 +1,20 @@
 "use client";
-
+import { useEffect, useState } from "react";
+import Api from "../../lib/api";
 import { motion } from "framer-motion";
 import { Star, BadgeCheck } from "lucide-react";
 
 export default function TestimonialsSection() {
-  const testimonials = [
-    {
-      name: "Amit Sharma",
-      role: "Owner",
-      company: "Sharma Electronics",
-      location: "Srinagar",
-      project: "Shop Branding & Flex Banner",
-      date: "Jan 2025",
-      text: "The quality of flex printing and shop banner installation was excellent. Our visibility increased instantly and customers started noticing us more.",
-    },
-    {
-      name: "Neha Kapoor",
-      role: "Event Organizer",
-      company: "Kapoor Events",
-      location: "Delhi",
-      project: "Event Posters & Stage Backdrop",
-      date: "Feb 2025",
-      text: "Posters and stage backdrops were delivered on time with perfect finishing. Colors were vibrant and print quality was outstanding.",
-    },
-    {
-      name: "Rahul Verma",
-      role: "Business Owner",
-      company: "Verma Traders",
-      location: "Jammu",
-      project: "Visiting Cards & Stationery",
-      date: "Dec 2024",
-      text: "Visiting cards and branding materials were top quality. Professional finish and great attention to detail.",
-    },
-    {
-      name: "Pooja Singh",
-      role: "Retail Store Manager",
-      company: "Urban Fashion",
-      location: "Chandigarh",
-      project: "Outdoor Glow Sign Board",
-      date: "Mar 2025",
-      text: "Glow sign board installation was smooth and the final result looks premium. It completely transformed our storefront.",
-    },
-    {
-      name: "Arjun Mehta",
-      role: "Startup Founder",
-      company: "Mehta Innovations",
-      location: "Mumbai",
-      project: "Logo & Brand Identity",
-      date: "Nov 2024",
-      text: "They helped us with logo design and complete branding. The designs were modern and aligned perfectly with our business vision.",
-    },
-    {
-      name: "Sana Ali",
-      role: "Marketing Head",
-      company: "Ali Constructions",
-      location: "Pune",
-      project: "Billboards & Outdoor Campaign",
-      date: "Jan 2025",
-      text: "Billboard quality and placement were excellent. We saw a noticeable increase in inquiries after the campaign launch.",
-    },
-  ];
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      const res = await Api.get("/testimonials/get");
+      setTestimonials(res.data.testimonials);
+    };
+
+    fetchTestimonials();
+  }, []);
 
   return (
     <section className="py-24 px-6 bg-black text-white relative overflow-hidden">
@@ -92,7 +47,7 @@ export default function TestimonialsSection() {
 
             {/* Stars */}
             <div className="flex mb-4 text-yellow-400">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(item.rating)].map((_, i) => (
                 <Star key={i} size={18} fill="currentColor" />
               ))}
             </div>
