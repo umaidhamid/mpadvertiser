@@ -99,8 +99,7 @@ export default function CTASection() {
               ></iframe>
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t to-transparent pointer-events-none" />
-
+            
             </div>
           </a>
         </motion.div>

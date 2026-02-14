@@ -182,18 +182,12 @@ export const getProductBySlug = async (req, res) => {
 
 /* ================= UPDATE PRODUCT ================= */
 
-export const updateProduct = async (req, res) => {
+export const updateProductImage = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { slug } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid product ID",
-            });
-        }
+        const product = await Product.findOne({ slug });
 
-        const product = await Product.findById(id);
         if (!product) {
             return res.status(404).json({
                 success: false,
@@ -201,24 +195,70 @@ export const updateProduct = async (req, res) => {
             });
         }
 
-        if (req.body.sku && req.body.sku !== product.sku) {
-            const existingSKU = await Product.findOne({ sku: req.body.sku });
-            if (existingSKU) {
-                return res.status(400).json({
-                    success: false,
-                    message: "SKU already exists",
-                });
-            }
+        if (!req.uploadedImage) {
+            return res.status(400).json({
+                success: false,
+                message: "Image is required",
+            });
         }
 
-        if (req.uploadedImage) {
-            if (product.image?.public_id) {
-                await deleteImageFromCloudinary(product.image.public_id);
-            }
-            product.image = req.uploadedImage;
+        // Delete old image if exists
+        if (product.image?.public_id) {
+            await deleteImageFromCloudinary(product.image.public_id);
         }
 
-        Object.assign(product, req.body);
+        product.image = req.uploadedImage;
+
+        const updatedProduct = await product.save();
+
+        res.status(200).json({
+            success: true,
+            product: updatedProduct,
+        });
+
+    } catch (error) {
+        console.error("Update Image Error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Server error while updating image",
+        });
+    }
+};
+
+/* ================= DELETE PRODUCT ================= */
+export const updateProductWithoutImage = async (req, res) => {
+    try {
+        const { slug } = req.params;
+
+        const product = await Product.findOne({ slug });
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found",
+            });
+        }
+
+        const allowedFields = [
+            "name",
+            "category",
+            "sku",
+            "price",
+            "discount",
+            "unit",
+            "material",
+            "deliveryTime",
+            "dimensions",
+            "description",
+            "featured",
+            "bestseller",
+        ];
+
+        allowedFields.forEach((field) => {
+            if (req.body[field] !== undefined) {
+                product[field] = req.body[field];
+            }
+        });
 
         const updatedProduct = await product.save();
 
@@ -235,8 +275,6 @@ export const updateProduct = async (req, res) => {
         });
     }
 };
-
-/* ================= DELETE PRODUCT ================= */
 
 export const deleteProduct = async (req, res) => {
     try {

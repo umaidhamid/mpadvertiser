@@ -3,10 +3,12 @@ import {
     createProduct,
     getProducts,
     getProductBySlug,
-    updateProduct,
+
     deleteProduct,
     getAllCategories,
-    getAllProductSlugs
+    getAllProductSlugs,
+    updateProductWithoutImage,
+    updateProductImage
 } from "../controllers/productController.js";
 
 import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
@@ -33,11 +35,11 @@ router.get("/:slug", getProductBySlug);
 
 // UPDATE product (optional new image)
 router.put(
-    "/:id",
+    "/:slug/image",
     uploadSingleImage("products", "image"),
-    updateProduct
+    updateProductImage
 );
-
+router.put("/:slug", updateProductWithoutImage);
 // DELETE product (with image delete inside controller)
 router.delete("/:id", deleteProduct);
 
