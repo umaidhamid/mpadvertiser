@@ -1,16 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "next/navigation";
 import API from "../../../lib/api";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
-
+import { Phone, ShoppingCart, Share2, Copy, Check, Heart } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { CartContext } from "../../../context/CartContext";
+import Image from "next/image";
 export default function SingleProductPage() {
+    const pathname = usePathname();
+    const [copied, setCopied] = useState(false);
+
+    const fullUrl =
+        typeof window !== "undefined"
+            ? window.location.origin + pathname
+            : "";
     const { slug } = useParams();
+    const { addToCart } = useContext(CartContext);
+
     const [product, setProduct] = useState(null);
+    const [related, setRelated] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    /* ---------------- FETCH PRODUCT ---------------- */
     const fetchProduct = async () => {
         try {
             setLoading(true);
@@ -23,14 +36,55 @@ export default function SingleProductPage() {
         }
     };
 
+    /* ---------------- FETCH RELATED ---------------- */
+    const fetchRelated = async () => {
+        try {
+            const res = await API.get("/products/get", {
+                params: { limit: 4 },
+            });
+            setRelated(res.data.products || []);
+        } catch (error) {
+            console.error("Related fetch error:", error);
+        }
+    };
+
     useEffect(() => {
-        if (slug) fetchProduct();
+        if (slug) {
+            fetchProduct();
+            fetchRelated();
+        }
     }, [slug]);
+
+    const handleAddToCart = () => {
+        addToCart(product, {
+            label: product.unit,
+            price: product.finalprice,
+        });
+    };
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(fullUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleShare = async () => {
+        if (navigator.share) {
+            await navigator.share({
+                title: product.name,
+                text: "Check out this product",
+                url: fullUrl,
+            });
+        } else {
+            handleCopy();
+        }
+    };
+
+
 
     if (loading) {
         return (
             <section className="min-h-screen bg-black text-white flex items-center justify-center">
-                <p className="text-gray-500">Loading product...</p>
+                <p className="text-gray-500">Loading...</p>
             </section>
         );
     }
@@ -43,133 +97,189 @@ export default function SingleProductPage() {
         );
     }
 
-    const message = `
-Hello, I’m interested in the following product:
-
-Product Name: ${product.name}
-SKU: ${product.sku}
-Category: ${product.category}
-Unit: ${product.unit}
-Material: ${product.material}
-
-Please share more details.
-`;
-
-    const whatsappLink = `https://wa.me/9149455296?text=${encodeURIComponent(message)}`;
-
     return (
-        <section className="min-h-screen bg-black text-white py-24 px-6">
-            <div className="max-w-7xl mx-auto">
+        <section className="bg-black text-white">
+
+            {/* ================= PRODUCT ================= */}
+            <div className="max-w-7xl mx-auto px-6 py-24">
 
                 {/* Breadcrumb */}
-                <div className="mb-10 text-sm text-gray-500">
+                <div className="mb-12 text-sm text-gray-500">
                     <Link href="/Products" className="hover:text-white transition">
                         Products
                     </Link>
                     <span className="mx-2">/</span>
-                    <span>{product.name}</span>
+                    <span className="text-gray-300">{product.name}</span>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-20">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-                    {/* Image */}
-                    <div className="rounded-2xl overflow-hidden border border-white/10">
-                        <img
-                            src={product.image?.url}
-                            alt={product.name}
-                            className="w-full h-[500px] object-cover"
-                        />
-                    </div>
+  {/* IMAGE COLUMN */}
+  <div className="lg:sticky lg:top-24 self-start">
 
-                    {/* Details */}
-                    <div className="space-y-8">
+    <div className="relative w-full rounded-2xl overflow-hidden bg-neutral-900 border border-white/10">
 
-                        {/* Category */}
-                        <p className="uppercase text-xs tracking-widest text-gray-500">
-                            {product.category}
-                        </p>
+      <div className="relative w-full h-[60vh] sm:h-[70vh] lg:h-[75vh] max-h-[750px]">
 
-                        {/* Title */}
-                        <h1 className="text-4xl font-semibold leading-tight">
-                            {product.name}
-                        </h1>
+        <Image
+          src={product.image?.url || "/placeholder.png"}
+          alt={product.name}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw,
+                 (max-width: 1280px) 50vw,
+                 50vw"
+          className="object-contain p-8 transition-transform duration-700 hover:scale-105"
+        />
 
-                        {/* Price Section */}
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-4">
-                                <p className="text-3xl font-bold">
-                                    ₹{product.finalprice}
-                                </p>
+      </div>
 
-                                {product.discount > 0 && (
-                                    <p className="line-through text-gray-500">
-                                        ₹{product.price}
-                                    </p>
-                                )}
-                            </div>
+    </div>
 
-                            {product.discount > 0 && (
-                                <p className="text-sm text-gray-400">
-                                    You save {product.discount}% on this product
-                                </p>
-                            )}
-                        </div>
+  </div>
 
-                        {/* Description */}
-                        <p className="text-gray-400 leading-relaxed border-t border-white/10 pt-6">
-                            {product.description}
-                        </p>
+  {/* DETAILS COLUMN */}
+  <div className="space-y-8">
 
-                        {/* Specifications */}
-                        <div className="grid grid-cols-2 gap-8 pt-6 border-t border-white/10">
+    <p className="uppercase text-xs tracking-widest text-gray-500">
+      {product.category}
+    </p>
 
-                            <Spec label="Unit" value={product.unit} />
-                            <Spec label="Material" value={product.material} />
-                            <Spec label="Delivery Time" value={product.deliveryTime} />
-                            <Spec label="Dimensions" value={product.dimensions} />
+    <h1 className="text-3xl lg:text-4xl font-semibold leading-tight">
+      {product.name}
+    </h1>
 
-                        </div>
+    {/* Price Block */}
+    <div className="border border-white/10 rounded-xl p-6 bg-neutral-900/50 space-y-3">
 
-                        {/* Flags */}
-                        <div className="flex gap-4 pt-6">
-                            {product.featured && (
-                                <span className="px-4 py-2 border border-white/20 text-sm">
-                                    Featured
-                                </span>
-                            )}
-                            {product.bestseller && (
-                                <span className="px-4 py-2 border border-white/20 text-sm">
-                                    Bestseller
-                                </span>
-                            )}
-                        </div>
+      <div className="flex items-end gap-4">
+        <span className="text-3xl font-bold">
+          ₹{product.finalprice}
+        </span>
 
-                        {/* CTA */}
-                        <div className="pt-8">
-                            <a
-                                href={whatsappLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group inline-flex items-center gap-3 px-8 py-4
-    bg-white text-black font-medium rounded-full
-    transition-all duration-300
-    hover:bg-green-500 hover:text-white
-    hover:shadow-lg hover:shadow-green-500/30"
-                            >
-                                <MessageCircle size={18} className="transition-transform duration-300 group-hover:scale-110" />
-                                <span>Enquire on WhatsApp</span>
-                            </a>
-                        </div>
+        {product.discount > 0 && (
+          <span className="line-through text-gray-500">
+            ₹{product.price}
+          </span>
+        )}
+      </div>
 
-                    </div>
+      {product.discount > 0 && (
+        <p className="text-sm text-green-400">
+          You save {product.discount}%
+        </p>
+      )}
 
-                </div>
+    </div>
+
+    <p className="text-gray-400 leading-relaxed">
+      {product.description}
+    </p>
+
+    {/* Specs */}
+    <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
+      <Spec label="Unit" value={product.unit} />
+      <Spec label="Material" value={product.material} />
+      <Spec label="Delivery Time" value={product.deliveryTime} />
+      <Spec label="Dimensions" value={product.dimensions} />
+    </div>
+
+    {/* ACTION PANEL */}
+    <div className="border border-white/10 rounded-xl p-6 bg-neutral-900/50 space-y-4">
+
+      <button
+        onClick={handleAddToCart}
+        className="w-full py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition"
+      >
+        Add to Cart
+      </button>
+
+      <a
+        href="tel:+91949455296"
+        className="w-full block text-center py-4 border border-white/20 rounded-lg hover:bg-white hover:text-black transition"
+      >
+        Call Now
+      </a>
+
+      <div className="flex justify-center gap-6 pt-4">
+
+        <button
+          onClick={handleShare}
+          className="p-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition"
+        >
+          <Share2 size={18} />
+        </button>
+
+        <button
+          onClick={handleCopy}
+          className="p-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition"
+        >
+          {copied ? <Check size={18} /> : <Copy size={18} />}
+        </button>
+
+        <button
+          className="p-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition"
+        >
+          <Heart size={18} />
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
             </div>
+
+            {/* ================= RELATED PRODUCTS ================= */}
+            {related.length > 0 && (
+                <div className="border-t border-white/10 py-24">
+                    <div className="max-w-7xl mx-auto px-6">
+
+                        <h2 className="text-2xl font-semibold mb-12">
+                            You may also like
+                        </h2>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {related
+                                .filter((item) => item.slug !== slug)
+                                .slice(0, 4)
+                                .map((item) => (
+                                    <Link
+                                        key={item._id}
+                                        href={`/Products/${item.slug}`}
+                                        className="group"
+                                    >
+                                        <div className="bg-neutral-900 rounded-2xl overflow-hidden">
+                                            <img
+                                                src={item.image?.url}
+                                                alt={item.name}
+                                                className="w-full h-60 object-cover group-hover:scale-105 transition duration-500"
+                                            />
+                                        </div>
+                                        <div className="mt-4">
+                                            <h3 className="text-lg group-hover:text-gray-300 transition">
+                                                {item.name}
+                                            </h3>
+                                            <p className="text-gray-500 text-sm mt-1">
+                                                ₹{item.finalprice}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                ))}
+                        </div>
+
+                    </div>
+                </div>
+            )}
+
         </section>
     );
 }
 
-/* Small reusable spec component */
+/* Reusable Spec Component */
 function Spec({ label, value }) {
     return (
         <div>

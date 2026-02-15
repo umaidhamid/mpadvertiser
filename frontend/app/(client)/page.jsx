@@ -18,41 +18,43 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white overflow-x-hidden">
 
-      {/* 1️⃣ Hero – Hook */}
+      {/* 1️⃣ HERO – Big Promise + Clear CTA */}
       <HeroSection />
 
-      {/* 2️⃣ Limited Offer – Urgency */}
-      <OfferBanner />
-
-      {/* 3️⃣ Stats – Instant Trust */}
-      <StatsSection />
-
-
-      <HomeProductsSection />
-      {/* 5️⃣ Services – What You Do */}
-      <ServicesSection />
-
-      {/* 6️⃣ Process – How You Work */}
-      <ProcessSection />
-
-      <WhyChooseUsSection />
-      {/* 7️⃣ Mid CTA – Momentum Push */}
-      <MidCTASection />
-
+      {/* 2️⃣ SOCIAL PROOF – Clients logos (instant credibility) */}
       <FeaturedClientsSection />
 
-      {/* 🔟 Work Showcase – Visual Proof */}
+      {/* 3️⃣ STATS – Authority + Experience */}
+      <StatsSection />
+
+      {/* 4️⃣ SERVICES – What You Do Clearly */}
+      <ServicesSection />
+
+      {/* 5️⃣ WHY CHOOSE US – Differentiation */}
+      <WhyChooseUsSection />
+
+      <HomeProductsSection />
+      {/* 6️⃣ PROCESS – Remove Risk */}
+      <ProcessSection />
+
+      {/* 7️⃣ PRODUCTS – What They Can Order */}
+
+      {/* 8️⃣ WORK SHOWCASE – Visual Validation */}
       <Carousel />
 
-      {/* 1️⃣1️⃣ Testimonials – Emotional Proof */}
+      {/* 9️⃣ TESTIMONIALS – Emotional Trust */}
       <TestimonialsSection />
 
-      {/* 1️⃣2️⃣ Vision – Brand Depth */}
-      {/* <VisionSection /> */}
+      {/* 🔟 OFFER – Urgency near decision point */}
+      <OfferBanner />
 
-      {/* 1️⃣3️⃣ Final CTA – Strong Close */}
+      {/* 1️⃣1️⃣ MID CTA – Momentum Push */}
+      <MidCTASection />
+
+      {/* 1️⃣2️⃣ FINAL CTA – Strong Close */}
       <CTASection />
 
     </main>
+
   );
 }
