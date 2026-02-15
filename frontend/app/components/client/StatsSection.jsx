@@ -34,8 +34,8 @@ function Counter({ end, suffix = "", duration = 2 }) {
 
 export default function StatsSection() {
   const stats = [
-    { number: 500, suffix: "+", label: "Projects Completed" },
-    { number: 120, suffix: "+", label: "Happy Clients" },
+    { number: 3000, suffix: "+", label: "Projects Completed" },
+    { number: 1200, suffix: "+", label: "Happy Clients" },
     { number: 10, suffix: "+", label: "Years of Experience" },
     { number: 25, suffix: "+", label: "Cities Served" },
   ];

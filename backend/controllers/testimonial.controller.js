@@ -28,14 +28,26 @@ export const createTestimonial = async (req, res) => {
 
 export const getTestimonials = async (req, res) => {
     try {
-        const testimonials = await Testimonial.find({
-            isActive: true,
-        }).sort({ order: 1 });
+        const { owner } = req.query;
+
+        let filter = {};
+
+        // If owner=true → show everything
+        if (owner === "true") {
+            filter = {};
+        } else {
+            // Public → only active
+            filter = { isActive: true };
+        }
+
+        const testimonials = await Testimonial.find(filter)
+            .sort({ order: 1 });
 
         res.status(200).json({
             success: true,
             testimonials,
         });
+
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -43,6 +55,7 @@ export const getTestimonials = async (req, res) => {
         });
     }
 };
+
 
 /* ================= DELETE ================= */
 

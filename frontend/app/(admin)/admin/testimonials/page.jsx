@@ -35,7 +35,7 @@ export default function AdminTestimonials() {
     const fetchData = useCallback(async () => {
         try {
             setLoading(true);
-            const res = await Api.get("/testimonials/get");
+            const res = await Api.get("/testimonials/get?owner=true");
             setItems(res.data.testimonials);
         } catch {
             toast.error("Failed to load testimonials");
@@ -211,8 +211,8 @@ export default function AdminTestimonials() {
                                     setForm({ ...form, rating: num })
                                 }
                                 className={`cursor-pointer ${form.rating >= num
-                                        ? "text-yellow-400"
-                                        : "text-gray-500"
+                                    ? "text-yellow-400"
+                                    : "text-gray-500"
                                     }`}
                             />
                         ))}
@@ -263,8 +263,8 @@ export default function AdminTestimonials() {
                                                 )
                                             }
                                             className={`px-3 py-1 rounded text-xs ${item.isActive
-                                                    ? "bg-green-600"
-                                                    : "bg-gray-600"
+                                                ? "bg-green-600"
+                                                : "bg-gray-600"
                                                 }`}
                                         >
                                             {item.isActive
