@@ -6,18 +6,18 @@ import API from "../../../../lib/api";
 import { useRouter } from "next/navigation";
 export default function CreateProductPage() {
     const [formData, setFormData] = useState({
-        name: "Premium Acrylic Sign Board",
-        category: "Advertising",
-        sku: "MP-ACR-001",
-        price: "1500",
-        discount: "10",
-        unit: "piece",
-        material: "Acrylic",
-        deliveryTime: "3-5 Days",
-        dimensions: "24x18 inches",
+        name: "",
+        category: "",
+        sku: "MP-",
+        price: "",
+        discount: "",
+        unit: "",
+        material: "",
+        deliveryTime: "",
+        dimensions: "",
         description:
-            "High-quality custom acrylic sign board for outdoor branding.",
-        featured: true,
+            "",
+        featured: false,
         bestseller: false,
     });
 
@@ -98,7 +98,7 @@ export default function CreateProductPage() {
 
             <form
                 onSubmit={handleSubmit}
-                className="bg-white text-black shadow-2xl rounded-3xl p-10 space-y-8 border border-black"
+                className="bg-gray-900 text-white shadow-2xl rounded-3xl p-10 space-y-8 border border-gray-700"
             >
                 {/* BASIC INFO */}
                 <div className="grid md:grid-cols-2 gap-6">
@@ -129,16 +129,17 @@ export default function CreateProductPage() {
 
                 {/* IMAGE */}
                 <div>
-                    <label className="block text-sm font-medium mb-3 text-gray-600">
+                    <label className="block text-sm font-medium mb-3 text-white">
                         Product Image
                     </label>
 
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-6 ">
                         <input
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="text-sm"
+                            className="text-lg p-4 border border-blue-600 rounded-lg"
+
                         />
 
                         {preview && (
@@ -155,7 +156,7 @@ export default function CreateProductPage() {
 
                 {/* DESCRIPTION */}
                 <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-600">
+                    <label className="block text-sm font-medium mb-2 text-white-600">
                         Description
                     </label>
                     <textarea
@@ -185,11 +186,11 @@ export default function CreateProductPage() {
 function Input({ label, ...props }) {
     return (
         <div>
-            <label className="block text-sm font-medium mb-2 text-gray-600">
+            <label className="block text-sm font-medium mb-2 text-white">
                 {label}
             </label>
             <input
-                {...props}
+                {...props} placeholder={label}
                 className="w-full p-4 border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition"
             />
         </div>
@@ -200,13 +201,13 @@ function Input({ label, ...props }) {
 
 function Checkbox({ label, ...props }) {
     return (
-        <label className="flex items-center gap-3 cursor-pointer">
+        <label className="flex items-center gap-3 cursor-pointer ">
             <input
                 type="checkbox"
                 {...props}
                 className="w-5 h-5 accent-indigo-600"
             />
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-white">
                 {label}
             </span>
         </label>

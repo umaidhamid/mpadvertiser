@@ -31,7 +31,7 @@ export default function Carousel() {
         <div className="bg-black/60 text-white">
 
             <header className="text-center pt-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-12 tracking-wide">
+                <h2 className="text-4xl md:text-5xl font-bold mb-1 tracking-wide">
                     Our Featured Work
                 </h2>
             </header>
@@ -43,7 +43,7 @@ export default function Carousel() {
                     autoplay={true}
                     delay={3}
                     pauseOnHover={true}
-                    className="my-10"
+                    className="my-2"
                 />
             </section>
 

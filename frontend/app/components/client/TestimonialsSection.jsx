@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Api from "../../lib/api";
 import { motion } from "framer-motion";
 import { Star, BadgeCheck } from "lucide-react";
-
+import Link from "next/link";
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState([]);
 
@@ -32,6 +32,38 @@ export default function TestimonialsSection() {
 
       {/* Testimonials Grid */}
       <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        {/* ADD TESTIMONIAL CARD */}
+        <Link href="/add-testimonial">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6 }}
+            className="group relative p-8 rounded-2xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/40 hover:border-indigo-400 transition-all duration-300 cursor-pointer"
+          >
+            <div className="absolute inset-0 opacity-20 group-hover:opacity-40 bg-indigo-500 blur-2xl transition duration-500 rounded-2xl"></div>
+
+            <div className="flex items-center justify-center h-full text-center flex-col gap-4">
+
+              <div className="text-4xl font-bold text-indigo-400">
+                +
+              </div>
+
+              <h3 className="text-lg font-semibold">
+                Share Your Experience
+              </h3>
+
+              <p className="text-sm text-gray-300">
+                Tell us about your project and how we helped.
+              </p>
+
+            </div>
+          </motion.div>
+        </Link>
+
+        {/* EXISTING TESTIMONIALS */}
         {testimonials.map((item, index) => (
           <motion.div
             key={index}
@@ -57,10 +89,8 @@ export default function TestimonialsSection() {
               “{item.text}”
             </p>
 
-            {/* Divider */}
             <div className="border-t border-white/10 pt-4 mt-4"></div>
 
-            {/* Client Info */}
             <div className="flex items-center justify-between mt-4">
               <div>
                 <h4 className="font-semibold text-indigo-500 flex items-center gap-2">
@@ -82,6 +112,7 @@ export default function TestimonialsSection() {
             </div>
           </motion.div>
         ))}
+
       </div>
     </section>
   );

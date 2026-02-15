@@ -48,7 +48,7 @@ export default function HomePage() {
       <TestimonialsSection />
 
       {/* 1️⃣2️⃣ Vision – Brand Depth */}
-      <VisionSection />
+      {/* <VisionSection /> */}
 
       {/* 1️⃣3️⃣ Final CTA – Strong Close */}
       <CTASection />
