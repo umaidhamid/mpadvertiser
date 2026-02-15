@@ -39,7 +39,8 @@ const HeroSection = () => {
         />
       ) : (
         <Image
-          src="/hero-mobile.webp" // from public
+          // src="/hero-mobile.webp" // from public
+          src="/herobannerhero-mobile2.webp" // from public
           alt="Hero background"
           fill
           priority

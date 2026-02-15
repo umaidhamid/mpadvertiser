@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { ShoppingCart } from "lucide-react";
+import { CartContext } from "../../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faInstagram,
@@ -16,6 +17,12 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+    const { cart } = useContext(CartContext);
+
+    const count = cart.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+    );
 
     useEffect(() => {
         const handleScroll = () => {
@@ -49,7 +56,7 @@ const Navbar = () => {
         <>
             {/* HEADER */}
             <header
-                className={`fixed w-full top-0 z-50 transition-all duration-300 
+                className={`fixed w-full top-0 z-50 transition-all duration-300
         ${scrolled
                         ? "bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-lg"
                         : "bg-transparent"
@@ -57,8 +64,11 @@ const Navbar = () => {
             >
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-                    
-                    <Link href="/" className="text-white text-2xl font-bold tracking-wide">
+                    {/* LOGO */}
+                    <Link
+                        href="/"
+                        className="text-white text-2xl font-bold tracking-wide"
+                    >
                         MP Advertisers
                     </Link>
 
@@ -75,18 +85,30 @@ const Navbar = () => {
                                 >
                                     {item.label}
 
-                                    {/* Animated underline */}
                                     <span
-                                        className={`absolute left-0 -bottom-2 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 
-                    ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                                        className={`absolute left-0 -bottom-2 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300
+                    ${isActive ? "w-full" : "w-0"}`}
                                     />
                                 </Link>
                             );
                         })}
                     </nav>
 
-                    {/* SOCIAL ICONS */}
-                    <div className="hidden md:flex items-center gap-3">
+                    {/* RIGHT SECTION */}
+                    <div className="hidden md:flex items-center gap-4">
+
+                        {/* CART ICON */}
+                        <Link href="/cart" className="relative">
+                            <ShoppingCart className="text-white w-6 h-6 hover:text-indigo-400 transition" />
+
+                            {count > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-600 text-xs px-2 py-[2px] rounded-full text-white">
+                                    {count}
+                                </span>
+                            )}
+                        </Link>
+
+                        {/* SOCIAL ICONS */}
                         {socialLinks.map((social, i) => (
                             <a
                                 key={i}
@@ -104,6 +126,7 @@ const Navbar = () => {
                                 />
                             </a>
                         ))}
+
                     </div>
 
                     {/* HAMBURGER */}
@@ -124,6 +147,7 @@ const Navbar = () => {
               ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
                         />
                     </button>
+
                 </div>
             </header>
 
@@ -152,13 +176,28 @@ const Navbar = () => {
                                 key={item.href}
                                 href={item.href}
                                 className={`text-lg font-medium transition 
-                ${isActive ? "text-indigo-400" : "text-white/80 hover:text-white"
+                ${isActive
+                                        ? "text-indigo-400"
+                                        : "text-white/80 hover:text-white"
                                     }`}
                             >
                                 {item.label}
                             </Link>
                         );
                     })}
+
+                    {/* CART IN MOBILE */}
+                    <Link
+                        href="/cart"
+                        className="flex items-center justify-between text-lg font-medium text-white/80 hover:text-white transition"
+                    >
+                        Cart
+                        {count > 0 && (
+                            <span className="bg-red-600 text-xs px-2 py-[2px] rounded-full text-white">
+                                {count}
+                            </span>
+                        )}
+                    </Link>
 
                     {/* Divider */}
                     <div className="border-t border-white/10 pt-6 mt-6 flex gap-4">
@@ -180,6 +219,7 @@ const Navbar = () => {
                             </a>
                         ))}
                     </div>
+
                 </div>
             </div>
         </>

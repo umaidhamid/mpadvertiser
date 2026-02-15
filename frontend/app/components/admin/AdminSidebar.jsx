@@ -8,6 +8,12 @@ import {
   LogOut,
   Menu,
   Package,
+  Layers,
+  Users,
+  UserCheck,
+  Ticket,
+  ShoppingCart,
+  LayoutDashboard,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -20,13 +26,53 @@ export default function AdminSidebar() {
   const router = useRouter();
 
   const menuItems = [
-    { label: "Products", icon: Package, href: "/admin/products" },
-    { label: "Gallery", icon: Image, href: "/admin/gallery" },
-    { label: "Offers", icon: FileText, href: "/admin/offers" },
-    { label: "Carousel", icon: Settings, href: "/admin/carousel" },
-    { label: "Testimonials", icon: Settings, href: "/admin/testimonials" },
-    { label: "Team", icon: Settings, href: "/admin/team" },
-    { label: "Clients", icon: Settings, href: "/admin/clients" },
+
+    {
+      label: "Products",
+      icon: Package,
+      href: "/admin/products",
+    },
+    {
+      label: "Orders",
+      icon: ShoppingCart,
+      href: "/admin/orders",
+    },
+    {
+      label: "Coupons",
+      icon: Ticket,
+      href: "/admin/coupons",
+    },
+    {
+      label: "Offers",
+      icon: FileText,
+      href: "/admin/offers",
+    },
+    {
+      label: "Carousel",
+      icon: Layers,
+      href: "/admin/carousel",
+    },
+    {
+      label: "Gallery",
+      icon: Image,
+      href: "/admin/gallery",
+    },
+    {
+      label: "Testimonials",
+      icon: UserCheck,
+      href: "/admin/testimonials",
+    },
+    {
+      label: "Team",
+      icon: Users,
+      href: "/admin/team",
+    },
+    {
+      label: "Clients",
+      icon: Users,
+      href: "/admin/clients",
+    },
+ 
   ];
 
   const isActiveRoute = (href) =>

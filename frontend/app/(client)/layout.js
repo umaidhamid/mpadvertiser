@@ -3,7 +3,7 @@ import Navbar from "../components/client/Navbar.jsx"
 import ScrollProgress from "../components/client/ScrollProgress";
 import FloatingWhatsApp from "../components/client/FloatingWhatsApp";
 import Link from "next/link";
-
+import { CartProvider } from "../context/CartContext";
 // import Footer from "@/components/client/Footer";
 
 export const metadata = {
@@ -74,13 +74,16 @@ export default function ClientLayout({ children }) {
   return (
     <html lang="en">
       <body className=" text-gray-800">
-        <ScrollProgress />
-        <FloatingWhatsApp />
-        <Navbar />
+        <CartProvider>
+          <ScrollProgress />
+          <FloatingWhatsApp />
+          <Navbar />
 
-        <main className="min-h-screen">
-          {children}
-        </main>
+          <main className="min-h-screen">
+
+            {children}
+          </main>
+        </CartProvider>
         <section className="relative bg-black border-t border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
 
