@@ -164,7 +164,7 @@ export default function AdminCoupons() {
                             />
                         </div>
 
-                        {/* Usage Limit */}
+                        {/* Usage Limit
                         <div>
                             <label className="block text-sm text-gray-400 mb-2">
                                 Usage Limit (Optional)
@@ -177,7 +177,7 @@ export default function AdminCoupons() {
                                 }
                                 className="w-full bg-white/10 p-3 rounded-lg"
                             />
-                        </div>
+                        </div> */}
 
                         {/* Expiry */}
                         <div>
@@ -247,10 +247,10 @@ export default function AdminCoupons() {
                                             : `₹${coupon.value} off`}
                                     </p>
 
-                                    <p className="text-xs text-gray-500 mt-1">
+                                    {/* <p className="text-xs text-gray-500 mt-1">
                                         Min ₹{coupon.minOrder} | Used{" "}
                                         {coupon.usedCount} times
-                                    </p>
+                                    </p> */}
 
                                     <p className="text-xs text-gray-500">
                                         Expires:{" "}

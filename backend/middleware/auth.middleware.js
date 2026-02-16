@@ -3,7 +3,7 @@ import User from "../models/user.model.js";
 
 export const protect = async (req, res, next) => {
   try {
-    console.log("Incoming cookies:", req.cookies);
+   
 
     const token = req.cookies?.adminToken;
 

@@ -5,11 +5,12 @@ import {
   createGallery,
   createProduct,
 } from "../controllers/mediaController.js";
-
+import { protect } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 router.post(
   "/carousel",
+  
   uploadMedia("carousel", "files", 10),
   createCarousel
 );
