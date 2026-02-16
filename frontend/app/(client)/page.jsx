@@ -22,10 +22,10 @@ export default function HomePage() {
       <HeroSection />
 
       {/* 2️⃣ SOCIAL PROOF – Clients logos (instant credibility) */}
-      <FeaturedClientsSection />
+
 
       {/* 3️⃣ STATS – Authority + Experience */}
-      <StatsSection />
+
 
       {/* 4️⃣ SERVICES – What You Do Clearly */}
       <ServicesSection />
@@ -35,7 +35,7 @@ export default function HomePage() {
 
       <HomeProductsSection />
       {/* 6️⃣ PROCESS – Remove Risk */}
-      <ProcessSection />
+
 
       {/* 7️⃣ PRODUCTS – What They Can Order */}
 
@@ -49,8 +49,10 @@ export default function HomePage() {
       <OfferBanner />
 
       {/* 1️⃣1️⃣ MID CTA – Momentum Push */}
+      <ProcessSection />
+      <StatsSection />
       <MidCTASection />
-
+      <FeaturedClientsSection />
       {/* 1️⃣2️⃣ FINAL CTA – Strong Close */}
       <CTASection />
 
