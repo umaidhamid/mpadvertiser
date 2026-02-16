@@ -186,7 +186,7 @@ export default function AdminGalleryPage() {
                             axis="y"
                             values={images}
                             onReorder={setImages}
-                            className="space-y-4 max-w-2xl mx-auto"
+                            className="space-y-4 max-w-5xl mx-auto"
                         >
                             {images.map((img) => (
                                 <GalleryItem

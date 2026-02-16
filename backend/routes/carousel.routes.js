@@ -5,7 +5,7 @@ import {
   deleteSlide,
   reorderSlides,
 } from "../controllers/carousel.controller.js";
-
+import { protect } from "../middleware/auth.middleware.js";
 import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
@@ -14,6 +14,7 @@ const router = express.Router();
 router.post(
   "/create",
   uploadSingleImage("carousel", "image"),
+  protect,
   createSlide
 );
 
@@ -21,9 +22,9 @@ router.post(
 router.get("/get", getAllSlides);
 
 /* Delete Slide */
-router.delete("/delete/:id", deleteSlide);
+router.delete("/delete/:id", protect, deleteSlide);
 
 /* Reorder */
-router.put("/reorder", reorderSlides);
+router.put("/reorder", protect, reorderSlides);
 
 export default router;

@@ -37,14 +37,29 @@ export default function CartPage() {
     };
 
     /* ---------------- APPLY COUPON ---------------- */
-    const applyCoupon = () => {
-        if (coupon === "SAVE10") {
-            const discount = subtotal * 0.1;
-            setDiscountAmount(discount);
-            toast.success("Coupon applied!");
-        } else {
+    const applyCoupon = async () => {
+        if (!coupon.trim()) {
+            toast.error("Enter coupon code");
+            return;
+        }
+
+        try {
+            const res = await API.post("/coupons/validate", {
+                code: coupon.toUpperCase(),
+                subtotal,
+            });
+
+            if (res.data.success) {
+                setDiscountAmount(res.data.discount);
+                toast.success("Coupon applied!");
+            } else {
+                setDiscountAmount(0);
+                toast.error(res.data.message || "Invalid coupon");
+            }
+
+        } catch (error) {
             setDiscountAmount(0);
-            toast.error("Invalid coupon");
+            toast.error("Coupon validation failed");
         }
     };
 
@@ -80,7 +95,7 @@ export default function CartPage() {
             });
 
             const orderId = res.data.order._id;
-console.log(orderId)
+            console.log(orderId)
             clearCart();
 
             toast.success("Order placed successfully!");

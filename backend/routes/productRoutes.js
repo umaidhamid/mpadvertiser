@@ -10,7 +10,7 @@ import {
     updateProductWithoutImage,
     updateProductImage
 } from "../controllers/productController.js";
-
+import { protect } from "../middleware/auth.middleware.js";
 import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
@@ -36,11 +36,12 @@ router.get("/:slug", getProductBySlug);
 // UPDATE product (optional new image)
 router.put(
     "/:slug/image",
+    protect,
     uploadSingleImage("products", "image"),
     updateProductImage
 );
-router.put("/:slug", updateProductWithoutImage);
+router.put("/:slug", protect, updateProductWithoutImage);
 // DELETE product (with image delete inside controller)
-router.delete("/:id", deleteProduct);
+router.delete("/:id", protect, deleteProduct);
 
 export default router;
