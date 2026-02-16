@@ -1,18 +1,26 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CartContext } from "../../context/CartContext";
-import { Trash2, ShoppingBag } from "lucide-react";
+import { Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import API from "../../lib/api";
+import { toast } from "sonner";
 
 export default function CartPage() {
     const router = useRouter();
 
-    const { cart, updateQuantity, removeItem, subtotal } =
-        useContext(CartContext);
+    const {
+        cart,
+        updateQuantity,
+        removeItem,
+        subtotal,
+        clearCart,
+    } = useContext(CartContext);
 
     const [placingOrder, setPlacingOrder] = useState(false);
+    const [coupon, setCoupon] = useState("");
+    const [discountAmount, setDiscountAmount] = useState(0);
 
     const [customer, setCustomer] = useState({
         name: "",
@@ -21,11 +29,39 @@ export default function CartPage() {
         notes: "",
     });
 
-    const total = subtotal;
+    const total = subtotal - discountAmount;
 
+    /* ---------------- PHONE VALIDATION ---------------- */
+    const isValidPhone = (phone) => {
+        return /^[6-9]\d{9}$/.test(phone);
+    };
+
+    /* ---------------- APPLY COUPON ---------------- */
+    const applyCoupon = () => {
+        if (coupon === "SAVE10") {
+            const discount = subtotal * 0.1;
+            setDiscountAmount(discount);
+            toast.success("Coupon applied!");
+        } else {
+            setDiscountAmount(0);
+            toast.error("Invalid coupon");
+        }
+    };
+
+    /* ---------------- PLACE ORDER ---------------- */
     const handlePlaceOrder = async () => {
-        if (!customer.name || !customer.phone) {
-            alert("Name and phone are required");
+        if (!customer.name.trim() || !customer.phone.trim()) {
+            toast.error("Name and phone are required");
+            return;
+        }
+
+        if (!isValidPhone(customer.phone)) {
+            toast.error("Enter valid 10 digit phone number");
+            return;
+        }
+
+        if (cart.length === 0) {
+            toast.error("Your cart is empty");
             return;
         }
 
@@ -39,20 +75,30 @@ export default function CartPage() {
                 notes: customer.notes,
                 items: cart,
                 subtotal,
-                discount: 0,
+                discount: discountAmount,
                 total,
             });
 
-            localStorage.removeItem("cart");
+            const orderId = res.data.order._id;
+console.log(orderId)
+            clearCart();
 
-            router.push(`/invoice/${res.data.order._id}`);
+            toast.success("Order placed successfully!");
+
+            // Open invoice page
+            router.push(`/invoice/${orderId}`);
+
+            // Auto download (if your invoice route handles ?download=true)
+            window.open(`/invoice/${orderId}?download=true`, "_blank");
+
         } catch (error) {
-            alert("Failed to place order");
+            toast.error("Failed to place order. Try again.");
         } finally {
             setPlacingOrder(false);
         }
     };
 
+    /* ---------------- EMPTY CART ---------------- */
     if (cart.length === 0) {
         return (
             <section className="min-h-screen bg-black text-white flex flex-col items-center justify-center text-center">
@@ -81,11 +127,10 @@ export default function CartPage() {
                     {cart.map((item) => (
                         <div
                             key={item._id + item.variant}
-                            className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition hover:border-indigo-500/40"
+                            className="bg-white/[0.04] border border-white/10 rounded-2xl p-6"
                         >
                             <div className="flex justify-between items-start">
 
-                                {/* Product Info */}
                                 <div>
                                     <h3 className="text-lg font-semibold">
                                         {item.name}
@@ -98,7 +143,6 @@ export default function CartPage() {
                                     </p>
                                 </div>
 
-                                {/* Remove */}
                                 <button
                                     onClick={() =>
                                         removeItem(item._id, item.variant)
@@ -109,7 +153,6 @@ export default function CartPage() {
                                 </button>
                             </div>
 
-                            {/* Quantity + Total */}
                             <div className="flex justify-between items-center mt-6">
 
                                 <div className="flex border border-white/20 rounded-xl overflow-hidden">
@@ -117,7 +160,7 @@ export default function CartPage() {
                                         onClick={() =>
                                             updateQuantity(item._id, item.variant, -1)
                                         }
-                                        className="px-5 py-2 hover:bg-white/10 transition"
+                                        className="px-5 py-2 hover:bg-white/10"
                                     >
                                         −
                                     </button>
@@ -130,7 +173,7 @@ export default function CartPage() {
                                         onClick={() =>
                                             updateQuantity(item._id, item.variant, 1)
                                         }
-                                        className="px-5 py-2 hover:bg-white/10 transition"
+                                        className="px-5 py-2 hover:bg-white/10"
                                     >
                                         +
                                     </button>
@@ -145,7 +188,7 @@ export default function CartPage() {
                 </div>
 
                 {/* RIGHT SIDE */}
-                <div className="bg-white/[0.05] backdrop-blur-xl border border-white/10 rounded-2xl p-8 sticky top-28 h-fit">
+                <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-8 sticky top-28 h-fit">
 
                     <h2 className="text-2xl font-semibold mb-8">
                         Order Summary
@@ -157,76 +200,87 @@ export default function CartPage() {
                             <span>₹{subtotal}</span>
                         </div>
 
+                        {discountAmount > 0 && (
+                            <div className="flex justify-between text-green-400">
+                                <span>Discount</span>
+                                <span>- ₹{discountAmount.toFixed(0)}</span>
+                            </div>
+                        )}
+
                         <div className="border-t border-white/10 pt-4 flex justify-between text-xl font-bold">
                             <span>Total</span>
-                            <span>₹{total}</span>
+                            <span>₹{total.toFixed(0)}</span>
                         </div>
                     </div>
 
-                    {/* Customer Form */}
+                    {/* Coupon */}
+                    <div className="flex gap-2 mb-8">
+                        <input
+                            placeholder="Coupon Code"
+                            value={coupon}
+                            onChange={(e) => setCoupon(e.target.value)}
+                            className="flex-1 bg-white/10 p-3 rounded-xl outline-none"
+                        />
+                        <button
+                            onClick={applyCoupon}
+                            className="px-4 bg-indigo-600 rounded-xl hover:bg-indigo-700 transition"
+                        >
+                            Apply
+                        </button>
+                    </div>
+
+                    {/* Customer Info */}
                     <div className="space-y-5">
-                        <h3 className="text-lg font-semibold">
-                            Customer Information
-                        </h3>
 
                         <input
                             placeholder="Full Name"
                             value={customer.name}
                             onChange={(e) =>
-                                setCustomer({
-                                    ...customer,
-                                    name: e.target.value,
-                                })
+                                setCustomer({ ...customer, name: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
                         />
 
                         <input
                             placeholder="Phone Number"
                             value={customer.phone}
                             onChange={(e) =>
-                                setCustomer({
-                                    ...customer,
-                                    phone: e.target.value,
-                                })
+                                setCustomer({ ...customer, phone: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
                         />
 
                         <textarea
                             placeholder="Address"
                             value={customer.address}
                             onChange={(e) =>
-                                setCustomer({
-                                    ...customer,
-                                    address: e.target.value,
-                                })
+                                setCustomer({ ...customer, address: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
                         />
 
                         <textarea
                             placeholder="Order Notes (Optional)"
                             value={customer.notes}
                             onChange={(e) =>
-                                setCustomer({
-                                    ...customer,
-                                    notes: e.target.value,
-                                })
+                                setCustomer({ ...customer, notes: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
                         />
 
                         <button
                             onClick={handlePlaceOrder}
                             disabled={placingOrder}
-                            className="w-full bg-green-600 hover:bg-green-700 transition py-4 rounded-xl font-semibold text-white disabled:opacity-50"
+                            className="w-full bg-green-600 hover:bg-green-700 transition py-4 rounded-xl font-semibold text-white disabled:opacity-50 flex items-center justify-center gap-2"
                         >
-                            {placingOrder
-                                ? "Placing Order..."
-                                : "Place Order"}
+                            {placingOrder && (
+                                <Loader2 className="animate-spin" size={18} />
+                            )}
+                            {placingOrder ? "Placing Order..." : "Place Order"}
                         </button>
+
                     </div>
+
                 </div>
 
             </div>
