@@ -17,7 +17,7 @@ export default function FeaturedClientsSection() {
   }, []);
 
   return (
-    <section className="relative py-16 bg-black text-white overflow-hidden">
+    <section className="relative py-16 text-white overflow-hidden">
 
       <div className="text-center mb-14">
         <h2 className="text-3xl md:text-4xl font-semibold">
@@ -42,7 +42,7 @@ export default function FeaturedClientsSection() {
               href={client.website || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0"
+              className="transition duration-300 hover:scale-105"
             >
               <img
                 src={client.url}

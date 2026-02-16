@@ -8,40 +8,61 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
     const [coupon, setCoupon] = useState(null);
 
-    // Load cart
+    /* ---------------- LOAD CART FROM LOCAL STORAGE ---------------- */
     useEffect(() => {
-        const stored = localStorage.getItem("cart");
-        if (stored) setCart(JSON.parse(stored));
+        const storedCart = localStorage.getItem("cart");
+
+        if (storedCart) {
+            try {
+                setCart(JSON.parse(storedCart));
+            } catch (error) {
+                console.error("Invalid cart data");
+                setCart([]);
+            }
+        }
     }, []);
 
-    // Save cart
+    /* ---------------- SAVE CART TO LOCAL STORAGE ---------------- */
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
 
-    // Sync across tabs
+    /* ---------------- SYNC CART BETWEEN TABS ---------------- */
     useEffect(() => {
         const handleStorage = () => {
-            const stored = localStorage.getItem("cart");
-            setCart(stored ? JSON.parse(stored) : []);
+            const storedCart = localStorage.getItem("cart");
+            setCart(storedCart ? JSON.parse(storedCart) : []);
         };
+
         window.addEventListener("storage", handleStorage);
-        return () => window.removeEventListener("storage", handleStorage);
+
+        return () => {
+            window.removeEventListener("storage", handleStorage);
+        };
     }, []);
 
+    /* ---------------- ADD TO CART ---------------- */
     const addToCart = (product, variant) => {
-        const existing = cart.find(
-            (item) =>
-                item._id === product._id &&
-                item.variant === variant.label
-        );
+        setCart((prevCart) => {
+            const existingIndex = prevCart.findIndex(
+                (item) =>
+                    item._id === product._id &&
+                    item.variant === variant.label
+            );
 
-        if (existing) {
-            existing.quantity += 1;
-            setCart([...cart]);
-        } else {
-            setCart([
-                ...cart,
+            if (existingIndex !== -1) {
+                const updatedCart = [...prevCart];
+
+                updatedCart[existingIndex] = {
+                    ...updatedCart[existingIndex],
+                    quantity: updatedCart[existingIndex].quantity + 1,
+                };
+
+                return updatedCart;
+            }
+
+            return [
+                ...prevCart,
                 {
                     _id: product._id,
                     name: product.name,
@@ -49,30 +70,42 @@ export function CartProvider({ children }) {
                     variant: variant.label,
                     quantity: 1,
                 },
-            ]);
-        }
+            ];
+        });
     };
 
+    /* ---------------- UPDATE QUANTITY ---------------- */
     const updateQuantity = (id, variant, amount) => {
-        const updated = cart.map((item) =>
-            item._id === id && item.variant === variant
-                ? {
-                    ...item,
-                    quantity: Math.max(1, item.quantity + amount),
-                }
-                : item
+        setCart((prevCart) =>
+            prevCart.map((item) =>
+                item._id === id && item.variant === variant
+                    ? {
+                        ...item,
+                        quantity: Math.max(1, item.quantity + amount),
+                    }
+                    : item
+            )
         );
-        setCart(updated);
     };
 
+    /* ---------------- REMOVE ITEM ---------------- */
     const removeItem = (id, variant) => {
-        const updated = cart.filter(
-            (item) =>
-                !(item._id === id && item.variant === variant)
+        setCart((prevCart) =>
+            prevCart.filter(
+                (item) =>
+                    !(item._id === id && item.variant === variant)
+            )
         );
-        setCart(updated);
     };
 
+    /* ---------------- CLEAR CART ---------------- */
+    const clearCart = () => {
+        setCart([]);
+        localStorage.removeItem("cart");
+        setCoupon(null);
+    };
+
+    /* ---------------- CALCULATIONS ---------------- */
     const subtotal = cart.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
@@ -90,9 +123,11 @@ export function CartProvider({ children }) {
                 addToCart,
                 updateQuantity,
                 removeItem,
+                clearCart,
                 subtotal,
-                total,
                 discount,
+                total,
+                coupon,
                 setCoupon,
             }}
         >
