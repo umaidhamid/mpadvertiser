@@ -41,7 +41,7 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="bg-background text-white py-28 px-6">
+    <section className="bg-background text-white py-25 px-6">
 
       <div className="text-center mb-20 max-w-2xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6 text-white ">
