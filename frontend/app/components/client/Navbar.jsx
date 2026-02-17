@@ -16,7 +16,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-  
+
     const [mounted, setMounted] = useState(false);
 
     const pathname = usePathname();
@@ -27,7 +27,7 @@ const Navbar = () => {
 
     useEffect(() => setMounted(true), []);
 
-  
+
     const navItems = [
         { href: "/", label: "Home" },
         { href: "/AboutUs", label: "About Us" },
@@ -61,10 +61,12 @@ const Navbar = () => {
                     {/* LOGO */}
                     <Link
                         href="/"
-                        className="text-2xl font-bold tracking-wide text-black dark:text-white transition"
+                        className="text-2xl font-semibold tracking-wide text-black dark:text-white transition"
+                        style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
                     >
                         MP Advertisers
                     </Link>
+
 
                     {/* ================= DESKTOP NAV ================= */}
                     <nav className="hidden md:flex items-center gap-8">

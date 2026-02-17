@@ -60,7 +60,7 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-feature-settings: "rlig" 1, "calt" 1;
+    /* font-feature-settings: "rlig" 1, "calt" 1; */
     min-height: 100vh;
   }
 }
@@ -106,7 +106,9 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
+.font-lemon {
+  font-family: var(--font-lemon);
+}
 .no-scrollbar {
   -ms-overflow-style: none;
   /* IE and Edge */
