@@ -24,30 +24,24 @@ export default function HomePage() {
     
       <ServicesSection />
 
-      {/* 5️⃣ WHY CHOOSE US – Differentiation */}
+    
       <WhyChooseUsSection />
 
       <HomeProductsSection />
-      {/* 6️⃣ PROCESS – Remove Risk */}
-
-
-      {/* 7️⃣ PRODUCTS – What They Can Order */}
-
-      {/* 8️⃣ WORK SHOWCASE – Visual Validation */}
       <Carousel />
 
-      {/* 9️⃣ TESTIMONIALS – Emotional Trust */}
+     
       <TestimonialsSection />
 
-      {/* 🔟 OFFER – Urgency near decision point */}
+    
       <OfferBanner />
 
-      {/* 1️⃣1️⃣ MID CTA – Momentum Push */}
+      
       <ProcessSection />
       <StatsSection />
       <MidCTASection />
       <FeaturedClientsSection />
-      {/* 1️⃣2️⃣ FINAL CTA – Strong Close */}
+     
       <CTASection />
 
     </main>
