@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import API from "../../../lib/api";
 import jsPDF from "jspdf";
 
 export default function InvoicePage() {
     const { id } = useParams();
+    const invoiceRef = useRef(null);
+
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -26,17 +28,19 @@ export default function InvoicePage() {
         if (id) fetchOrder();
     }, [id]);
 
+    /* ---------------- DOWNLOAD PDF ---------------- */
     const downloadPDF = () => {
+        if (!order) return;
+
         const doc = new jsPDF();
         let y = 20;
 
-        // Header
         doc.setFontSize(18);
         doc.text("MP Advertisers", 14, y);
-        y += 8;
+        y += 10;
 
         doc.setFontSize(11);
-        doc.text(`Invoice No: ${order.invoiceNumber}`, 14, y);
+        doc.text(`Invoice #: ${order.invoiceNumber}`, 14, y);
         y += 6;
         doc.text(
             `Date: ${new Date(order.createdAt).toLocaleDateString()}`,
@@ -45,12 +49,8 @@ export default function InvoicePage() {
         );
         y += 10;
 
-        // Customer
-        doc.setFontSize(12);
         doc.text("Customer Details", 14, y);
         y += 6;
-
-        doc.setFontSize(11);
         doc.text(`Name: ${order.customerName}`, 14, y);
         y += 6;
         doc.text(`Phone: ${order.phone}`, 14, y);
@@ -58,35 +58,28 @@ export default function InvoicePage() {
         doc.text(`Address: ${order.address || "-"}`, 14, y);
         y += 10;
 
-        // Table Header
-        doc.setFontSize(12);
         doc.text("Items", 14, y);
-        y += 6;
+        y += 8;
 
-        doc.setFontSize(11);
+        doc.setFontSize(10);
         doc.text("Product", 14, y);
         doc.text("Qty", 120, y);
         doc.text("Price", 140, y);
         doc.text("Total", 170, y);
-        y += 6;
-
+        y += 4;
         doc.line(14, y, 195, y);
-        y += 6;
+        y += 8;
 
-        // Items
         order.items.forEach((item) => {
-            doc.text(
-                `${item.name} (${item.variant})`,
-                14,
-                y
-            );
-            doc.text(`${item.quantity}`, 120, y);
+            if (y > 270) {
+                doc.addPage();
+                y = 20;
+            }
+
+            doc.text(`${item.name} (${item.variant})`, 14, y);
+            doc.text(String(item.quantity), 120, y);
             doc.text(`₹${item.price}`, 140, y);
-            doc.text(
-                `₹${item.price * item.quantity}`,
-                170,
-                y
-            );
+            doc.text(`₹${item.price * item.quantity}`, 170, y);
             y += 8;
         });
 
@@ -94,16 +87,82 @@ export default function InvoicePage() {
         doc.line(14, y, 195, y);
         y += 8;
 
-        // Totals
         doc.text(`Subtotal: ₹${order.subtotal}`, 140, y);
         y += 6;
         doc.text(`Discount: ₹${order.discount}`, 140, y);
         y += 6;
-        doc.setFontSize(13);
+
+        doc.setFontSize(12);
         doc.text(`Grand Total: ₹${order.total}`, 140, y);
 
         doc.save(`${order.invoiceNumber}.pdf`);
     };
+
+    /* ---------------- SEND WHATSAPP ---------------- */
+    const sendToOwner = () => {
+
+        // 1️⃣ Order check
+        if (!order) {
+            alert("Order not loaded.");
+            return;
+        }
+
+        // 2️⃣ Invoice validation
+        if (!order._id || !order.invoiceNumber) {
+            alert("Invoice is not ready.");
+            return;
+        }
+
+        // 3️⃣ Owner number validation (India format)
+        const ownerNumber = "919149455296";
+
+        const phoneRegex = /^91[6-9]\d{9}$/;
+
+        if (!phoneRegex.test(ownerNumber)) {
+            alert("Owner WhatsApp number is invalid.");
+            return;
+        }
+
+        // 4️⃣ Required order data
+        if (!order.customerName || !order.total) {
+            alert("Order details incomplete.");
+            return;
+        }
+
+        // 5️⃣ Invoice URL validation
+        const invoiceUrl = `${window.location.origin}/invoice/${order._id}`;
+
+        try {
+            new URL(invoiceUrl);
+        } catch {
+            alert("Invoice URL is invalid.");
+            return;
+        }
+
+    
+        const message = `📦 New Order Received
+
+Invoice: ${order.invoiceNumber}
+Customer: ${order.customerName}
+Phone: ${order.phone || "-"}
+
+Total: ₹${order.total}
+
+View Invoice:
+${invoiceUrl}
+
+⚠ Important:
+Please confirm this order only if BOTH the invoice number and the invoice link above are present and accessible.
+
+If anything is missing, do not process this order.`;
+
+
+        const whatsappUrl = `https://wa.me/${ownerNumber}?text=${encodeURIComponent(message)}`;
+
+        // 7️⃣ Open WhatsApp only if everything valid
+        window.open(whatsappUrl, "_blank");
+    };
+
 
     if (loading) {
         return (
@@ -122,16 +181,18 @@ export default function InvoicePage() {
     }
 
     return (
-        <section className="min-h-screen bg-black py-20 px-6">
-            <div className="max-w-4xl mx-auto bg-gray-900 shadow-xl rounded-xl p-10">
-
+        <section className="min-h-screen bg-black py-20 px-6 print:bg-white">
+            <div
+                ref={invoiceRef}
+                className="max-w-4xl mx-auto bg-gray-900 print:bg-white text-white print:text-black shadow-xl rounded-xl p-10"
+            >
                 {/* Header */}
                 <div className="flex justify-between items-start mb-10">
                     <div>
                         <h1 className="text-3xl font-bold">
                             MP Advertisers
                         </h1>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-400 print:text-gray-600">
                             Professional Printing Solutions
                         </p>
                     </div>
@@ -140,7 +201,7 @@ export default function InvoicePage() {
                         <p className="font-semibold">
                             Invoice #{order.invoiceNumber}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-400 print:text-gray-600">
                             {new Date(order.createdAt).toLocaleDateString()}
                         </p>
                     </div>
@@ -153,23 +214,23 @@ export default function InvoicePage() {
                     </h3>
                     <p>{order.customerName}</p>
                     <p>{order.phone}</p>
-                    <p>{order.address}</p>
+                    <p>{order.address || "-"}</p>
                 </div>
 
                 {/* Table */}
                 <div className="overflow-x-auto">
-                    <table className="w-full border border-gray-200">
-                        <thead className="bg-gray-700">
+                    <table className="w-full border border-gray-700 print:border-black">
+                        <thead className="bg-gray-800 print:bg-gray-200">
                             <tr>
                                 <th className="p-3 text-left">Product</th>
-                                <th className="p-3">Qty</th>
-                                <th className="p-3">Price</th>
-                                <th className="p-3">Total</th>
+                                <th className="p-3 text-center">Qty</th>
+                                <th className="p-3 text-center">Price</th>
+                                <th className="p-3 text-center">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             {order.items.map((item, i) => (
-                                <tr key={i} className="border-t">
+                                <tr key={i} className="border-t border-gray-700 print:border-black">
                                     <td className="p-3">
                                         {item.name} ({item.variant})
                                     </td>
@@ -195,7 +256,7 @@ export default function InvoicePage() {
                             <span>Subtotal</span>
                             <span>₹{order.subtotal}</span>
                         </div>
-                        <div className="flex justify-between text-green-600">
+                        <div className="flex justify-between text-green-500">
                             <span>Discount</span>
                             <span>- ₹{order.discount}</span>
                         </div>
@@ -207,22 +268,28 @@ export default function InvoicePage() {
                 </div>
 
                 {/* Actions */}
-                <div className="mt-10 flex gap-4">
+                <div className="mt-10 flex gap-4 print:hidden">
                     <button
                         onClick={() => window.print()}
-                        className="px-6 py-3 bg-gray-800 text-white rounded-lg"
+                        className="px-6 py-3 bg-gray-800 rounded-lg"
                     >
                         Print Invoice
                     </button>
 
                     <button
                         onClick={downloadPDF}
-                        className="px-6 py-3 bg-black text-white rounded-lg"
+                        className="px-6 py-3 bg-black rounded-lg"
                     >
                         Download PDF
                     </button>
-                </div>
 
+                    <button
+                        onClick={sendToOwner}
+                        className="px-6 py-3 bg-green-600 rounded-lg"
+                    >
+                        Send to Owner
+                    </button>
+                </div>
             </div>
         </section>
     );
