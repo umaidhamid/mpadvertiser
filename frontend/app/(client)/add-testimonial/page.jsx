@@ -5,6 +5,7 @@ import Api from "../../lib/api";
 import { Star, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+
 export default function AddTestimonialPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -31,7 +32,7 @@ export default function AddTestimonialPage() {
 
             await Api.post("/testimonials/create", {
                 ...form,
-                isActive: false,  // force moderation
+                isActive: false,
                 isOwner: false,
             });
 
@@ -45,6 +46,7 @@ export default function AddTestimonialPage() {
                 text: "",
                 rating: 5,
             });
+
             setTimeout(() => {
                 router.push("/");
             }, 1500);
@@ -56,8 +58,9 @@ export default function AddTestimonialPage() {
     };
 
     return (
-        <section className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex items-center justify-center px-6 py-12">
-            <div className="w-full max-w-xl bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-xl">
+        <section className="min-h-screen bg-background text-foreground flex items-center justify-center px-6 py-12">
+
+            <div className="w-full max-w-xl bg-card border border-border rounded-2xl p-8 shadow-lg">
 
                 <h1 className="text-3xl font-bold text-center mb-6">
                     Share Your Experience
@@ -65,6 +68,7 @@ export default function AddTestimonialPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
 
+                    {/* INPUTS */}
                     <input
                         type="text"
                         placeholder="Your Name *"
@@ -72,7 +76,7 @@ export default function AddTestimonialPage() {
                         onChange={(e) =>
                             setForm({ ...form, name: e.target.value })
                         }
-                        className="w-full bg-white/10 p-3 rounded-lg outline-none"
+                        className="w-full bg-background border border-border p-3 rounded-lg outline-none focus:ring-2 focus:ring-primary"
                     />
 
                     <input
@@ -82,7 +86,7 @@ export default function AddTestimonialPage() {
                         onChange={(e) =>
                             setForm({ ...form, role: e.target.value })
                         }
-                        className="w-full bg-white/10 p-3 rounded-lg outline-none"
+                        className="w-full bg-background border border-border p-3 rounded-lg outline-none focus:ring-2 focus:ring-primary"
                     />
 
                     <input
@@ -92,7 +96,7 @@ export default function AddTestimonialPage() {
                         onChange={(e) =>
                             setForm({ ...form, company: e.target.value })
                         }
-                        className="w-full bg-white/10 p-3 rounded-lg outline-none"
+                        className="w-full bg-background border border-border p-3 rounded-lg outline-none focus:ring-2 focus:ring-primary"
                     />
 
                     <input
@@ -102,7 +106,7 @@ export default function AddTestimonialPage() {
                         onChange={(e) =>
                             setForm({ ...form, location: e.target.value })
                         }
-                        className="w-full bg-white/10 p-3 rounded-lg outline-none"
+                        className="w-full bg-background border border-border p-3 rounded-lg outline-none focus:ring-2 focus:ring-primary"
                     />
 
                     <textarea
@@ -112,14 +116,15 @@ export default function AddTestimonialPage() {
                         onChange={(e) =>
                             setForm({ ...form, text: e.target.value })
                         }
-                        className="w-full bg-white/10 p-3 rounded-lg outline-none resize-none"
+                        className="w-full bg-background border border-border p-3 rounded-lg outline-none resize-none focus:ring-2 focus:ring-primary"
                     />
 
-                    {/* Rating */}
+                    {/* RATING */}
                     <div className="flex items-center gap-3">
-                        <span className="text-sm text-gray-300">
+                        <span className="text-sm text-muted">
                             Rating:
                         </span>
+
                         {[1, 2, 3, 4, 5].map((num) => (
                             <Star
                                 key={num}
@@ -128,17 +133,20 @@ export default function AddTestimonialPage() {
                                     setForm({ ...form, rating: num })
                                 }
                                 className={`cursor-pointer transition ${form.rating >= num
-                                    ? "text-yellow-400"
-                                    : "text-gray-500"
+                                        ? "text-primary"
+                                        : "text-muted"
                                     }`}
                             />
                         ))}
                     </div>
 
+                    {/* SUBMIT BUTTON */}
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 transition py-3 rounded-lg flex items-center justify-center gap-2"
+                        className="w-full bg-primary text-primary-foreground 
+            hover:opacity-90 transition 
+            py-3 rounded-lg flex items-center justify-center gap-2"
                     >
                         {loading ? (
                             <>
@@ -152,6 +160,7 @@ export default function AddTestimonialPage() {
 
                 </form>
             </div>
+
         </section>
     );
 }

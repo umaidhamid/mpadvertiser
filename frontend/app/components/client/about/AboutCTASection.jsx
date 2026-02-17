@@ -5,9 +5,10 @@ import Link from "next/link";
 
 export default function AboutCTASection() {
   return (
-    <section className="relative py-32 px-6 text-center overflow-hidden">
+    <section className="relative py-32 px-6 text-center overflow-hidden bg-background text-foreground">
 
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-purple-600/10 to-black pointer-events-none" />
+      {/* Soft Accent Glow */}
+      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
 
       <div className="relative max-w-4xl mx-auto">
 
@@ -26,7 +27,7 @@ export default function AboutCTASection() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-gray-400 mb-10 max-w-2xl mx-auto"
+          className="text-muted mb-10 max-w-2xl mx-auto"
         >
           Partner with MP Advertisers to create impactful campaigns,
           elevate your brand presence, and drive measurable results.
@@ -41,9 +42,10 @@ export default function AboutCTASection() {
           <Link
             href="/Contact-Us"
             className="px-10 py-4 rounded-full 
-            bg-gradient-to-r from-indigo-600 to-purple-600 
-            text-white font-semibold shadow-lg 
-            hover:shadow-indigo-500/40 transition duration-300"
+            bg-primary text-primary-foreground 
+            font-semibold shadow-md 
+            hover:opacity-90 hover:shadow-lg
+            transition duration-300"
           >
             Start Your Project
           </Link>

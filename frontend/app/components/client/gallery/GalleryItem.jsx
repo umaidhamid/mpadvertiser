@@ -6,8 +6,10 @@ export default function GalleryItem({ image, onClick }) {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group"
+      transition={{ duration: 0.3 }}
       onClick={onClick}
+      className="relative overflow-hidden rounded-2xl cursor-pointer group
+      bg-card border border-border shadow-sm"
     >
       <img
         src={image}
@@ -16,8 +18,14 @@ export default function GalleryItem({ image, onClick }) {
       />
 
       {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
-        <span className="text-white text-sm tracking-wide">
+      <div
+        className="absolute inset-0 
+        bg-black/40 
+        opacity-0 group-hover:opacity-100 
+        transition duration-500 
+        flex items-center justify-center"
+      >
+        <span className="text-white text-sm tracking-wide font-medium">
           View Image
         </span>
       </div>

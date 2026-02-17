@@ -19,33 +19,30 @@ export default function ProductsHeader({
       {/* Title Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-bold">All Products</h1>
-          <p className="text-gray-400 mt-2">
+          <h1 className="text-4xl font-bold text-foreground">
+            All Products
+          </h1>
+          <p className="text-muted-foreground mt-2">
             Showing {results} products
           </p>
         </div>
       </div>
 
-      {/* Top Filter Bar */}
-      <div className="flex flex-wrap items-center gap-4 bg-white/15 backdrop-blur-xl border border-white/30 rounded-2xl p-6">
-
-        {/* Search */}
-        {/* <input
-          type="text"
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="px-4 py-2 rounded-lg bg-black border border-white/10 focus:outline-none"
-        /> */}
+      {/* Filter Bar */}
+      <div className="flex flex-wrap items-center gap-4 
+      bg-card border border-border 
+      rounded-2xl p-6 shadow-sm">
 
         {/* Category */}
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="px-4 py-2 rounded-lg bg-black border border-white/10"
+          className="px-4 py-2 rounded-lg 
+          bg-background border border-border 
+          text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
         >
           {categories.map((cat) => (
-            <option key={cat} value={cat} className="bg-black">
+            <option key={cat} value={cat}>
               {cat}
             </option>
           ))}
@@ -55,7 +52,9 @@ export default function ProductsHeader({
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value)}
-          className="px-4 py-2 rounded-lg bg-black border border-white/10"
+          className="px-4 py-2 rounded-lg 
+          bg-background border border-border 
+          text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
         >
           <option value="">Latest</option>
           <option value="priceLow">Price: Low to High</option>
@@ -64,20 +63,23 @@ export default function ProductsHeader({
         </select>
 
         {/* Discount Toggle */}
-        <label className="flex items-center gap-2 text-sm text-gray-300">
+        <label className="flex items-center gap-2 text-sm text-muted-foreground">
           <input
             type="checkbox"
             checked={discountOnly}
             onChange={(e) => setDiscountOnly(e.target.checked)}
-            className="accent-indigo-600"
+            className="accent-primary"
           />
           Discount Only
         </label>
 
-        {/* Clear */}
+        {/* Clear Button */}
         <button
           onClick={clearFilters}
-          className="ml-auto px-5 py-2 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-sm font-semibold hover:opacity-90 transition"
+          className="ml-auto px-5 py-2 rounded-full 
+          bg-primary text-primary-foreground 
+          text-sm font-semibold 
+          hover:opacity-90 transition"
         >
           Clear Filters
         </button>

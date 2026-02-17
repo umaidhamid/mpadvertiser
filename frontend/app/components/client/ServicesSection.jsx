@@ -44,27 +44,33 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section className="relative py-24 px-6 bg-black text-white overflow-hidden">
+    <section
+      className="relative py-24 px-6 overflow-hidden
+      bg-background text-foreground transition-colors duration-300"
+    >
 
-      {/* Background Grid */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none 
-        bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.08)_1px,transparent_0)]
-        [background-size:40px_40px]" />
+      {/* Subtle Background Grid */}
+      <div
+        className="absolute inset-0 opacity-30 pointer-events-none
+        bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.06)_1px,transparent_0)]
+        dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)]
+        [background-size:40px_40px]"
+      />
 
       {/* Heading */}
       <div className="relative max-w-3xl mx-auto text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-semibold mb-6">
           Our Services
         </h2>
-        <p className="text-gray-400 text-lg">
+
+        <p className="text-muted text-lg">
           Premium printing solutions crafted for visibility and impact.
         </p>
       </div>
 
-      {/* ================= MOBILE (Horizontal Scroll) ================= */}
+      {/* ================= MOBILE ================= */}
       <div className="lg:hidden relative">
-
-        <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
+        <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4">
 
           {services.map((service, index) => (
             <motion.div
@@ -73,10 +79,9 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
               viewport={{ once: true }}
-              className="min-w-[85%] snap-center rounded-2xl overflow-hidden 
-                bg-white/5 border border-white/10"
+              className="min-w-[85%] snap-center rounded-2xl overflow-hidden
+              bg-card border border-cardBorder shadow-soft dark:shadow-softDark"
             >
-
               {/* Image */}
               <div className="relative h-44 w-full">
                 <Image
@@ -86,8 +91,6 @@ export default function ServicesSection() {
                   sizes="85vw"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t 
-                  from-black via-black/40 to-transparent" />
               </div>
 
               {/* Content */}
@@ -96,27 +99,26 @@ export default function ServicesSection() {
                   {service.title}
                 </h3>
 
-                <p className="text-gray-400 text-sm mb-3">
+                <p className="text-muted text-sm mb-3">
                   {service.desc}
                 </p>
 
-                <ul className="space-y-1 text-sm text-gray-300">
+                <ul className="space-y-1 text-sm text-muted">
                   {service.points.map((point, i) => (
                     <li key={i} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                      <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                       {point}
                     </li>
                   ))}
                 </ul>
               </div>
-
             </motion.div>
           ))}
 
         </div>
       </div>
 
-      {/* ================= DESKTOP (Grid) ================= */}
+      {/* ================= DESKTOP ================= */}
       <div className="hidden lg:grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
 
         {services.map((service, index) => (
@@ -124,14 +126,13 @@ export default function ServicesSection() {
             key={index}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -8 }}
+            whileHover={{ y: -6 }}
             transition={{ duration: 0.4 }}
             viewport={{ once: true }}
-            className="group relative rounded-2xl overflow-hidden 
-              bg-white/5 border border-white/10 
-              hover:border-indigo-500/60 transition-all duration-500"
+            className="group relative rounded-2xl overflow-hidden
+            bg-card border border-cardBorder shadow-soft dark:shadow-softDark
+            transition-all duration-300"
           >
-
             {/* Image */}
             <div className="relative h-52 w-full overflow-hidden">
               <Image
@@ -139,38 +140,33 @@ export default function ServicesSection() {
                 alt={service.title}
                 fill
                 sizes="(max-width:1024px) 50vw, 33vw"
-                className="object-cover transition duration-700 group-hover:scale-110"
+                className="object-cover transition duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t 
-                from-black via-black/40 to-transparent" />
             </div>
 
             {/* Content */}
             <div className="p-6">
-              <h3 className="text-lg font-semibold mb-3">
+              <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition">
                 {service.title}
               </h3>
 
-              <p className="text-gray-400 text-sm mb-4">
+              <p className="text-muted text-sm mb-4">
                 {service.desc}
               </p>
 
-              <ul className="space-y-2 text-sm text-gray-300 opacity-80 
-                group-hover:opacity-100 transition">
+              <ul className="space-y-2 text-sm text-muted">
                 {service.points.map((point, i) => (
                   <li key={i} className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                     {point}
                   </li>
                 ))}
               </ul>
             </div>
-
           </motion.div>
         ))}
 
       </div>
-
     </section>
   );
 }

@@ -10,13 +10,19 @@ export default function ContactSelect({
       value={value}
       onChange={onChange}
       required
-      className="w-full px-5 py-3 rounded-xl bg-white/5 
-      border border-white/10 focus:border-indigo-500 
-      outline-none transition"
+      className="
+        w-full px-5 py-3 rounded-xl
+        bg-background
+        border border-border
+        text-foreground
+        focus:ring-2 focus:ring-primary
+        outline-none transition
+      "
     >
-      <option value="" className="bg-black">Select Service</option>
+      <option value="">Select Service</option>
+
       {options.map((opt, i) => (
-        <option key={i} value={opt} className="bg-black">
+        <option key={i} value={opt}>
           {opt}
         </option>
       ))}

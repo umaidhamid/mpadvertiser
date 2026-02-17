@@ -7,14 +7,11 @@ import IndustriesCTA from "../../components/client/industries/IndustriesCTA";
 
 export default function IndustriesPage() {
   return (
-    <main className="bg-black text-white">
+    <main className="bg-background text-foreground min-h-screen">
 
       <IndustriesHero />
-
       <IndustriesGrid />
-
       <IndustriesProcess />
-
       <IndustriesCTA />
 
     </main>

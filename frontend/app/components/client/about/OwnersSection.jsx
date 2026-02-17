@@ -6,25 +6,26 @@ import { Linkedin, Mail } from "lucide-react";
 
 export default function OwnersSection({ owners }) {
   return (
-    <section className="relative py-12 px-6 overflow-hidden">
+    <section className="relative py-12 px-6 overflow-hidden bg-background text-foreground">
 
-      {/* Background depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.02] to-black pointer-events-none" />
-      <div className="absolute -top-20 right-0 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full pointer-events-none" />
+      {/* Soft Accent Glow */}
+      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
+      <div className="absolute -top-20 right-0 w-96 h-96 bg-primary/10 blur-3xl rounded-full pointer-events-none" />
 
-      <div className="relative  mx-auto">
+      <div className="relative mx-auto max-w-7xl">
 
-        {/* Section Heading */}
+        {/* ================= HEADING ================= */}
         <div className="text-center mb-20">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6">
             Leadership
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+
+          <p className="text-muted max-w-2xl mx-auto">
             Visionary leadership driving innovation, growth, and long-term impact.
           </p>
         </div>
 
-        {/* Grid */}
+        {/* ================= GRID ================= */}
         <div className="grid lg:grid-cols-2 gap-10">
 
           {owners.map((owner, i) => (
@@ -35,14 +36,14 @@ export default function OwnersSection({ owners }) {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
               className="group p-10 rounded-3xl 
-              bg-white/[0.04] border border-white/10 
-              backdrop-blur-xl transition duration-500
-              hover:border-indigo-500/40"
+              bg-card border border-border 
+              transition duration-500
+              hover:border-primary hover:shadow-lg"
             >
               <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
 
-                {/* Image */}
-                <div className="relative w-40 h-40 rounded-full overflow-hidden border border-white/10 shrink-0">
+                {/* IMAGE */}
+                <div className="relative w-40 h-40 rounded-full overflow-hidden border border-border shrink-0">
                   <Image
                     src={owner.image}
                     alt={owner.name}
@@ -51,26 +52,26 @@ export default function OwnersSection({ owners }) {
                   />
                 </div>
 
-                {/* Content */}
+                {/* CONTENT */}
                 <div className="text-center md:text-left">
 
                   <h4 className="text-2xl font-semibold mb-2">
                     {owner.name}
                   </h4>
 
-                  <p className="text-indigo-400 mb-4">
+                  <p className="text-primary mb-4">
                     {owner.role}
                   </p>
 
                   {/* Experience */}
                   {owner.experience && (
-                    <div className="text-sm text-white/60 mb-4">
+                    <div className="text-sm text-muted mb-4">
                       {owner.experience}
                     </div>
                   )}
 
                   {/* Bio */}
-                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  <p className="text-muted text-sm leading-relaxed mb-6">
                     {owner.bio}
                   </p>
 
@@ -81,7 +82,7 @@ export default function OwnersSection({ owners }) {
                         <span
                           key={index}
                           className="px-4 py-1 text-xs rounded-full 
-                          bg-white/5 border border-white/10 text-gray-300"
+                          bg-background border border-border text-muted"
                         >
                           {skill}
                         </span>
@@ -98,8 +99,10 @@ export default function OwnersSection({ owners }) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-9 h-9 flex items-center justify-center 
-                        rounded-full bg-white/5 border border-white/10 
-                        hover:bg-indigo-600 hover:border-indigo-600 transition duration-300"
+                        rounded-full bg-card border border-border 
+                        text-foreground
+                        hover:bg-primary hover:text-primary-foreground
+                        transition duration-300"
                       >
                         <Linkedin size={16} />
                       </a>
@@ -109,8 +112,10 @@ export default function OwnersSection({ owners }) {
                       <a
                         href={owner.social.email}
                         className="w-9 h-9 flex items-center justify-center 
-                        rounded-full bg-white/5 border border-white/10 
-                        hover:bg-purple-600 hover:border-purple-600 transition duration-300"
+                        rounded-full bg-card border border-border 
+                        text-foreground
+                        hover:bg-primary hover:text-primary-foreground
+                        transition duration-300"
                       >
                         <Mail size={16} />
                       </a>

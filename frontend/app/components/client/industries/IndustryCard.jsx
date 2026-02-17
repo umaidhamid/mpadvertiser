@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 export default function IndustryCard({ industry }) {
   return (
     <motion.div
-      whileHover={{ y: -10 }}
-      className="group relative bg-white/[0.03] border border-white/10 
-      rounded-3xl overflow-hidden backdrop-blur-xl 
-      hover:border-indigo-500/40 transition-all duration-500"
+      whileHover={{ y: -8 }}
+      className="group relative bg-card border border-border 
+      rounded-3xl overflow-hidden 
+      transition-all duration-500 
+      hover:border-primary/40 hover:shadow-lg"
     >
+      {/* Image */}
       <div className="relative h-56 overflow-hidden">
         <img
           src={industry.image}
@@ -18,12 +20,13 @@ export default function IndustryCard({ industry }) {
         />
       </div>
 
+      {/* Content */}
       <div className="p-6 space-y-4">
-        <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition">
+        <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition">
           {industry.title}
         </h3>
 
-        <p className="text-gray-400 text-sm leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed">
           {industry.description}
         </p>
       </div>

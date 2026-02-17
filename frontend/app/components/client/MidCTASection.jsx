@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function MidCTASection() {
   return (
-    <section className="relative py-28 bg-black text-white overflow-hidden">
+    <section className="relative py-28 bg-background text-foreground overflow-hidden">
 
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-transparent to-purple-600/10 pointer-events-none" />
+      {/* Subtle Brand Glow */}
+      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto px-6 text-center">
 
@@ -27,7 +27,7 @@ export default function MidCTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           viewport={{ once: true }}
-          className="text-gray-400 max-w-2xl mx-auto mb-10"
+          className="text-muted max-w-2xl mx-auto mb-10"
         >
           Let’s create impactful designs and premium prints that make your business stand out.
         </motion.p>
@@ -39,20 +39,24 @@ export default function MidCTASection() {
           viewport={{ once: true }}
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
+          {/* Primary Button */}
           <Link
             href="/Contact-Us"
-            className="px-8 py-4 rounded-full 
-            bg-gradient-to-r from-indigo-600 to-purple-600 
-            text-white font-semibold shadow-lg 
-            hover:shadow-indigo-500/40 transition duration-300"
+            className="px-8 py-4 rounded-full
+            bg-primary text-primary-foreground
+            font-semibold shadow-md
+            hover:opacity-90 transition duration-300"
           >
             Get a Free Quote
           </Link>
 
+          {/* Secondary Button */}
           <Link
             href="/Products"
-            className="px-8 py-4 rounded-full border border-white/20 
-            text-white hover:bg-white/10 transition duration-300"
+            className="px-8 py-4 rounded-full
+            border border-border
+            text-foreground
+            hover:bg-card transition duration-300"
           >
             View Our Products
           </Link>

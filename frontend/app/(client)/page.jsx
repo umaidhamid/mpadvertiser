@@ -16,18 +16,12 @@ import CTASection from "../components/client/CTASection";
 
 export default function HomePage() {
   return (
-    <main className="bg-black text-white overflow-x-hidden">
+    <main className="bg-white text-black overflow-x-hidden">
 
       {/* 1️⃣ HERO – Big Promise + Clear CTA */}
       <HeroSection />
 
-      {/* 2️⃣ SOCIAL PROOF – Clients logos (instant credibility) */}
-
-
-      {/* 3️⃣ STATS – Authority + Experience */}
-
-
-      {/* 4️⃣ SERVICES – What You Do Clearly */}
+    
       <ServicesSection />
 
       {/* 5️⃣ WHY CHOOSE US – Differentiation */}

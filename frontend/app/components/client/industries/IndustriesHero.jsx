@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 
 export default function IndustriesHero() {
   return (
-    <section className="relative py-28 border-b border-white/10 overflow-hidden bg-black text-white">
+    <section className="relative py-28 border-b border-border overflow-hidden bg-background text-foreground">
 
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-pink-600/20 blur-3xl opacity-30"></div>
+      {/* Glow Accent */}
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 blur-3xl opacity-40 pointer-events-none"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 text-center">
 
@@ -19,7 +20,7 @@ export default function IndustriesHero() {
           Industries We Serve
         </motion.h1>
 
-        <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+        <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
           From local businesses to large enterprises, MP Advertisers delivers
           impactful printing and branding solutions across multiple industries.
         </p>

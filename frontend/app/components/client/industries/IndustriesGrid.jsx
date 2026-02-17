@@ -65,7 +65,7 @@ export default function IndustriesGrid() {
         "Industrial signage, factory branding, safety boards and large-scale print solutions.",
     },
     {
-      title: "MINING",
+      title: "Mining",
       image: "/industries/MINING.webp",
       description:
         "Heavy-duty safety signage, site boards and durable outdoor branding solutions.",
@@ -83,7 +83,7 @@ export default function IndustriesGrid() {
         "Shop boards, window graphics, in-store branding and promotional campaign prints.",
     },
     {
-      title: "Waste",
+      title: "Waste Management",
       image: "/industries/WASE MANAGEMENT.webp",
       description:
         "Environmental awareness signage, municipal boards and sustainability campaign materials.",
@@ -96,9 +96,8 @@ export default function IndustriesGrid() {
     },
   ];
 
-
   return (
-    <section className="py-28 px-6 bg-black text-white">
+    <section className="py-28 px-6 bg-background text-foreground">
       <div className="max-w-7xl mx-auto grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
         {industries.map((industry, index) => (
           <IndustryCard key={index} industry={industry} />

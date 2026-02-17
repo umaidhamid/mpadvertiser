@@ -10,7 +10,7 @@ export default function ProductsGrid({ products }) {
 
             {/* Product Count */}
             <div className="mb-8 flex justify-between items-center">
-                <p className="text-gray-400 text-sm">
+                <p className="text-muted-foreground text-sm">
                     {products.length} Product{products.length !== 1 && "s"} Found
                 </p>
             </div>
@@ -22,15 +22,16 @@ export default function ProductsGrid({ products }) {
                     animate={{ opacity: 1 }}
                     className="flex flex-col items-center justify-center py-32 text-center"
                 >
-                    <div className="w-20 h-20 flex items-center justify-center rounded-full bg-white/5 border border-white/10 mb-6">
-                        <PackageSearch size={36} className="text-gray-500" />
+                    <div className="w-20 h-20 flex items-center justify-center 
+          rounded-full bg-card border border-border mb-6">
+                        <PackageSearch size={36} className="text-muted-foreground" />
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-2 text-foreground">
                         No Products Found
                     </h3>
 
-                    <p className="text-gray-400 max-w-md">
+                    <p className="text-muted-foreground max-w-md">
                         Try adjusting your filters or clearing them to explore
                         more products.
                     </p>
