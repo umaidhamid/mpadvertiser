@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -17,7 +16,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-
+  
     const [mounted, setMounted] = useState(false);
 
     const pathname = usePathname();
@@ -28,7 +27,7 @@ const Navbar = () => {
 
     useEffect(() => setMounted(true), []);
 
-
+  
     const navItems = [
         { href: "/", label: "Home" },
         { href: "/AboutUs", label: "About Us" },
@@ -54,29 +53,17 @@ const Navbar = () => {
     bg-white/80 dark:bg-black/80
     backdrop-blur-xl
     border-b border-gray-200 dark:border-gray-800
-    shadow-m
+    shadow-sm
   "
             >
-                <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+                <div className="max-full mx-auto flex items-center justify-between px-6 py-4">
 
-
-
+                    {/* LOGO */}
                     <Link
                         href="/"
-
+                        className="text-2xl font-bold tracking-wide text-black dark:text-white transition"
                     >
-                        <Image
-                            src="/navlogo.webp"   // your logo in public folder
-                            alt="MP Advertisers Logo"
-                            width={90}
-                            height={90}
-                            priority
-                            className="object-contain"
-                        />
-
-                        {/* <span className="text-xl md:text-2xl font-semibold tracking-wide text-black dark:text-white transition duration-300 group-hover:opacity-80">
-                            MP Advertisers
-                        </span> */}
+                        MP Advertisers
                     </Link>
 
                     {/* ================= DESKTOP NAV ================= */}
