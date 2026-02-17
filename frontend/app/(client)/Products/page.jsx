@@ -24,7 +24,6 @@ export default function ProductsPage() {
   const fetchCategories = async () => {
     try {
       const res = await API.get("/products/categories");
-      console.log(res)
       setCategories(["All", ...res.data.categories]);
     } catch (err) {
       console.error("Category fetch error:", err);
@@ -75,7 +74,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <section className="min-h-screen bg-black text-white py-24 px-6">
+    <section className="min-h-screen bg-background text-foreground py-24 px-6">
       <div className="max-w-7xl mx-auto">
 
         <ProductsHeader
@@ -107,7 +106,7 @@ export default function ProductsPage() {
         {/* Products Grid */}
         <div className="mt-16">
           {loading ? (
-            <div className="text-center py-20 text-gray-400">
+            <div className="text-center py-20 text-muted-foreground">
               Loading products...
             </div>
           ) : (

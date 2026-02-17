@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { CartContext } from "../../context/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,26 +17,17 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+
+    const [mounted, setMounted] = useState(false);
+
     const pathname = usePathname();
+    const { theme, setTheme } = useTheme();
     const { cart } = useContext(CartContext);
 
-    const count = cart.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-    );
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 30);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    useEffect(() => setMounted(true), []);
 
-    useEffect(() => {
-        setMenuOpen(false);
-    }, [pathname]);
 
     const navItems = [
         { href: "/", label: "Home" },
@@ -54,26 +47,40 @@ const Navbar = () => {
 
     return (
         <>
-            {/* HEADER */}
+            {/* ================= HEADER ================= */}
             <header
-                className={`fixed w-full top-0 z-50 transition-all duration-300
-        ${scrolled
-                        ? "bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-lg"
-                        : "bg-transparent"
-                    }`}
+                className="
+    fixed w-full top-0 z-50
+    bg-white/80 dark:bg-black/80
+    backdrop-blur-xl
+    border-b border-gray-200 dark:border-gray-800
+    shadow-m
+  "
             >
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-                    {/* LOGO */}
+
+
                     <Link
                         href="/"
-                        className="text-white text-2xl font-bold tracking-wide"
+
                     >
-                        MP Advertisers
+                        <Image
+                            src="/navlogo.webp"   // your logo in public folder
+                            alt="MP Advertisers Logo"
+                            width={90}
+                            height={90}
+                            priority
+                            className="object-contain"
+                        />
+
+                        {/* <span className="text-xl md:text-2xl font-semibold tracking-wide text-black dark:text-white transition duration-300 group-hover:opacity-80">
+                            MP Advertisers
+                        </span> */}
                     </Link>
 
-                    {/* DESKTOP NAV */}
-                    <nav className="hidden md:flex items-center gap-8 relative">
+                    {/* ================= DESKTOP NAV ================= */}
+                    <nav className="hidden md:flex items-center gap-8">
                         {navItems.map((item) => {
                             const isActive = pathname === item.href;
 
@@ -81,92 +88,148 @@ const Navbar = () => {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="relative text-lg font-medium text-white/80 hover:text-white transition"
+                                    className="relative text-lg font-medium group"
                                 >
-                                    {item.label}
+                                    <span
+                                        className={`transition ${isActive
+                                            ? "text-indigo-600 dark:text-indigo-400"
+                                            : "text-black dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
+                                            }`}
+                                    >
+                                        {item.label}
+                                    </span>
 
                                     <span
-                                        className={`absolute left-0 -bottom-2 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300
-                    ${isActive ? "w-full" : "w-0"}`}
+                                        className={`absolute left-0 -bottom-2 h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                                            }`}
                                     />
                                 </Link>
                             );
                         })}
                     </nav>
 
-                    {/* RIGHT SECTION */}
+                    {/* ================= DESKTOP RIGHT ================= */}
                     <div className="hidden md:flex items-center gap-4">
 
-                        {/* CART ICON */}
-                        <Link href="/cart" className="relative">
-                            <ShoppingCart className="text-white w-6 h-6 hover:text-indigo-400 transition" />
+                        {/* THEME */}
+                        {mounted && (
+                            <button
+                                onClick={() =>
+                                    setTheme(theme === "dark" ? "light" : "dark")
+                                }
+                                className="w-10 h-10 flex items-center justify-center rounded-full
+                border border-gray-300 dark:border-gray-700
+                text-black dark:text-white
+                hover:bg-indigo-600 hover:text-white
+                transition"
+                            >
+                                {theme === "dark" ? (
+                                    <Sun size={18} />
+                                ) : (
+                                    <Moon size={18} />
+                                )}
+                            </button>
+                        )}
+
+                        {/* CART */}
+                        <Link href="/cart" className="relative group">
+                            <ShoppingCart className="w-6 h-6 text-black dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition" />
 
                             {count > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-red-600 text-xs px-2 py-[2px] rounded-full text-white">
+                                <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs px-2 py-[2px] rounded-full">
                                     {count}
                                 </span>
                             )}
                         </Link>
 
-                        {/* SOCIAL ICONS */}
+                        {/* SOCIAL */}
                         {socialLinks.map((social, i) => (
                             <a
                                 key={i}
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-9 h-9 flex items-center justify-center rounded-full 
-                bg-white/5 border border-white/10 
-                hover:bg-indigo-600 hover:border-indigo-600 
-                transition duration-300"
+                                className="w-9 h-9 flex items-center justify-center rounded-full
+                border border-gray-300 dark:border-gray-700
+                text-black dark:text-white
+                hover:bg-indigo-600 hover:text-white
+                transition"
                             >
-                                <FontAwesomeIcon
-                                    icon={social.icon}
-                                    className="text-white text-sm"
-                                />
+                                <FontAwesomeIcon icon={social.icon} />
                             </a>
                         ))}
-
                     </div>
 
-                    {/* HAMBURGER */}
-                    <button
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        className="md:hidden flex flex-col gap-1.5"
-                    >
-                        <span
-                            className={`w-6 h-0.5 bg-white transition-all duration-300 
-              ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
-                        />
-                        <span
-                            className={`w-6 h-0.5 bg-white transition-all duration-300 
-              ${menuOpen ? "opacity-0" : ""}`}
-                        />
-                        <span
-                            className={`w-6 h-0.5 bg-white transition-all duration-300 
-              ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-                        />
-                    </button>
+                    {/* ================= MOBILE RIGHT ================= */}
+                    <div className="flex items-center gap-4 md:hidden">
 
+                        {/* CART */}
+                        <Link href="/cart" className="relative">
+                            <ShoppingCart className="w-6 h-6 text-black dark:text-white" />
+                            {count > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs px-2 py-[2px] rounded-full">
+                                    {count}
+                                </span>
+                            )}
+                        </Link>
+
+                        {/* THEME */}
+                        {mounted && (
+                            <button
+                                onClick={() =>
+                                    setTheme(theme === "dark" ? "light" : "dark")
+                                }
+                                className="w-9 h-9 flex items-center justify-center rounded-full
+                border border-gray-300 dark:border-gray-700
+                text-black dark:text-white"
+                            >
+                                {theme === "dark" ? (
+                                    <Sun size={16} />
+                                ) : (
+                                    <Moon size={16} />
+                                )}
+                            </button>
+                        )}
+
+                        {/* BURGER */}
+                        <button
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            className="flex flex-col gap-1.5"
+                        >
+                            <span
+                                className={`w-6 h-0.5 bg-black dark:bg-white transition ${menuOpen ? "rotate-45 translate-y-2" : ""
+                                    }`}
+                            />
+                            <span
+                                className={`w-6 h-0.5 bg-black dark:bg-white transition ${menuOpen ? "opacity-0" : ""
+                                    }`}
+                            />
+                            <span
+                                className={`w-6 h-0.5 bg-black dark:bg-white transition ${menuOpen ? "-rotate-45 -translate-y-2" : ""
+                                    }`}
+                            />
+                        </button>
+                    </div>
                 </div>
             </header>
 
-            {/* BACKDROP */}
+            {/* ================= BACKDROP ================= */}
             {menuOpen && (
                 <div
                     onClick={() => setMenuOpen(false)}
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+                    className="fixed inset-0 bg-black/40 z-40 md:hidden"
                 />
             )}
 
-            {/* MOBILE MENU */}
+            {/* ================= MOBILE MENU ================= */}
             <div
-                className={`fixed top-0 right-0 h-full w-80 bg-black 
-        border-l border-white/10 shadow-2xl 
+                className={`fixed top-0 right-0 h-full w-80 bg-white dark:bg-black
+        border-l border-gray-200 dark:border-gray-800
+        shadow-2xl
         transform transition-transform duration-300 z-50 md:hidden
         ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
             >
-                <div className="flex flex-col mt-28 px-6 gap-6">
+                <div className="flex flex-col mt-24 px-6 gap-6">
 
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
@@ -175,51 +238,15 @@ const Navbar = () => {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`text-lg font-medium transition 
-                ${isActive
-                                        ? "text-indigo-400"
-                                        : "text-white/80 hover:text-white"
+                                className={`text-lg font-medium transition ${isActive
+                                    ? "text-indigo-600 dark:text-indigo-400"
+                                    : "text-black dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400"
                                     }`}
                             >
                                 {item.label}
                             </Link>
                         );
                     })}
-
-                    {/* CART IN MOBILE */}
-                    <Link
-                        href="/cart"
-                        className="flex items-center justify-between text-lg font-medium text-white/80 hover:text-white transition"
-                    >
-                        Cart
-                        {count > 0 && (
-                            <span className="bg-red-600 text-xs px-2 py-[2px] rounded-full text-white">
-                                {count}
-                            </span>
-                        )}
-                    </Link>
-
-                    {/* Divider */}
-                    <div className="border-t border-white/10 pt-6 mt-6 flex gap-4">
-                        {socialLinks.map((social, i) => (
-                            <a
-                                key={i}
-                                href={social.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 flex items-center justify-center rounded-full 
-                bg-white/5 border border-white/10 
-                hover:bg-indigo-600 hover:border-indigo-600 
-                transition duration-300"
-                            >
-                                <FontAwesomeIcon
-                                    icon={social.icon}
-                                    className="text-white"
-                                />
-                            </a>
-                        ))}
-                    </div>
-
                 </div>
             </div>
         </>

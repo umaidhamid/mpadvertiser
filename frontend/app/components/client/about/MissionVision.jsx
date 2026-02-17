@@ -5,15 +5,15 @@ import { Target, Eye, Sparkles } from "lucide-react";
 
 export default function MissionVision({ data }) {
   return (
-    <section className="relative py-28 px-6 overflow-hidden">
+    <section className="relative py-28 px-6 overflow-hidden bg-background text-foreground">
 
-      {/* Background depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.02] to-black pointer-events-none" />
-      <div className="absolute top-10 left-1/3 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full pointer-events-none" />
+      {/* Soft Background Glow */}
+      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
+      <div className="absolute top-10 left-1/3 w-96 h-96 bg-primary/10 blur-3xl rounded-full pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto">
 
-        {/* Section Heading */}
+        {/* ================= HEADING ================= */}
         <div className="text-center mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -25,12 +25,12 @@ export default function MissionVision({ data }) {
             Our Mission & Vision
           </motion.h2>
 
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-muted max-w-2xl mx-auto">
             Purpose-driven strategy. Long-term brand growth. Measurable impact.
           </p>
         </div>
 
-        {/* Mission & Vision Grid */}
+        {/* ================= GRID ================= */}
         <div className="grid md:grid-cols-2 gap-12">
 
           {/* Mission */}
@@ -39,11 +39,11 @@ export default function MissionVision({ data }) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="p-10 rounded-3xl bg-white/[0.04] 
-            border border-white/10 backdrop-blur-xl 
-            hover:border-indigo-500/40 transition duration-500"
+            className="p-10 rounded-3xl bg-card
+            border border-border
+            hover:border-primary transition duration-500"
           >
-            <div className="mb-6 text-indigo-400">
+            <div className="mb-6 text-primary">
               <Target size={28} />
             </div>
 
@@ -51,7 +51,7 @@ export default function MissionVision({ data }) {
               Our Mission
             </h3>
 
-            <p className="text-gray-400 leading-relaxed text-lg">
+            <p className="text-muted leading-relaxed text-lg">
               {data.mission}
             </p>
           </motion.div>
@@ -62,11 +62,11 @@ export default function MissionVision({ data }) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="p-10 rounded-3xl bg-white/[0.04] 
-            border border-white/10 backdrop-blur-xl 
-            hover:border-purple-500/40 transition duration-500"
+            className="p-10 rounded-3xl bg-card
+            border border-border
+            hover:border-primary transition duration-500"
           >
-            <div className="mb-6 text-purple-400">
+            <div className="mb-6 text-primary">
               <Eye size={28} />
             </div>
 
@@ -74,14 +74,14 @@ export default function MissionVision({ data }) {
               Our Vision
             </h3>
 
-            <p className="text-gray-400 leading-relaxed text-lg">
+            <p className="text-muted leading-relaxed text-lg">
               {data.vision}
             </p>
           </motion.div>
 
         </div>
 
-        {/* Philosophy Block */}
+        {/* ================= PHILOSOPHY ================= */}
         {data.philosophy && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -90,11 +90,11 @@ export default function MissionVision({ data }) {
             viewport={{ once: true }}
             className="mt-24 text-center max-w-3xl mx-auto"
           >
-            <div className="flex justify-center mb-6 text-indigo-400">
+            <div className="flex justify-center mb-6 text-primary">
               <Sparkles size={24} />
             </div>
 
-            <p className="text-white/70 text-lg md:text-xl italic leading-relaxed">
+            <p className="text-muted text-lg md:text-xl italic leading-relaxed">
               “{data.philosophy}”
             </p>
           </motion.div>

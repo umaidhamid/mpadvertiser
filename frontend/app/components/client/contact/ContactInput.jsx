@@ -14,9 +14,15 @@ export default function ContactInput({
       value={value}
       onChange={onChange}
       required={required}
-      className="w-full px-5 py-3 rounded-xl bg-white/5 
-      border border-white/10 focus:border-indigo-500 
-      outline-none transition"
+      className="
+        w-full px-5 py-3 rounded-xl
+        bg-background
+        border border-border
+        text-foreground
+        placeholder:text-muted
+        focus:ring-2 focus:ring-primary
+        outline-none transition
+      "
     />
   );
 }

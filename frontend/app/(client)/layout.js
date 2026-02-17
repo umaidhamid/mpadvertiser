@@ -75,7 +75,7 @@ export default function ClientLayout({ children }) {
     <html lang="en">
       <body className=" text-gray-800">
         <CartProvider>
-          <ScrollProgress />
+          {/* <ScrollProgress /> */}
           <FloatingWhatsApp />
           <Navbar />
 

@@ -31,12 +31,8 @@ export default function CartPage() {
 
     const total = subtotal - discountAmount;
 
-    /* ---------------- PHONE VALIDATION ---------------- */
-    const isValidPhone = (phone) => {
-        return /^[6-9]\d{9}$/.test(phone);
-    };
+    const isValidPhone = (phone) => /^[6-9]\d{9}$/.test(phone);
 
-    /* ---------------- APPLY COUPON ---------------- */
     const applyCoupon = async () => {
         if (!coupon.trim()) {
             toast.error("Enter coupon code");
@@ -56,14 +52,12 @@ export default function CartPage() {
                 setDiscountAmount(0);
                 toast.error(res.data.message || "Invalid coupon");
             }
-
-        } catch (error) {
+        } catch {
             setDiscountAmount(0);
             toast.error("Coupon validation failed");
         }
     };
 
-    /* ---------------- PLACE ORDER ---------------- */
     const handlePlaceOrder = async () => {
         if (!customer.name.trim() || !customer.phone.trim()) {
             toast.error("Name and phone are required");
@@ -95,33 +89,29 @@ export default function CartPage() {
             });
 
             const orderId = res.data.order._id;
-            console.log(orderId)
-            clearCart();
 
+            clearCart();
             toast.success("Order placed successfully!");
 
-            // Open invoice page
             router.push(`/invoice/${orderId}`);
-
-            // Auto download (if your invoice route handles ?download=true)
             window.open(`/invoice/${orderId}?download=true`, "_blank");
 
-        } catch (error) {
+        } catch {
             toast.error("Failed to place order. Try again.");
         } finally {
             setPlacingOrder(false);
         }
     };
 
-    /* ---------------- EMPTY CART ---------------- */
+    /* ================= EMPTY CART ================= */
     if (cart.length === 0) {
         return (
-            <section className="min-h-screen bg-black text-white flex flex-col items-center justify-center text-center">
-                <ShoppingBag size={48} className="mb-6 text-white/30" />
+            <section className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center text-center">
+                <ShoppingBag size={48} className="mb-6 text-muted" />
                 <h2 className="text-3xl font-semibold mb-3">
                     Your Cart is Empty
                 </h2>
-                <p className="text-gray-400">
+                <p className="text-muted">
                     Add products to start building your order.
                 </p>
             </section>
@@ -129,10 +119,10 @@ export default function CartPage() {
     }
 
     return (
-        <section className="min-h-screen bg-black text-white py-24 px-6">
+        <section className="min-h-screen bg-background text-foreground py-24 px-6">
             <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-14">
 
-                {/* LEFT SIDE */}
+                {/* ================= LEFT SIDE ================= */}
                 <div className="lg:col-span-2 space-y-8">
 
                     <h1 className="text-3xl font-bold tracking-tight">
@@ -142,7 +132,7 @@ export default function CartPage() {
                     {cart.map((item) => (
                         <div
                             key={item._id + item.variant}
-                            className="bg-white/[0.04] border border-white/10 rounded-2xl p-6"
+                            className="bg-card border border-border rounded-2xl p-6"
                         >
                             <div className="flex justify-between items-start">
 
@@ -150,10 +140,12 @@ export default function CartPage() {
                                     <h3 className="text-lg font-semibold">
                                         {item.name}
                                     </h3>
-                                    <p className="text-sm text-gray-400 mt-1">
+
+                                    <p className="text-sm text-muted mt-1">
                                         Variant: {item.variant}
                                     </p>
-                                    <p className="text-sm text-gray-400">
+
+                                    <p className="text-sm text-muted">
                                         ₹{item.price} per unit
                                     </p>
                                 </div>
@@ -162,7 +154,7 @@ export default function CartPage() {
                                     onClick={() =>
                                         removeItem(item._id, item.variant)
                                     }
-                                    className="text-red-500 hover:text-red-400 transition"
+                                    className="text-destructive hover:opacity-80 transition"
                                 >
                                     <Trash2 size={18} />
                                 </button>
@@ -170,12 +162,12 @@ export default function CartPage() {
 
                             <div className="flex justify-between items-center mt-6">
 
-                                <div className="flex border border-white/20 rounded-xl overflow-hidden">
+                                <div className="flex border border-border rounded-xl overflow-hidden">
                                     <button
                                         onClick={() =>
                                             updateQuantity(item._id, item.variant, -1)
                                         }
-                                        className="px-5 py-2 hover:bg-white/10"
+                                        className="px-5 py-2 hover:bg-muted transition"
                                     >
                                         −
                                     </button>
@@ -188,7 +180,7 @@ export default function CartPage() {
                                         onClick={() =>
                                             updateQuantity(item._id, item.variant, 1)
                                         }
-                                        className="px-5 py-2 hover:bg-white/10"
+                                        className="px-5 py-2 hover:bg-muted transition"
                                     >
                                         +
                                     </button>
@@ -202,27 +194,27 @@ export default function CartPage() {
                     ))}
                 </div>
 
-                {/* RIGHT SIDE */}
-                <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-8 sticky top-28 h-fit">
+                {/* ================= RIGHT SIDE ================= */}
+                <div className="bg-card border border-border rounded-2xl p-8 sticky top-28 h-fit">
 
                     <h2 className="text-2xl font-semibold mb-8">
                         Order Summary
                     </h2>
 
                     <div className="space-y-4 text-sm mb-8">
-                        <div className="flex justify-between text-gray-400">
+                        <div className="flex justify-between text-muted">
                             <span>Subtotal</span>
                             <span>₹{subtotal}</span>
                         </div>
 
                         {discountAmount > 0 && (
-                            <div className="flex justify-between text-green-400">
+                            <div className="flex justify-between text-green-500">
                                 <span>Discount</span>
                                 <span>- ₹{discountAmount.toFixed(0)}</span>
                             </div>
                         )}
 
-                        <div className="border-t border-white/10 pt-4 flex justify-between text-xl font-bold">
+                        <div className="border-t border-border pt-4 flex justify-between text-xl font-bold">
                             <span>Total</span>
                             <span>₹{total.toFixed(0)}</span>
                         </div>
@@ -234,11 +226,11 @@ export default function CartPage() {
                             placeholder="Coupon Code"
                             value={coupon}
                             onChange={(e) => setCoupon(e.target.value)}
-                            className="flex-1 bg-white/10 p-3 rounded-xl outline-none"
+                            className="flex-1 bg-background border border-border p-3 rounded-xl outline-none focus:ring-2 focus:ring-primary"
                         />
                         <button
                             onClick={applyCoupon}
-                            className="px-4 bg-indigo-600 rounded-xl hover:bg-indigo-700 transition"
+                            className="px-4 bg-primary text-primary-foreground rounded-xl hover:opacity-90 transition"
                         >
                             Apply
                         </button>
@@ -253,7 +245,7 @@ export default function CartPage() {
                             onChange={(e) =>
                                 setCustomer({ ...customer, name: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
+                            className="w-full bg-background border border-border p-3 rounded-xl outline-none focus:ring-2 focus:ring-primary"
                         />
 
                         <input
@@ -262,7 +254,7 @@ export default function CartPage() {
                             onChange={(e) =>
                                 setCustomer({ ...customer, phone: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
+                            className="w-full bg-background border border-border p-3 rounded-xl outline-none focus:ring-2 focus:ring-primary"
                         />
 
                         <textarea
@@ -271,7 +263,7 @@ export default function CartPage() {
                             onChange={(e) =>
                                 setCustomer({ ...customer, address: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
+                            className="w-full bg-background border border-border p-3 rounded-xl outline-none"
                         />
 
                         <textarea
@@ -280,13 +272,15 @@ export default function CartPage() {
                             onChange={(e) =>
                                 setCustomer({ ...customer, notes: e.target.value })
                             }
-                            className="w-full bg-white/10 p-3 rounded-xl outline-none"
+                            className="w-full bg-background border border-border p-3 rounded-xl outline-none"
                         />
 
                         <button
                             onClick={handlePlaceOrder}
                             disabled={placingOrder}
-                            className="w-full bg-green-600 hover:bg-green-700 transition py-4 rounded-xl font-semibold text-white disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full bg-primary text-primary-foreground
+              hover:opacity-90 transition py-4 rounded-xl font-semibold
+              disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                             {placingOrder && (
                                 <Loader2 className="animate-spin" size={18} />
@@ -295,9 +289,7 @@ export default function CartPage() {
                         </button>
 
                     </div>
-
                 </div>
-
             </div>
         </section>
     );

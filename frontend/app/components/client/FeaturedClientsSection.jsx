@@ -9,25 +9,32 @@ export default function FeaturedClientsSection() {
 
   useEffect(() => {
     const fetchClients = async () => {
-      const res = await Api.get("/clients/get");
-      setClients(res.data.clients);
+      try {
+        const res = await Api.get("/clients/get");
+        setClients(res.data.clients || []);
+      } catch (err) {
+        console.error("Clients fetch error:", err);
+      }
     };
 
     fetchClients();
   }, []);
 
   return (
-    <section className="relative py-16 text-white overflow-hidden">
+    <section className="relative py-20 bg-background text-foreground overflow-hidden">
 
-      <div className="text-center mb-14">
+      {/* ================= HEADING ================= */}
+      <div className="text-center mb-14 px-6">
         <h2 className="text-3xl md:text-4xl font-semibold">
           Trusted by Leading Brands
         </h2>
-        <p className="text-gray-400 mt-4">
+
+        <p className="text-muted mt-4">
           Businesses across industries rely on our expertise.
         </p>
       </div>
 
+      {/* ================= CLIENT LOGOS ================= */}
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0 }}
@@ -42,17 +49,21 @@ export default function FeaturedClientsSection() {
               href={client.website || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition duration-300 hover:scale-105"
+              className="transition duration-300 hover:scale-105
+              p-4 rounded-xl bg-card border border-border
+              hover:border-primary"
             >
               <img
                 src={client.url}
                 alt={client.name}
-                className="h-20 md:h-24 object-contain"
+                className="h-20 md:h-24 object-contain 
+                grayscale hover:grayscale-0 transition duration-300"
               />
             </a>
           ))}
         </motion.div>
       </div>
+
     </section>
   );
 }

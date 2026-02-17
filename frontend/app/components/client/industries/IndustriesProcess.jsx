@@ -9,7 +9,7 @@ export default function IndustriesProcess() {
   ];
 
   return (
-    <section className="py-24 bg-black text-white border-t border-white/10">
+    <section className="py-24 bg-background text-foreground border-t border-border">
       <div className="max-w-6xl mx-auto px-6 text-center">
 
         <h2 className="text-3xl md:text-4xl font-bold mb-12">
@@ -20,12 +20,16 @@ export default function IndustriesProcess() {
           {steps.map((step, i) => (
             <div
               key={i}
-              className="bg-white/5 p-8 rounded-2xl border border-white/10"
+              className="bg-card p-8 rounded-2xl border border-border 
+              shadow-sm hover:shadow-md transition"
             >
-              <div className="text-indigo-500 font-bold text-2xl mb-4">
+              <div className="text-primary font-bold text-2xl mb-4">
                 {i + 1}
               </div>
-              <p className="text-gray-400">{step}</p>
+
+              <p className="text-muted-foreground">
+                {step}
+              </p>
             </div>
           ))}
         </div>

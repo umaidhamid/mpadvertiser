@@ -5,14 +5,10 @@ import Link from "next/link";
 
 export default function AboutHero({ data }) {
     return (
-        <section className="relative overflow-hidden pt-36 pb-28 px-6 text-center">
+        <section className="relative overflow-hidden pt-36 pb-28 px-6 text-center bg-background text-foreground">
 
-            {/* Background Gradient Layer */}
-            <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/10 via-black to-black pointer-events-none" />
-
-            {/* Decorative Blurs */}
-            <div className="absolute top-24 left-1/3 w-96 h-96 bg-indigo-500/20 blur-3xl rounded-full opacity-40 pointer-events-none" />
-            <div className="absolute bottom-10 right-1/3 w-96 h-96 bg-purple-500/20 blur-3xl rounded-full opacity-40 pointer-events-none" />
+            {/* Soft Brand Glow */}
+            <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
 
             <div className="relative max-w-6xl mx-auto">
 
@@ -22,11 +18,11 @@ export default function AboutHero({ data }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     className="inline-flex items-center gap-4 
-          bg-white/5 border border-white/10 
-          px-6 py-2 rounded-full text-sm text-gray-300 mb-8"
+          bg-card border border-border
+          px-6 py-2 rounded-full text-sm text-muted mb-8"
                 >
                     <span>{data.established}</span>
-                    <span className="w-1 h-1 bg-gray-400 rounded-full" />
+                    <span className="w-1 h-1 bg-border rounded-full" />
                     <span>{data.location}</span>
                 </motion.div>
 
@@ -56,7 +52,7 @@ export default function AboutHero({ data }) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.1 }}
-                    className="text-xl md:text-2xl font-medium text-white/80 mb-6"
+                    className="text-xl md:text-2xl font-medium text-muted mb-6"
                 >
                     {data.tagline}
                 </motion.p>
@@ -66,12 +62,12 @@ export default function AboutHero({ data }) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.15 }}
-                    className="text-gray-400 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
+                    className="text-muted text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
                 >
                     {data.subtitle}
                 </motion.p>
 
-                {/* Highlight Points */}
+                {/* Highlights */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -81,7 +77,9 @@ export default function AboutHero({ data }) {
                     {data.highlights?.map((item, i) => (
                         <div
                             key={i}
-                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300"
+                            className="px-6 py-3 rounded-full 
+              bg-card border border-border
+              text-sm text-muted"
                         >
                             {item}
                         </div>
@@ -98,17 +96,19 @@ export default function AboutHero({ data }) {
                     <Link
                         href="/Contact-Us"
                         className="px-8 py-4 rounded-full 
-            bg-gradient-to-r from-indigo-600 to-purple-600 
-            text-white font-semibold shadow-lg 
-            hover:shadow-indigo-500/40 transition duration-300"
+            bg-primary text-primary-foreground
+            font-semibold shadow-md
+            hover:opacity-90 transition duration-300"
                     >
                         Start Your Project
                     </Link>
 
                     <Link
                         href="/Products"
-                        className="px-8 py-4 rounded-full border border-white/20 
-            text-white hover:bg-white/10 transition duration-300"
+                        className="px-8 py-4 rounded-full 
+            border border-border
+            text-foreground 
+            hover:bg-card transition duration-300"
                     >
                         Explore Our Work
                     </Link>
@@ -121,8 +121,8 @@ export default function AboutHero({ data }) {
                     transition={{ delay: 0.6 }}
                     className="mt-20 flex justify-center"
                 >
-                    <div className="w-6 h-10 border border-white/20 rounded-full flex justify-center">
-                        <div className="w-1 h-2 bg-white/40 rounded-full mt-2 animate-bounce" />
+                    <div className="w-6 h-10 border border-border rounded-full flex justify-center">
+                        <div className="w-1 h-2 bg-muted rounded-full mt-2 animate-bounce" />
                     </div>
                 </motion.div>
 

@@ -30,7 +30,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/components/theme-provider.jsx"  ],
   "exclude": [
     "node_modules"
   ]

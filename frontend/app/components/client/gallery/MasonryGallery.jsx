@@ -15,8 +15,6 @@ export default function MasonryGallery() {
 
     const limit = 12;
 
-    /* ================= FETCH ================= */
-
     useEffect(() => {
         const fetchImages = async () => {
             try {
@@ -39,19 +37,19 @@ export default function MasonryGallery() {
     }, [page]);
 
     return (
-        <section className="py-20 bg-black text-white relative">
+        <section className="py-20 bg-background text-foreground relative">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* ================= LOADING ================= */}
                 {loading ? (
                     <div className="flex justify-center py-32">
                         <Loader2
-                            className="animate-spin text-white/60"
+                            className="animate-spin text-muted-foreground"
                             size={40}
                         />
                     </div>
                 ) : images.length === 0 ? (
-                    <div className="text-center py-32 text-gray-500 text-lg">
+                    <div className="text-center py-32 text-muted-foreground text-lg">
                         Nothing here yet.
                     </div>
                 ) : (
@@ -73,7 +71,7 @@ export default function MasonryGallery() {
                                     className="mb-6 break-inside-avoid group cursor-pointer overflow-hidden rounded-2xl"
                                     onClick={() => setActiveIndex(index)}
                                 >
-                                    <div className="relative overflow-hidden rounded-2xl bg-white/5">
+                                    <div className="relative overflow-hidden rounded-2xl bg-card border border-border">
 
                                         <img
                                             src={img.url}
@@ -92,7 +90,7 @@ export default function MasonryGallery() {
                                         <div
                                             className="
                         absolute inset-0
-                        bg-black/30
+                        bg-black/20 dark:bg-black/40
                         opacity-0
                         group-hover:opacity-100
                         transition
@@ -110,20 +108,32 @@ export default function MasonryGallery() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage((prev) => prev - 1)}
-                                className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg disabled:opacity-40"
+                                className="
+                  flex items-center gap-2
+                  bg-card border border-border
+                  px-4 py-2 rounded-lg
+                  hover:bg-accent hover:text-accent-foreground
+                  transition disabled:opacity-40
+                "
                             >
                                 <ChevronLeft size={18} />
                                 Prev
                             </button>
 
-                            <span className="text-gray-400 text-sm">
+                            <span className="text-muted-foreground text-sm">
                                 Page {page} of {pages}
                             </span>
 
                             <button
                                 disabled={page === pages}
                                 onClick={() => setPage((prev) => prev + 1)}
-                                className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg disabled:opacity-40"
+                                className="
+                  flex items-center gap-2
+                  bg-card border border-border
+                  px-4 py-2 rounded-lg
+                  hover:bg-accent hover:text-accent-foreground
+                  transition disabled:opacity-40
+                "
                             >
                                 Next
                                 <ChevronRight size={18} />

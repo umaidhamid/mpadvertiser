@@ -41,19 +41,22 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="bg-background text-white py-25 px-6">
+    <section className="bg-background text-foreground py-24 px-6">
 
-      <div className="text-center mb-20 max-w-2xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6 text-white ">
+      {/* ================= HEADING ================= */}
+      <div className="text-center mb-16 max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6">
           Proven Results
         </h2>
 
-        <p className="text-base opacity-70">
+        <p className="text-base text-muted">
           Real numbers. Real growth. Real impact.
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-14 text-center">
+      {/* ================= STATS GRID ================= */}
+      <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+
         {stats.map((stat, index) => (
           <motion.div
             key={index}
@@ -61,16 +64,19 @@ export default function StatsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
+            className="bg-card border border-border rounded-xl py-8 px-4
+            hover:border-primary transition"
           >
-            <div className="text-4xl md:text-5xl font-bold">
+            <div className="text-4xl md:text-5xl font-bold text-primary">
               <Counter end={stat.number} suffix={stat.suffix} />
             </div>
 
-            <p className="mt-3 text-sm opacity-60 tracking-wide">
+            <p className="mt-3 text-sm text-muted tracking-wide">
               {stat.label}
             </p>
           </motion.div>
         ))}
+
       </div>
     </section>
   );

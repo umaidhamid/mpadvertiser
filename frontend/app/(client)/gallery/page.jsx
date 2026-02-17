@@ -5,11 +5,12 @@ import MasonryGallery from "../../components/client/gallery/MasonryGallery";
 
 export default function GalleryPage() {
   return (
-    <main className="bg-black text-white max-w-7xl mx-auto">
+    <main className="bg-background text-foreground min-h-screen">
 
-      <GalleryHero />
-
-      <MasonryGallery />
+      <div className="max-w-7xl mx-auto">
+        <GalleryHero />
+        <MasonryGallery />
+      </div>
 
     </main>
   );

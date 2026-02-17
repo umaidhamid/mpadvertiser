@@ -41,16 +41,15 @@ export default function ReasonsSection() {
     },
   ];
 
-
   return (
-    <section className="relative py-32 px-6 bg-black text-white overflow-hidden">
+    <section className="relative py-32 px-6 bg-background text-foreground overflow-hidden">
 
-      {/* Soft Glow Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-600/10 blur-3xl opacity-40" />
+      {/* Soft Background Accent */}
+      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
 
-        {/* Heading */}
+        {/* ================= HEADING ================= */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -60,17 +59,17 @@ export default function ReasonsSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
             7 Reasons{" "}
-            <span className="bg-gradient-to-r from-pink-500 to-indigo-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-200 to-purple-500 bg-clip-text text-transparent">
               Why MP Advertisers
             </span>
           </h2>
 
-          <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">
+          <p className="text-muted mt-6 max-w-2xl mx-auto text-lg">
             We don’t just print. We create visual impact that builds strong, lasting brands.
           </p>
         </motion.div>
 
-        {/* Grid */}
+        {/* ================= GRID ================= */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
 
           {reasons.map((r, i) => (
@@ -81,13 +80,14 @@ export default function ReasonsSection() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -12 }}
-              className="group relative bg-white/5 border border-white/10 
-              backdrop-blur-xl rounded-3xl p-10 text-center 
-              transition-all duration-500 hover:border-indigo-500/60 
-              hover:shadow-xl hover:shadow-indigo-500/10"
+              className="group relative bg-card border border-border 
+              rounded-3xl p-10 text-center 
+              transition-all duration-500 
+              hover:border-primary hover:shadow-lg"
             >
-              {/* Glow Hover Layer */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-br from-indigo-600/10 via-purple-600/10 to-pink-600/10 blur-2xl rounded-3xl" />
+              {/* Hover Glow */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 
+              transition duration-700 bg-primary/10 blur-2xl rounded-3xl pointer-events-none" />
 
               <div className="relative">
                 <img
@@ -96,11 +96,11 @@ export default function ReasonsSection() {
                   className="w-20 mx-auto mb-6 transition duration-500 group-hover:scale-110"
                 />
 
-                <h3 className="text-xl font-semibold mb-4 tracking-wide group-hover:text-indigo-400 transition">
+                <h3 className="text-xl font-semibold mb-4 tracking-wide group-hover:text-primary transition">
                   {r.title}
                 </h3>
 
-                <p className="text-gray-400 leading-relaxed text-sm">
+                <p className="text-muted leading-relaxed text-sm">
                   {r.desc}
                 </p>
               </div>

@@ -54,7 +54,7 @@ export default function ContactForm() {
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-3xl space-y-6"
+      className="bg-card border border-border p-10 rounded-3xl space-y-6 shadow-lg"
     >
       <ContactInput
         name="name"
@@ -97,14 +97,14 @@ export default function ContactForm() {
         type="submit"
         disabled={loading}
         className="w-full py-4 rounded-xl font-semibold 
-        bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600
+        bg-primary text-primary-foreground
         hover:opacity-90 transition"
       >
         {loading ? "Sending..." : "Send Message"}
       </button>
 
       {success && (
-        <p className="text-green-400 text-center">
+        <p className="text-green-500 text-center">
           Message sent successfully!
         </p>
       )}
