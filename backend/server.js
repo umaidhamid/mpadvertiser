@@ -61,28 +61,28 @@ app.use("/coupons", couponsRoute);
 app.use("/orders", orderRoutes);
 app.use("/team", teamRoutes);
 app.use("/carousel", carouselRoutes);;
-cron.schedule("*/10   * * * *", async () => {
-    try {
-        const [apiRes, siteRes] = await Promise.all([
-            axios.get("https://mpadvertisers-backend.onrender.com/", { timeout: 8000 }),
-            axios.get("https://www.umaidhamid.in/", { timeout: 8000 }),
-        ]);
+// cron.schedule("*/10   * * * *", async () => {
+//     try {
+//         const [apiRes, siteRes] = await Promise.all([
+//             axios.get("https://mpadvertisers-backend.onrender.com/", { timeout: 8000 }),
+//             axios.get("https://www.umaidhamid.in/", { timeout: 8000 }),
+//         ]);
 
-        console.log("Health check OK:", {
-            api: apiRes.status,
-            website: siteRes.status,
-            time: new Date().toISOString(),
-        });
+//         console.log("Health check OK:", {
+//             api: apiRes.status,
+//             website: siteRes.status,
+//             time: new Date().toISOString(),
+//         });
 
-    } catch (error) {
-        console.error("Health check failed:", {
-            message: error.message,
-            url: error.config?.url,
-            status: error.response?.status,
-            time: new Date().toISOString(),
-        });
-    }
-});
+//     } catch (error) {
+//         console.error("Health check failed:", {
+//             message: error.message,
+//             url: error.config?.url,
+//             status: error.response?.status,
+//             time: new Date().toISOString(),
+//         });
+//     }
+// });
 app.get("/", (req, res) => {
     res.send("Server is running...");
 });
