@@ -20,11 +20,7 @@ export default function HomePage() {
 
       {/* 1️⃣ HERO – Big Promise + Clear CTA */}
       <HeroSection />
-
-    
       <ServicesSection />
-
-    
       <WhyChooseUsSection />
 
       <HomeProductsSection />

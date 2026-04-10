@@ -114,6 +114,9 @@ export default function CartPage() {
                 <p className="text-muted">
                     Add products to start building your order.
                 </p>
+                <button onClick={() => router.push("/")} className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition">
+                    Make Order
+                </button>
             </section>
         );
     }
