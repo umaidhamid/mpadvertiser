@@ -1,4 +1,4 @@
-import express from "express";
+ import express from "express";
 import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
@@ -9,7 +9,7 @@ import {
   deleteStudent,
 } from "../controllers/student.controller.js";
 
-// POST   /api/students       → Register new student
+// POST   /students       → Register new student
 router.post(
   "/",
   uploadSingleImage("students", "photo"), // 👈 IMPORTANT

@@ -407,8 +407,8 @@ export default function StudentCapturePage() {
                                     </select>
                                 </div>
 
-                                {/* Email */}
-                                <div className="col-span-2">
+                                
+                                {/* <div className="col-span-2">
                                     <label className={labelClass}>Email *</label>
                                     <input
                                         type="email"
@@ -421,7 +421,7 @@ export default function StudentCapturePage() {
                                     />
                                 </div>
 
-                                {/* Phone */}
+                               
                                 <div>
                                     <label className={labelClass}>Phone</label>
                                     <input
@@ -434,7 +434,7 @@ export default function StudentCapturePage() {
                                     />
                                 </div>
 
-                                {/* Section */}
+                               
                                 <div>
                                     <label className={labelClass}>Section</label>
                                     <select
@@ -450,7 +450,7 @@ export default function StudentCapturePage() {
                                     </select>
                                 </div>
 
-                                {/* Date of Birth */}
+                              
                                 <div>
                                     <label className={labelClass}>Date of Birth</label>
                                     <input
@@ -462,7 +462,6 @@ export default function StudentCapturePage() {
                                     />
                                 </div>
 
-                                {/* Status */}
                                 <div>
                                     <label className={labelClass}>Status</label>
                                     <select
@@ -476,7 +475,7 @@ export default function StudentCapturePage() {
                                     </select>
                                 </div>
 
-                                {/* Address */}
+                               
                                 <div className="col-span-2">
                                     <label className={labelClass}>Address</label>
                                     <textarea
@@ -489,7 +488,7 @@ export default function StudentCapturePage() {
                                     />
                                 </div>
 
-                                {/* Guardian Name */}
+                                
                                 <div>
                                     <label className={labelClass}>Guardian Name</label>
                                     <input
@@ -502,7 +501,7 @@ export default function StudentCapturePage() {
                                     />
                                 </div>
 
-                                {/* Guardian Phone */}
+                               
                                 <div>
                                     <label className={labelClass}>Guardian Phone</label>
                                     <input
@@ -513,7 +512,7 @@ export default function StudentCapturePage() {
                                         placeholder="+91 98765 43210"
                                         className={inputClass}
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

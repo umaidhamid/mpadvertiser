@@ -11,14 +11,14 @@ const createStudent = async (req, res) => {
       name,
       rollNumber,
       email,
-      phone,
+      // phone,
       class: studentClass,
-      section,
-      address,
-      dateOfBirth,
-      guardianName,
-      guardianPhone,
-      status,
+      // section,
+      // address,
+      // dateOfBirth,
+      // guardianName,
+      // guardianPhone,
+      // status,
     } = req.body;
 
     // 🔥 get image from cloudinary (via multer)
@@ -27,7 +27,7 @@ const photoUrl = req.uploadedImage?.url;
     const missingFields = [];
     if (!name) missingFields.push("name");
     if (!rollNumber) missingFields.push("rollNumber");
-    if (!email) missingFields.push("email");
+    // if (!email) missingFields.push("email");
     if (!studentClass) missingFields.push("class");
     if (!photoUrl) missingFields.push("photo");
 
@@ -54,16 +54,16 @@ const photoUrl = req.uploadedImage?.url;
     const student = await Student.create({
       name,
       rollNumber,
-      email,
-      phone,
+      // email,
+      // phone,
       class: studentClass,
-      section,
+      // section,
       photo: photoUrl, // ✅ URL not base64
-      address,
-      dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : undefined,
-      guardianName,
-      guardianPhone,
-      status: status || "active",
+      // address,
+      // dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : undefined,
+      // guardianName,
+      // guardianPhone,
+      // status: status || "active",
     });
 
     res.status(201).json({
