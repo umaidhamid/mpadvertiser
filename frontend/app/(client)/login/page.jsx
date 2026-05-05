@@ -13,8 +13,8 @@ export default function AdminLogin() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("umaid@test.com");
-  const [password, setPassword] = useState("asifdar");
+  const [email, setEmail] = useState("umaid.hamid.in@gmail.com");
+  const [password, setPassword] = useState("umaidkhan");
 
   const handleSubmit = async (e) => {
     e.preventDefault();

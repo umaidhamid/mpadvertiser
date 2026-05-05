@@ -1,24 +1,26 @@
+
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
 import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import productRoutes from "./routes/productRoutes.js";
-import axios from "axios";
+import axios from "axios"
 import offerRoutes from "./routes/offer.routes.js";
 import morgan from "morgan";
 import galleryRoutes from "./routes/gallery.routes.js";
 import carouselRoutes from "./routes/carousel.routes.js";
 import testimonialRoutes from "./routes/testimonial.routes.js";
-
+// console.log("MONGO_URI:", process.env.MONGO_URI);
 import clientRoutes from "./routes/client.routes.js";
 import teamRoutes from "./routes/team.routes.js";
 import couponsRoute from "./routes/couponRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoute from "./routes/upload.router.js";
+import studentRoutes from "./routes/student.routes.js";
 
-
-dotenv.config();
 
 const app = express();
 
@@ -59,7 +61,10 @@ app.use("/clients", clientRoutes);
 app.use("/coupons", couponsRoute);
 app.use("/orders", orderRoutes);
 app.use("/team", teamRoutes);
-app.use("/carousel", carouselRoutes);;
+app.use("/carousel", carouselRoutes);
+app.use("/uploadcsv", uploadRoute);
+app.use("/students", studentRoutes);
+
 app.get("/", (req, res) => {
     res.send("Server is running...");
 });
@@ -68,7 +73,8 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
     try {
-        mongoose.connect(process.env.MONGO_URI);
+        // console.log("MONGO URI:", process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI);
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
