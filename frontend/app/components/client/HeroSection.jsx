@@ -172,7 +172,7 @@ const HeroSection = () => {
           <motion.button
             whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,1)", color: "#000" }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => window.open("https://search.google.com/local/writereview?...", "_blank")}
+            onClick={() => window.open("https://maps.app.goo.gl/8mkpm5o7K3m6MEdk8", "_blank")}
             className="flex items-center gap-2 px-10 py-4 rounded-full text-base font-bold tracking-wider 
                        border-2 border-white/30 text-white backdrop-blur-sm
                        transition-all duration-300 hover:border-white"

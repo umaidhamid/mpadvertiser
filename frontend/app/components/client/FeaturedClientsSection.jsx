@@ -36,32 +36,38 @@ export default function FeaturedClientsSection() {
 
       {/* ================= CLIENT LOGOS ================= */}
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center items-center gap-12"
-        >
-          {clients.map((client) => (
-            <a
-              key={client._id}
-              href={client.website || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition duration-300 hover:scale-105
-              p-4 rounded-xl bg-card border border-border
-              hover:border-primary"
-            >
-              <img
-                src={client.url}
-                alt={client.name}
-                className="h-20 md:h-24 object-contain 
-                grayscale hover:grayscale-0 transition duration-300"
-              />
-            </a>
-          ))}
-        </motion.div>
+        {clients.length === 0 ? (
+          <div className="text-center text-muted py-4">
+            No client logos added yet.
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap justify-center items-center gap-12"
+          >
+            {clients.map((client) => (
+              <a
+                key={client._id}
+                href={client.website || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition duration-300 hover:scale-105
+                p-4 rounded-xl bg-card border border-border
+                hover:border-primary"
+              >
+                <img
+                  src={client.url}
+                  alt={client.name}
+                  className="h-20 md:h-24 object-contain
+                  grayscale hover:grayscale-0 transition duration-300"
+                />
+              </a>
+            ))}
+          </motion.div>
+        )}
       </div>
 
     </section>

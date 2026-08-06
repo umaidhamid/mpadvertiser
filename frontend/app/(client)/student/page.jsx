@@ -166,7 +166,7 @@ export default function StudentCapturePage() {
                 }}
             />
 
-            <div className="relative z-10 max-w-5xl mx-auto px-4 py-10">
+            <div className="relative z-10 max-w-5xl mx-auto px-4 pt-28 pb-10">
                 {/* Header */}
                 <div className="mb-10">
                     <div className="flex items-center gap-3 mb-2">

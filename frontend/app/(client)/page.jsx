@@ -36,6 +36,7 @@ export default function HomePage() {
       <ProcessSection />
       <StatsSection />
       <MidCTASection />
+      <VisionSection />
       <FeaturedClientsSection />
      
       <CTASection />

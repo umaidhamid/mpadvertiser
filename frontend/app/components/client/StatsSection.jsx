@@ -1,12 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 function Counter({ end, suffix = "", duration = 2 }) {
   const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
 
   useEffect(() => {
+    if (!inView) return;
+
     let start = 0;
     const increment = end / (duration * 60);
 
@@ -22,10 +26,10 @@ function Counter({ end, suffix = "", duration = 2 }) {
     }, 1000 / 60);
 
     return () => clearInterval(counter);
-  }, [end, duration]);
+  }, [end, duration, inView]);
 
   return (
-    <span>
+    <span ref={ref}>
       {count}
       {suffix}
     </span>

@@ -5,37 +5,37 @@ import { motion } from "framer-motion";
 export default function ReasonsSection() {
   const reasons = [
     {
-      img: "./Reasons/MARKETTING PROFESSIONAL.webp",
+      img: "/Reasons/MARKETTING PROFESSIONAL.webp",
       title: "Marketing Professional Focus",
       desc: "Confidence in print and project execution.",
     },
     {
-      img: "./Reasons/RAPID RESPONSE.webp",
+      img: "/Reasons/RAPID RESPONSE.webp",
       title: "Rapid Response Service",
       desc: "Fast quotes, tracking & guaranteed timelines.",
     },
     {
-      img: "./Reasons/ONE STOP SHOP.webp",
+      img: "/Reasons/ONE STOP SHOP.webp",
       title: "One Stop Shop",
       desc: "From concept to delivery with full accountability.",
     },
     {
-      img: "./Reasons/GRAPHIC DESIGN.webp",
+      img: "/Reasons/GRAPHIC DESIGN.webp",
       title: "Graphic Design",
       desc: "Modern tools turning ideas into visuals.",
     },
     {
-      img: "./Reasons/DEDICATED TEAM.webp",
+      img: "/Reasons/DEDICATED TEAM.webp",
       title: "Dedicated Team",
       desc: "Experienced professionals focused on success.",
     },
     {
-      img: "./Reasons/PRODUCTION SAMPLES.webp",
+      img: "/Reasons/PRODUCTION SAMPLE.webp",
       title: "Production Samples",
       desc: "Pre-production digital assurance.",
     },
     {
-      img: "./Reasons/PRINT MANAGEMENT.webp",
+      img: "/Reasons/PRINT MANAGEMENT.webp",
       title: "Print Management",
       desc: "End-to-end print handled perfectly.",
     },

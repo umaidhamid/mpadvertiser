@@ -162,18 +162,30 @@ export default function TestimonialsSection() {
           </div>
         )}
 
+        {testimonials.length === 0 && (
+          <div className="text-center text-muted py-8">
+            No testimonials yet.
+          </div>
+        )}
+
       </div>
 
       {/* ================= DESKTOP ================= */}
       <div className="hidden lg:block mt-12">
 
-        <ThreeDScrollTriggerContainer>
-          <ThreeDScrollTriggerRow baseVelocity={4} direction={-1}>
-            {testimonials.map((item, index) => (
-              <TestimonialCard key={index} item={item} />
-            ))}
-          </ThreeDScrollTriggerRow>
-        </ThreeDScrollTriggerContainer>
+        {testimonials.length === 0 ? (
+          <div className="text-center text-muted py-16">
+            No testimonials yet.
+          </div>
+        ) : (
+          <ThreeDScrollTriggerContainer>
+            <ThreeDScrollTriggerRow baseVelocity={4} direction={-1}>
+              {testimonials.map((item, index) => (
+                <TestimonialCard key={index} item={item} />
+              ))}
+            </ThreeDScrollTriggerRow>
+          </ThreeDScrollTriggerContainer>
+        )}
 
       </div>
 

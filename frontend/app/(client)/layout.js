@@ -72,41 +72,39 @@ export const metadata = {
 export default function ClientLayout({ children }) {
 
   return (
-    <html lang="en">
-      <body className=" text-gray-800">
-        <CartProvider>
-          {/* <ScrollProgress /> */}
-          <FloatingWhatsApp />
-          <Navbar />
+    <>
+      <CartProvider>
+        {/* <ScrollProgress /> */}
+        <FloatingWhatsApp />
+        <Navbar />
 
-          <main className="min-h-screen">
+        <main className="min-h-screen">
 
-            {children}
-          </main>
-        </CartProvider>
-        <section className="relative bg-black border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
+          {children}
+        </main>
+      </CartProvider>
+      <section className="relative bg-black border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
 
-            {/* Copyright */}
-            <p>
-              © {new Date().getFullYear()} MP Advertisers. All rights reserved.
-            </p>
+          {/* Copyright */}
+          <p>
+            © {new Date().getFullYear()} MP Advertisers. All rights reserved.
+          </p>
 
-            {/* Developer Credit */}
-            <div className="mt-3 sm:mt-0 flex items-center gap-2">
-              <span>Created & Managed by</span>
+          {/* Developer Credit */}
+          <div className="mt-3 sm:mt-0 flex items-center gap-2">
+            <span>Created & Managed by</span>
 
-              <Link
-                href="/login"
-                className="text-white hover:text-indigo-400 transition"
-              >
-                Umaid Hamid
-              </Link>
-            </div>
-
+            <Link
+              href="/login"
+              className="text-white hover:text-indigo-400 transition"
+            >
+              Umaid Hamid
+            </Link>
           </div>
-        </section>
-      </body>
-    </html>
+
+        </div>
+      </section>
+    </>
   );
 }

@@ -94,7 +94,6 @@ export default function CartPage() {
             toast.success("Order placed successfully!");
 
             router.push(`/invoice/${orderId}`);
-            window.open(`/invoice/${orderId}?download=true`, "_blank");
 
         } catch {
             toast.error("Failed to place order. Try again.");

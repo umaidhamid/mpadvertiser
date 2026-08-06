@@ -34,17 +34,29 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        service: "",
-        message: "",
-      });
-    }, 1500);
+    const ownerNumber = "919149455296";
+    const message = `📩 New Contact Enquiry
+
+Name: ${form.name}
+Phone: ${form.phone}
+Email: ${form.email || "-"}
+Service: ${form.service || "-"}
+
+Message:
+${form.message || "-"}`;
+
+    const whatsappUrl = `https://wa.me/${ownerNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+
+    setLoading(false);
+    setSuccess(true);
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      service: "",
+      message: "",
+    });
   };
 
   return (
@@ -105,7 +117,7 @@ export default function ContactForm() {
 
       {success && (
         <p className="text-green-500 text-center">
-          Message sent successfully!
+          Opening WhatsApp to send your message to our team!
         </p>
       )}
     </motion.form>

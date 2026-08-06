@@ -172,7 +172,7 @@ export default function Page() {
 
   // ─────────────────────────────────────────────────────────────────────────
  return (
-  <div className="min-h-screen bg-background text-foreground p-6 md:p-10 transition-colors duration-300 mt-15">
+  <div className="min-h-screen bg-background text-foreground px-6 md:px-10 pb-6 md:pb-10 pt-24 md:pt-28 transition-colors duration-300">
     <div className="max-w-5xl mx-auto animate-fadeInUp">
       {/* Header Section */}
       <header className="mb-10">

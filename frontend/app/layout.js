@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "./components/theme-provider";
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-black text-white">
         <ThemeProvider>
           {children}
