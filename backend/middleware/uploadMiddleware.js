@@ -2,23 +2,21 @@
 import multer from "multer";
 import cloudinary from "../config/cloudinary.js";
 import streamifier from "streamifier";
+import {
+  MAX_IMAGE_SIZE_BYTES,
+  ALLOWED_IMAGE_MIME_TYPES,
+  CLOUDINARY_FOLDER_PREFIX,
+} from "../config/constants.js";
 
 /* ================= MULTER CONFIG (IMAGES ONLY) ================= */
 
 const multerUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB for images
+    fileSize: MAX_IMAGE_SIZE_BYTES,
   },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "image/jpg",
-    ];
-
-    if (!allowedTypes.includes(file.mimetype)) {
+    if (!ALLOWED_IMAGE_MIME_TYPES.includes(file.mimetype)) {
       cb(new Error("Only JPG, PNG, WEBP images allowed"));
     } else {
       cb(null, true);
@@ -74,7 +72,7 @@ export const uploadSingleImage = (folder, fieldName = "image") => [
 
       const result = await uploadToCloudinary(
         req.file,
-        `mpadvertiser/${folder}`
+        `${CLOUDINARY_FOLDER_PREFIX}/${folder}`
       );
 
       req.uploadedImage = result;
@@ -105,7 +103,7 @@ export const uploadMultipleImages = (folder, fieldName = "images", maxCount = 10
       }
 
       const uploadPromises = req.files.map((file) =>
-        uploadToCloudinary(file, `mpadvertiser/${folder}`)
+        uploadToCloudinary(file, `${CLOUDINARY_FOLDER_PREFIX}/${folder}`)
       );
 
       const uploadedImages = await Promise.all(uploadPromises);

@@ -1,6 +1,7 @@
 import Product from "../models/productModel.js";
 import mongoose from "mongoose";
 import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { DEFAULT_PAGE, DEFAULT_PAGE_LIMIT } from "../config/constants.js";
 
 /* ================= CREATE PRODUCT ================= */
 export const createProduct = async (req, res) => {
@@ -89,8 +90,8 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
     try {
         let {
-            page = 1,
-            limit = 10,
+            page = DEFAULT_PAGE,
+            limit = DEFAULT_PAGE_LIMIT,
             category,
             featured,
             bestseller,

@@ -1,5 +1,5 @@
 import express from "express";
-import { uploadMedia } from "../middeware/uploadMiddleware.js";
+import { uploadMultipleImages } from "../middleware/uploadMiddleware.js";
 import {
   createCarousel,
   createGallery,
@@ -10,20 +10,22 @@ const router = express.Router();
 
 router.post(
   "/carousel",
-  
-  uploadMedia("carousel", "files", 10),
+  protect,
+  uploadMultipleImages("carousel", "files", 10),
   createCarousel
 );
 
 router.post(
   "/gallery",
-  uploadMedia("gallery", "files", 20),
+  protect,
+  uploadMultipleImages("gallery", "files", 20),
   createGallery
 );
 
 router.post(
   "/products",
-  uploadMedia("products", "files", 5),
+  protect,
+  uploadMultipleImages("products", "files", 5),
   createProduct
 );
 

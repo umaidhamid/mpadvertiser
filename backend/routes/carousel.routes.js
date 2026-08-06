@@ -13,8 +13,8 @@ const router = express.Router();
 /* Upload Slide */
 router.post(
   "/create",
-  uploadSingleImage("carousel", "image"),
   protect,
+  uploadSingleImage("carousel", "image"),
   createSlide
 );
 

@@ -12,7 +12,7 @@ const router = express.Router();
 router.post("/create", createOrder);
 router.get("/get", protect, getOrders);
 router.get("/:id", getSingleOrder);
-router.put("/:id/status", updateOrderStatus);
+router.put("/:id/status", protect, updateOrderStatus);
 router.delete("/:id",protect, deleteOrder);
 
 export default router;

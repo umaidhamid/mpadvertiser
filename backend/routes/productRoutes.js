@@ -23,6 +23,7 @@ router.get("/sitemap-products", getAllProductSlugs);
 // POST create new product with image
 router.post(
     "/",
+    protect,
     uploadSingleImage("products", "image"), // field name = image
     createProduct
 );

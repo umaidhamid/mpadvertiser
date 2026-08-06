@@ -1,19 +1,17 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import { env } from "../config/env.js";
+import { AUTH_COOKIE_NAME } from "../config/constants.js";
 
 export const protect = async (req, res, next) => {
   try {
-   
-
-    const token = req.cookies?.adminToken;
+    const token = req.cookies?.[AUTH_COOKIE_NAME];
 
     if (!token) {
-      console.log("No token found");
       return res.status(401).json({ message: "Not authorized" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded:", decoded);
+    const decoded = jwt.verify(token, env.JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("-password");
 

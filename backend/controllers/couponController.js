@@ -1,4 +1,5 @@
 import Coupon from "../models/Coupon.model.js";
+import { COUPON_TYPES } from "../config/constants.js";
 
 export const validateCoupon = async (req, res) => {
     try {
@@ -49,7 +50,7 @@ export const validateCoupon = async (req, res) => {
 
         let discount = 0;
 
-        if (coupon.type === "percentage") {
+        if (coupon.type === COUPON_TYPES.PERCENTAGE) {
             discount = (subtotal * coupon.value) / 100;
         } else {
             discount = coupon.value;
@@ -121,6 +122,13 @@ export const deleteCoupon = async (req, res) => {
 export const toggleCoupon = async (req, res) => {
     try {
         const coupon = await Coupon.findById(req.params.id);
+
+        if (!coupon) {
+            return res.status(404).json({
+                success: false,
+                message: "Coupon not found",
+            });
+        }
 
         coupon.isActive = !coupon.isActive;
         await coupon.save();

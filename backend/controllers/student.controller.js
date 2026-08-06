@@ -1,4 +1,5 @@
 import Student from "../models/student.model.js";
+import { DEFAULT_PAGE, DEFAULT_PAGE_LIMIT } from "../config/constants.js";
 
 /**
  * @desc    Create a new student
@@ -39,8 +40,11 @@ const photoUrl = req.uploadedImage?.url;
     }
 
     // Check duplicate
+    const duplicateFilters = [{ rollNumber }];
+    if (email) duplicateFilters.push({ email: email.toLowerCase() });
+
     const existingStudent = await Student.findOne({
-      $or: [{ rollNumber }, { email: email.toLowerCase() }],
+      $or: duplicateFilters,
     });
 
     if (existingStudent) {
@@ -83,7 +87,7 @@ const photoUrl = req.uploadedImage?.url;
  */
 const getAllStudents = async (req, res) => {
   try {
-    const { page = 1, limit = 10, class: cls, status, search } = req.query;
+    const { page = DEFAULT_PAGE, limit = DEFAULT_PAGE_LIMIT, class: cls, status, search } = req.query;
 
     const filter = {};
     if (cls) filter.class = cls;

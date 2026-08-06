@@ -1,4 +1,11 @@
 import Order from "../models/Order.model.js";
+import {
+    ORDER_STATUSES,
+    INVOICE_PREFIX,
+    INVOICE_START_NUMBER,
+    DEFAULT_PAGE,
+    DEFAULT_PAGE_LIMIT,
+} from "../config/constants.js";
 
 /* =========================
    CREATE ORDER
@@ -43,18 +50,18 @@ export const createOrder = async (req, res) => {
             .sort({ createdAt: -1 })
             .select("invoiceNumber");
 
-        let nextNumber = 1001;
+        let nextNumber = INVOICE_START_NUMBER;
 
         if (lastOrder && lastOrder.invoiceNumber) {
             const lastNumber = parseInt(
-                lastOrder.invoiceNumber.replace("INV-", "")
+                lastOrder.invoiceNumber.replace(INVOICE_PREFIX, "")
             );
             if (!isNaN(lastNumber)) {
                 nextNumber = lastNumber + 1;
             }
         }
 
-        const invoiceNumber = `INV-${nextNumber}`;
+        const invoiceNumber = `${INVOICE_PREFIX}${nextNumber}`;
 
         /* ===== Create Order ===== */
         const order = await Order.create({
@@ -67,7 +74,7 @@ export const createOrder = async (req, res) => {
             discount: discount || 0,
             total,
             invoiceNumber,
-            status: "Pending",
+            status: ORDER_STATUSES[0],
         });
 
         return res.status(201).json({
@@ -96,8 +103,8 @@ export const getOrders = async (req, res) => {
             endDate,
             month,
             year,
-            page = 1,
-            limit = 10,
+            page = DEFAULT_PAGE,
+            limit = DEFAULT_PAGE_LIMIT,
         } = req.query;
 
         const pageNumber = parseInt(page);
@@ -235,14 +242,7 @@ export const updateOrderStatus = async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
 
-        const allowedStatuses = [
-            "Pending",
-            "Processing",
-            "Completed",
-            "Cancelled",
-        ];
-
-        if (!allowedStatuses.includes(status)) {
+        if (!ORDER_STATUSES.includes(status)) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid status",

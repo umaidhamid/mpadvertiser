@@ -1,10 +1,17 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { env } from "../config/env.js";
+import {
+  AUTH_COOKIE_NAME,
+  AUTH_COOKIE_OPTIONS,
+  AUTH_COOKIE_MAX_AGE_MS,
+  JWT_EXPIRES_IN,
+} from "../config/constants.js";
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
+  return jwt.sign({ id }, env.JWT_SECRET, {
+    expiresIn: JWT_EXPIRES_IN,
   });
 };
 
@@ -67,14 +74,9 @@ export const loginUser = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    res.cookie("adminToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite:
-        process.env.NODE_ENV === "production"
-          ? "none"
-          : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+    res.cookie(AUTH_COOKIE_NAME, token, {
+      ...AUTH_COOKIE_OPTIONS,
+      maxAge: AUTH_COOKIE_MAX_AGE_MS,
     });
     res.status(200).json({
       _id: user._id,
@@ -90,10 +92,8 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
-  res.cookie("adminToken", "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  res.cookie(AUTH_COOKIE_NAME, "", {
+    ...AUTH_COOKIE_OPTIONS,
     expires: new Date(0),
   });
 

@@ -1,5 +1,6 @@
 import Gallery from "../models/gallery.model.js";
 import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { DEFAULT_PAGE, DEFAULT_GALLERY_PAGE_LIMIT } from "../config/constants.js";
 
 /* ================= CREATE MULTIPLE IMAGES ================= */
 
@@ -27,8 +28,8 @@ export const uploadGalleryImages = async (req, res) => {
 
 export const getAllGalleryImages = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 8;
+    const page = parseInt(req.query.page) || DEFAULT_PAGE;
+    const limit = parseInt(req.query.limit) || DEFAULT_GALLERY_PAGE_LIMIT;
 
     const skip = (page - 1) * limit;
 

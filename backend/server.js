@@ -1,19 +1,20 @@
 
+import dns from "dns";
+dns.setDefaultResultOrder("ipv4first");
+
 import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
+import { env } from "./config/env.js";
+import { ALLOWED_ORIGINS } from "./config/constants.js";
 import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import productRoutes from "./routes/productRoutes.js";
-import axios from "axios"
 import offerRoutes from "./routes/offer.routes.js";
 import morgan from "morgan";
 import galleryRoutes from "./routes/gallery.routes.js";
 import carouselRoutes from "./routes/carousel.routes.js";
 import testimonialRoutes from "./routes/testimonial.routes.js";
-// console.log("MONGO_URI:", process.env.MONGO_URI);
 import clientRoutes from "./routes/client.routes.js";
 import teamRoutes from "./routes/team.routes.js";
 import couponsRoute from "./routes/couponRoutes.js"
@@ -26,12 +27,6 @@ const app = express();
 
 // Middleware
 app.use(morgan("dev"));
-const allowedOrigins = [
-    "http://localhost:3000",
-    "https://mpadvertisers.umaidhamid.in",
-    "https://www.mpadvertisers.umaidhamid.in",
-    "https://mpadvertisers.vercel.app",
-];
 
 app.use(
     cors({
@@ -39,7 +34,7 @@ app.use(
             // allow server-to-server or Postman (no origin)
             if (!origin) return callback(null, true);
 
-            if (allowedOrigins.includes(origin)) {
+            if (ALLOWED_ORIGINS.includes(origin)) {
                 callback(null, true);
             } else {
                 callback(new Error("CORS not allowed for this origin"));
@@ -69,14 +64,15 @@ app.get("/", (req, res) => {
     res.send("Server is running...");
 });
 
-const PORT = process.env.PORT || 5000;
+app.use((req, res) => {
+    res.status(404).json({ success: false, message: "Route not found" });
+});
 
 const startServer = async () => {
     try {
-        // console.log("MONGO URI:", process.env.MONGO_URI);
-        await mongoose.connect(process.env.MONGO_URI);
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
+        await mongoose.connect(env.MONGO_URI);
+        app.listen(env.PORT, () => {
+            console.log(`Server running on port ${env.PORT}`);
         });
     } catch (error) {
         console.error("Failed to start server:", error.message);

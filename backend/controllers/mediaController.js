@@ -1,6 +1,6 @@
 export const createCarousel = async (req, res) => {
   try {
-    const files = req.uploadedFiles || [];
+    const files = req.uploadedImages || [];
 
     res.status(201).json({
       success: true,
@@ -14,7 +14,7 @@ export const createCarousel = async (req, res) => {
 
 export const createGallery = async (req, res) => {
   try {
-    const files = req.uploadedFiles || [];
+    const files = req.uploadedImages || [];
 
     res.status(201).json({
       success: true,
@@ -28,7 +28,7 @@ export const createGallery = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const files = req.uploadedFiles || [];
+    const files = req.uploadedImages || [];
 
     res.status(201).json({
       success: true,
