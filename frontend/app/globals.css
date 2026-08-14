@@ -7,41 +7,53 @@
 @theme {
   --radius: 0.75rem;
 
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222 47% 11%);
 
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222 47% 11%);
 
-  --primary: 222 89% 55%;
-  --primary-foreground: 0 0% 100%;
+  --primary: hsl(222 89% 55%);
+  --primary-foreground: hsl(0 0% 100%);
 
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
+  --secondary: hsl(210 40% 96%);
+  --secondary-foreground: hsl(222 47% 11%);
 
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted: hsl(210 40% 96%);
+  --muted-foreground: hsl(215 16% 47%);
 
-  --border: 214 32% 91%;
+  --accent: hsl(210 40% 96%);
+  --accent-foreground: hsl(222 47% 11%);
+
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(214 32% 91%);
 }
 
 .dark {
-  --background: 222 47% 11%;
-  --foreground: 210 40% 98%;
+  --background: hsl(222 47% 11%);
+  --foreground: hsl(210 40% 98%);
 
-  --card: 222 47% 15%;
-  --card-foreground: 210 40% 98%;
+  --card: hsl(222 47% 15%);
+  --card-foreground: hsl(210 40% 98%);
 
-  --primary: 217 91% 60%;
-  --primary-foreground: 222 47% 11%;
+  --primary: hsl(217 91% 60%);
+  --primary-foreground: hsl(222 47% 11%);
 
-  --secondary: 217 32% 20%;
-  --secondary-foreground: 210 40% 98%;
+  --secondary: hsl(217 32% 20%);
+  --secondary-foreground: hsl(210 40% 98%);
 
-  --muted: 217 32% 20%;
-  --muted-foreground: 215 20% 65%;
+  --muted: hsl(217 32% 20%);
+  --muted-foreground: hsl(215 20% 65%);
 
-  --border: 217 32% 25%;
+  --accent: hsl(217 32% 20%);
+  --accent-foreground: hsl(210 40% 98%);
+
+  --destructive: hsl(0 62% 45%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(217 32% 25%);
 }
 
 /* =====================================================
@@ -50,12 +62,12 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    border-color: var(--border);
   }
 
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: var(--background);
+    color: var(--foreground);
     /* font-feature-settings: "rlig" 1, "calt" 1; */
     min-height: 100vh;
   }
@@ -67,31 +79,31 @@
 
 @layer utilities {
   .bg-background {
-    background-color: hsl(var(--background));
+    background-color: var(--background);
   }
 
   .text-foreground {
-    color: hsl(var(--foreground));
+    color: var(--foreground);
   }
 
   .bg-card {
-    background-color: hsl(var(--card));
+    background-color: var(--card);
   }
 
   .text-card {
-    color: hsl(var(--card-foreground));
+    color: var(--card-foreground);
   }
 
   .bg-primary {
-    background-color: hsl(var(--primary));
+    background-color: var(--primary);
   }
 
   .text-primary {
-    color: hsl(var(--primary));
+    color: var(--primary);
   }
 
   .text-muted {
-    color: hsl(var(--muted-foreground));
+    color: var(--muted-foreground);
   }
 
   .rounded-base {
