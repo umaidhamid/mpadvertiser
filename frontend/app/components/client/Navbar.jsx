@@ -71,12 +71,18 @@ const Navbar = () => {
                 >
 
                     {/* LOGO */}
-                    <Link
-                        href="/"
-                        className="text-2xl font-semibold tracking-wide text-black dark:text-white transition"
-                        style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
-                    >
-                        MP Advertisers
+                    <Link href="/" className="group flex flex-col leading-tight">
+                        <span
+                            className="text-2xl font-bold tracking-wide bg-clip-text text-transparent
+                            bg-gradient-to-r from-[#681CA1] via-[#AA31E4] to-[#FF4081]
+                            group-hover:opacity-80 transition"
+                            style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
+                        >
+                            MP Advertisers
+                        </span>
+                        <span className="hidden sm:block text-[10px] tracking-[0.25em] uppercase text-gray-500 dark:text-gray-400">
+                            Print &middot; Advertise &middot; Design
+                        </span>
                     </Link>
 
 
