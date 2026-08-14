@@ -95,19 +95,19 @@ const Navbar = () => {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="relative text-lg font-medium group"
+                                    className="relative text-base font-medium group"
                                 >
                                     <span
                                         className={`transition ${isActive
-                                            ? "text-indigo-600 dark:text-indigo-400"
-                                            : "text-black dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
+                                            ? "text-[#681CA1] dark:text-[#AA31E4]"
+                                            : "text-black dark:text-white group-hover:text-[#681CA1] dark:group-hover:text-[#AA31E4]"
                                             }`}
                                     >
                                         {item.label}
                                     </span>
 
                                     <span
-                                        className={`absolute left-0 -bottom-2 h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                                        className={`absolute left-0 -bottom-2 h-[2px] bg-[#681CA1] dark:bg-[#AA31E4] transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
                                             }`}
                                     />
                                 </Link>
