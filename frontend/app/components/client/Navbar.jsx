@@ -18,6 +18,7 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const [mounted, setMounted] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     const pathname = usePathname();
     const { theme, setTheme } = useTheme();
@@ -26,6 +27,13 @@ const Navbar = () => {
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     useEffect(() => setMounted(true), []);
+
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 12);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
 
     const navItems = [
@@ -48,15 +56,19 @@ const Navbar = () => {
         <>
             {/* ================= HEADER ================= */}
             <header
-                className="
+                className={`
     fixed w-full top-0 z-50
     bg-white/80 dark:bg-black/80
     backdrop-blur-xl
     border-b border-gray-200 dark:border-gray-800
-    shadow-sm
-  "
+    transition-all duration-300
+    ${scrolled ? "shadow-md" : "shadow-sm"}
+  `}
             >
-                <div className="max-full mx-auto flex items-center justify-between px-6 py-4">
+                <div
+                    className={`max-w-7xl mx-auto flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? "py-3" : "py-4"
+                        }`}
+                >
 
                     {/* LOGO */}
                     <Link
