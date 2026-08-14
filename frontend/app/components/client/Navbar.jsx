@@ -116,7 +116,25 @@ const Navbar = () => {
                     </nav>
 
                     {/* ================= DESKTOP RIGHT ================= */}
-                    <div className="hidden md:flex items-center gap-4">
+                    <div className="hidden md:flex items-center gap-3">
+
+                        {/* SOCIAL (wide screens only, keeps mid-size desktop uncluttered) */}
+                        <div className="hidden xl:flex items-center gap-2 pr-2 mr-1 border-r border-gray-200 dark:border-gray-800">
+                            {socialLinks.map((social, i) => (
+                                <a
+                                    key={i}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-8 h-8 flex items-center justify-center rounded-full
+                    text-gray-500 dark:text-gray-400
+                    hover:text-white hover:bg-[#681CA1]
+                    transition text-sm"
+                                >
+                                    <FontAwesomeIcon icon={social.icon} />
+                                </a>
+                            ))}
+                        </div>
 
                         {/* THEME */}
                         {mounted && (
@@ -155,23 +173,6 @@ const Navbar = () => {
                                 </span>
                             )}
                         </Link>
-
-                        {/* SOCIAL */}
-                        {socialLinks.map((social, i) => (
-                            <a
-                                key={i}
-                                href={social.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-9 h-9 flex items-center justify-center rounded-full
-                border border-gray-300 dark:border-gray-700
-                text-black dark:text-white
-                hover:bg-indigo-600 hover:text-white
-                transition"
-                            >
-                                <FontAwesomeIcon icon={social.icon} />
-                            </a>
-                        ))}
                     </div>
 
                     {/* ================= MOBILE RIGHT ================= */}
