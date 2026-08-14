@@ -2,6 +2,13 @@
 
 /* =====================================================
    Design Tokens (Light Theme Default)
+
+   Values live in :root/.dark as full CSS colors so they can swap
+   at runtime with the theme toggle. @theme inline registers them
+   as real Tailwind color tokens so every utility variant works
+   (hover:bg-primary, border-primary, ring-primary, dark:bg-muted,
+   bg-primary/50, etc.) instead of only the handful of bare classes
+   someone previously hand-authored below.
 ===================================================== */
 
 @theme inline {
@@ -99,7 +106,9 @@
 }
 
 /* =====================================================
-   Utility Classes (Optional but Clean)
+   Legacy utility aliases (kept for existing usages; the
+   @theme inline block above now also auto-generates the
+   standard bg, text, border and ring forms and variants)
 ===================================================== */
 
 @layer utilities {
