@@ -173,6 +173,16 @@ const Navbar = () => {
                                 </span>
                             )}
                         </Link>
+
+                        {/* CTA */}
+                        <Link
+                            href="/Contact-Us"
+                            className="ml-1 px-5 py-2.5 rounded-full text-sm font-semibold text-white
+                bg-gradient-to-r from-[#681CA1] to-[#FF4081]
+                hover:opacity-90 shadow-[0_10px_30px_rgba(104,28,161,0.35)] transition"
+                        >
+                            Get a Quote
+                        </Link>
                     </div>
 
                     {/* ================= MOBILE RIGHT ================= */}
