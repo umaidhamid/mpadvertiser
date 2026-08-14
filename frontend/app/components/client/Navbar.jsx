@@ -127,7 +127,7 @@ const Navbar = () => {
                                 className="w-10 h-10 flex items-center justify-center rounded-full
                 border border-gray-300 dark:border-gray-700
                 text-black dark:text-white
-                hover:bg-indigo-600 hover:text-white
+                hover:bg-[#681CA1] hover:text-white hover:border-[#681CA1]
                 transition"
                             >
                                 {theme === "dark" ? (
@@ -139,11 +139,18 @@ const Navbar = () => {
                         )}
 
                         {/* CART */}
-                        <Link href="/cart" className="relative group">
-                            <ShoppingCart className="w-6 h-6 text-black dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition" />
+                        <Link
+                            href="/cart"
+                            className="relative w-10 h-10 flex items-center justify-center rounded-full
+                border border-gray-300 dark:border-gray-700
+                text-black dark:text-white
+                hover:bg-[#681CA1] hover:text-white hover:border-[#681CA1]
+                transition group"
+                        >
+                            <ShoppingCart className="w-5 h-5" />
 
                             {count > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs px-2 py-[2px] rounded-full">
+                                <span className="absolute -top-1.5 -right-1.5 bg-[#FF4081] text-white text-[10px] font-semibold w-5 h-5 flex items-center justify-center rounded-full">
                                     {count}
                                 </span>
                             )}
@@ -174,7 +181,7 @@ const Navbar = () => {
                         <Link href="/cart" className="relative">
                             <ShoppingCart className="w-6 h-6 text-black dark:text-white" />
                             {count > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs px-2 py-[2px] rounded-full">
+                                <span className="absolute -top-2 -right-2 bg-[#FF4081] text-white text-xs px-2 py-[2px] rounded-full">
                                     {count}
                                 </span>
                             )}
