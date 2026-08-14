@@ -250,11 +250,11 @@ const Navbar = () => {
             <div
                 className={`fixed top-0 right-0 h-full w-80 bg-white dark:bg-black
         border-l border-gray-200 dark:border-gray-800
-        shadow-2xl
+        shadow-2xl overflow-y-auto
         transform transition-transform duration-300 z-50 md:hidden
         ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
             >
-                <div className="flex flex-col mt-24 px-6 gap-6">
+                <div className="flex flex-col min-h-full mt-24 px-6 pb-10 gap-6">
 
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
@@ -263,15 +263,44 @@ const Navbar = () => {
                             <Link
                                 key={item.href}
                                 href={item.href}
+                                onClick={() => setMenuOpen(false)}
                                 className={`text-lg font-medium transition ${isActive
-                                    ? "text-indigo-600 dark:text-indigo-400"
-                                    : "text-black dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400"
+                                    ? "text-[#681CA1] dark:text-[#AA31E4]"
+                                    : "text-black dark:text-white hover:text-[#681CA1] dark:hover:text-[#AA31E4]"
                                     }`}
                             >
                                 {item.label}
                             </Link>
                         );
                     })}
+
+                    <Link
+                        href="/Contact-Us"
+                        onClick={() => setMenuOpen(false)}
+                        className="mt-2 text-center px-5 py-3 rounded-full text-sm font-semibold text-white
+                        bg-gradient-to-r from-[#681CA1] to-[#FF4081]
+                        hover:opacity-90 shadow-[0_10px_30px_rgba(104,28,161,0.35)] transition"
+                    >
+                        Get a Quote
+                    </Link>
+
+                    <div className="mt-auto mb-10 flex items-center gap-3">
+                        {socialLinks.map((social, i) => (
+                            <a
+                                key={i}
+                                href={social.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-9 h-9 flex items-center justify-center rounded-full
+                                border border-gray-300 dark:border-gray-700
+                                text-black dark:text-white
+                                hover:bg-[#681CA1] hover:text-white hover:border-[#681CA1]
+                                transition"
+                            >
+                                <FontAwesomeIcon icon={social.icon} />
+                            </a>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
