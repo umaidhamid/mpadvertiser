@@ -24,9 +24,12 @@ export default function AdminDashboard() {
     return (
         <div className="px-6 py-16">
 
-            <h1 className="text-2xl font-semibold mb-10">
-                Admin Principles
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#681CA1] via-[#AA31E4] to-[#FF4081] mb-2">
+                Welcome back
             </h1>
+            <p className="text-gray-500 mb-10">
+                A few principles worth keeping in view today.
+            </p>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quotes.map((quote, index) => (
@@ -35,7 +38,7 @@ export default function AdminDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition"
+                        className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md hover:border-[#AA31E4]/40 transition"
                     >
                         <p className="text-gray-800 text-sm leading-relaxed">
                             “{quote}”
