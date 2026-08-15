@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Image,
   FileText,
-  Settings,
   LogOut,
   Menu,
   Package,
@@ -14,6 +13,7 @@ import {
   Ticket,
   ShoppingCart,
   LayoutDashboard,
+  GraduationCap,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,6 +27,11 @@ export default function AdminSidebar() {
 
   const menuItems = [
 
+    {
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      href: "/admin",
+    },
     {
       label: "Products",
       icon: Package,
@@ -72,11 +77,18 @@ export default function AdminSidebar() {
       icon: Users,
       href: "/admin/clients",
     },
- 
+    {
+      label: "Students",
+      icon: GraduationCap,
+      href: "/admin/students",
+    },
+
   ];
 
   const isActiveRoute = (href) =>
-    pathname === href || pathname.startsWith(href + "/");
+    href === "/admin"
+      ? pathname === href
+      : pathname === href || pathname.startsWith(href + "/");
 
   const handleLogout = async () => {
     try {
