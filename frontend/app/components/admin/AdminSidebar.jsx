@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Image,
   FileText,
@@ -14,6 +14,7 @@ import {
   ShoppingCart,
   LayoutDashboard,
   GraduationCap,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -24,6 +25,10 @@ export default function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const menuItems = [
 
@@ -140,13 +145,20 @@ export default function AdminSidebar() {
         <div className="flex flex-col h-full">
 
           {/* Logo */}
-          <div className="px-6 py-6 border-b border-white/10">
+          <div className="px-6 py-6 border-b border-white/10 flex items-center justify-between">
             <Link
               href="/admin"
               className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#AA31E4] to-[#FF4081]"
             >
               MP Admin
             </Link>
+
+            <button
+              onClick={() => setIsOpen(false)}
+              className="lg:hidden p-1.5 rounded-md text-gray-400 hover:bg-white/10 hover:text-white transition"
+            >
+              <X size={20} />
+            </button>
           </div>
 
           {/* Navigation */}
