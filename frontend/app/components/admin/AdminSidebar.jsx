@@ -107,7 +107,7 @@ export default function AdminSidebar() {
       <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-black border-b border-white/10 flex items-center justify-between px-4 z-40">
         <Link
           href="/admin"
-          className="text-lg font-bold text-white"
+          className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#AA31E4] to-[#FF4081]"
         >
           MP Admin
         </Link>
@@ -143,7 +143,7 @@ export default function AdminSidebar() {
           <div className="px-6 py-6 border-b border-white/10">
             <Link
               href="/admin"
-              className="text-xl font-bold text-white"
+              className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#AA31E4] to-[#FF4081]"
             >
               MP Admin
             </Link>
@@ -162,7 +162,7 @@ export default function AdminSidebar() {
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm
                   ${active
-                      ? "bg-indigo-600 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-[#681CA1] to-[#AA31E4] text-white shadow-lg shadow-[#681CA1]/30"
                       : "text-gray-300 hover:bg-white/10 hover:text-white"
                     }`}
                 >
