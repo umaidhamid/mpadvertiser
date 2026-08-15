@@ -14,8 +14,7 @@ export default function AdminLayout({ children }) {
       try {
         await API.get("/auth/me");
         setLoading(false);
-      } catch (error) {
-        console.log("errr", error)
+      } catch {
         router.push("/login");
       }
     };
@@ -25,8 +24,9 @@ export default function AdminLayout({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white">
-        Checking authentication...
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-4 text-white">
+        <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-[#AA31E4] animate-spin" />
+        <p className="text-sm text-gray-400">Checking authentication...</p>
       </div>
     );
   }
