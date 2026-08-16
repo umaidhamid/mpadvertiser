@@ -19,6 +19,10 @@ const required = (key) => {
   return value;
 };
 
+const missingEnvVars = REQUIRED_ENV_VARS.filter(
+  (key) => !process.env[key] || !process.env[key].trim()
+);
+
 export const env = {
   NODE_ENV: process.env.NODE_ENV || "development",
   IS_PRODUCTION: process.env.NODE_ENV === "production",
