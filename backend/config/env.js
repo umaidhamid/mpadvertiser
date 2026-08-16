@@ -26,6 +26,10 @@ const missingEnvVars = REQUIRED_ENV_VARS.filter(
 if (missingEnvVars.length > 0) {
   console.error("\nMissing required environment variable(s):");
   missingEnvVars.forEach((key) => console.error(`  - ${key}`));
+  console.error(
+    "\nCopy backend/.env.example to backend/.env and fill in the missing values.\n"
+  );
+  process.exit(1);
 }
 
 export const env = {
