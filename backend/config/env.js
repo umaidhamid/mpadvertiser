@@ -11,14 +11,6 @@ const REQUIRED_ENV_VARS = [
   "CLOUDINARY_API_SECRET",
 ];
 
-const required = (key) => {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-  return value;
-};
-
 const missingEnvVars = REQUIRED_ENV_VARS.filter(
   (key) => !process.env[key] || !process.env[key].trim()
 );
@@ -38,12 +30,12 @@ export const env = {
 
   PORT: process.env.PORT || 5000,
 
-  MONGO_URI: required("MONGO_URI"),
-  JWT_SECRET: required("JWT_SECRET"),
+  MONGO_URI: process.env.MONGO_URI,
+  JWT_SECRET: process.env.JWT_SECRET,
 
-  CLOUDINARY_CLOUD_NAME: required("CLOUDINARY_CLOUD_NAME"),
-  CLOUDINARY_API_KEY: required("CLOUDINARY_API_KEY"),
-  CLOUDINARY_API_SECRET: required("CLOUDINARY_API_SECRET"),
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 };
 
 export default env;
