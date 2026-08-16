@@ -1,5 +1,5 @@
 import Client from "../models/client.model.js";
-import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { deleteImageFromCloudinary } from "../middleware/upload.middleware.js";
 
 /* ================= CREATE ================= */
 

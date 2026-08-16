@@ -7,9 +7,9 @@ import { env } from "./config/env.js";
 import { ALLOWED_ORIGINS } from "./config/constants.js";
 import cors from "cors";
 import mongoose from "mongoose";
-import authRoutes from "./routes/authRoutes.js";
+import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
-import productRoutes from "./routes/productRoutes.js";
+import productRoutes from "./routes/product.routes.js";
 import offerRoutes from "./routes/offer.routes.js";
 import morgan from "morgan";
 import galleryRoutes from "./routes/gallery.routes.js";
@@ -17,9 +17,9 @@ import carouselRoutes from "./routes/carousel.routes.js";
 import testimonialRoutes from "./routes/testimonial.routes.js";
 import clientRoutes from "./routes/client.routes.js";
 import teamRoutes from "./routes/team.routes.js";
-import couponsRoute from "./routes/couponRoutes.js"
-import orderRoutes from "./routes/orderRoutes.js";
-import uploadRoute from "./routes/upload.router.js";
+import couponsRoute from "./routes/coupon.routes.js"
+import orderRoutes from "./routes/order.routes.js";
+import uploadRoute from "./routes/upload.routes.js";
 import studentRoutes from "./routes/student.routes.js";
 
 

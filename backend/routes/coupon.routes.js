@@ -5,7 +5,7 @@ import {
     getCoupons,
     deleteCoupon,
     toggleCoupon,
-} from "../controllers/couponController.js";
+} from "../controllers/coupon.controller.js";
 
 import { protect } from "../middleware/auth.middleware.js";
 const router = express.Router();

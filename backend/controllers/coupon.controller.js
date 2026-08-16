@@ -1,4 +1,4 @@
-import Coupon from "../models/Coupon.model.js";
+import Coupon from "../models/coupon.model.js";
 import { COUPON_TYPES } from "../config/constants.js";
 
 export const validateCoupon = async (req, res) => {

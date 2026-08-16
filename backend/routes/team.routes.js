@@ -7,7 +7,7 @@ import {
   reorderTeam,
 } from "../controllers/team.controller.js";
 import { protect } from "../middleware/auth.middleware.js";
-import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
+import { uploadSingleImage } from "../middleware/upload.middleware.js";
 
 const router = express.Router();
 

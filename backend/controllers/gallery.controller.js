@@ -1,5 +1,5 @@
 import Gallery from "../models/gallery.model.js";
-import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { deleteImageFromCloudinary } from "../middleware/upload.middleware.js";
 import { DEFAULT_PAGE, DEFAULT_GALLERY_PAGE_LIMIT } from "../config/constants.js";
 
 /* ================= CREATE MULTIPLE IMAGES ================= */

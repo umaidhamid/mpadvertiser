@@ -5,7 +5,7 @@ import {
     getSingleOrder,
     updateOrderStatus,
     deleteOrder,
-} from "../controllers/order.Controller.js";
+} from "../controllers/order.controller.js";
 import { protect } from "../middleware/auth.middleware.js";
 const router = express.Router();
 

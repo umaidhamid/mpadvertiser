@@ -7,7 +7,7 @@ import {
     reorderClients,
 } from "../controllers/client.controller.js";
 
-import { uploadSingleImage } from "../middleware/uploadMiddleware.js";
+import { uploadSingleImage } from "../middleware/upload.middleware.js";
 import { protect } from "../middleware/auth.middleware.js";
 const router = express.Router();
 

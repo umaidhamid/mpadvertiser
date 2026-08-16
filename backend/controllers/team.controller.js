@@ -1,5 +1,5 @@
 import Team from "../models/team.model.js";
-import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { deleteImageFromCloudinary } from "../middleware/upload.middleware.js";
 
 /* ================= CREATE ================= */
 

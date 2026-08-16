@@ -1,10 +1,10 @@
 import express from "express";
-import { uploadMultipleImages } from "../middleware/uploadMiddleware.js";
+import { uploadMultipleImages } from "../middleware/upload.middleware.js";
 import {
   createCarousel,
   createGallery,
   createProduct,
-} from "../controllers/mediaController.js";
+} from "../controllers/media.controller.js";
 import { protect } from "../middleware/auth.middleware.js";
 const router = express.Router();
 

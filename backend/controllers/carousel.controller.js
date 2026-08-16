@@ -1,5 +1,5 @@
 import Carousel from "../models/carousel.model.js";
-import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { deleteImageFromCloudinary } from "../middleware/upload.middleware.js";
 
 /* ================= CREATE SLIDE ================= */
 

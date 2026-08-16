@@ -1,6 +1,6 @@
-import Product from "../models/productModel.js";
+import Product from "../models/product.model.js";
 import mongoose from "mongoose";
-import { deleteImageFromCloudinary } from "../middleware/uploadMiddleware.js";
+import { deleteImageFromCloudinary } from "../middleware/upload.middleware.js";
 import { DEFAULT_PAGE, DEFAULT_PAGE_LIMIT } from "../config/constants.js";
 
 /* ================= CREATE PRODUCT ================= */
