@@ -2,6 +2,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Environment variables the server cannot start without.
+const REQUIRED_ENV_VARS = [
+  "MONGO_URI",
+  "JWT_SECRET",
+  "CLOUDINARY_CLOUD_NAME",
+  "CLOUDINARY_API_KEY",
+  "CLOUDINARY_API_SECRET",
+];
+
 const required = (key) => {
   const value = process.env[key];
   if (!value) {
