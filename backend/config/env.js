@@ -23,6 +23,11 @@ const missingEnvVars = REQUIRED_ENV_VARS.filter(
   (key) => !process.env[key] || !process.env[key].trim()
 );
 
+if (missingEnvVars.length > 0) {
+  console.error("\nMissing required environment variable(s):");
+  missingEnvVars.forEach((key) => console.error(`  - ${key}`));
+}
+
 export const env = {
   NODE_ENV: process.env.NODE_ENV || "development",
   IS_PRODUCTION: process.env.NODE_ENV === "production",
