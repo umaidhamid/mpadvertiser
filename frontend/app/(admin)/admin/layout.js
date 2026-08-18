@@ -38,7 +38,7 @@ export default function AdminLayout({ children }) {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto bg-black">
         <main className="p-6">
           {children}
         </main>

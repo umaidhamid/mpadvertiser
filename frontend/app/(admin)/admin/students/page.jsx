@@ -40,7 +40,6 @@ export default function StudentsPage() {
       const query = new URLSearchParams(filters).toString();
       const res = await fetch(`${API_URL}/students?${query}`);
       const data = await res.json();
-console.log(data)
       setStudents(data.data);
       setPagination(data.pagination);
     } catch (err) {
@@ -68,7 +67,6 @@ const formatDate = (date) => {
       });
 
       const data = await res.json();
-      console.log(data);
       if (!res.ok) throw new Error(data.message);
 
       // remove from UI instantly
@@ -80,27 +78,27 @@ const formatDate = (date) => {
   };
 
   return (
-   <div className="p-4 md:p-8 min-h-screen bg-[#0a0a0a] text-slate-200 font-sans">
+   <div className="p-4 md:p-8 min-h-screen bg-black text-slate-200 font-sans">
       <div className="max-w-6xl mx-auto">
-        
+
         {/* HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-white">Students</h1>
             <p className="text-slate-400 text-sm mt-1">Manage and monitor student records</p>
           </div>
-          <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-lg shadow-indigo-500/20">
+          <button className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-lg shadow-[#681CA1]/30">
             + Add Student
           </button>
         </div>
 
         {/* FILTERS */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-6 p-4 bg-[#111] rounded-2xl border border-white/5 items-center">
+        <div className="flex flex-col lg:flex-row gap-4 mb-6 p-4 bg-white/5 rounded-2xl border border-white/10 items-center">
           <div className="relative w-full lg:flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
             <input
               placeholder="Search by name, email or roll..."
-              className="w-full pl-12 pr-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-sm text-white"
+              className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#AA31E4]/50 transition-all text-sm text-white"
               onChange={(e) => setFilters(p => ({ ...p, search: e.target.value }))}
             />
           </div>
@@ -108,7 +106,7 @@ const formatDate = (date) => {
           <div className="flex gap-3 w-full lg:w-auto">
             <select
               onChange={(e) => setFilters(p => ({ ...p, class: e.target.value }))}
-              className="flex-1 lg:flex-none px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-xl text-sm text-slate-300 cursor-pointer outline-none hover:bg-[#222]"
+              className="flex-1 lg:flex-none px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-sm text-slate-300 cursor-pointer outline-none hover:bg-white/20"
             >
               <option value="">All Classes</option>
               {[...Array(12)].map((_, i) => <option key={i+1} value={i+1}>Class {i+1}</option>)}
@@ -116,7 +114,7 @@ const formatDate = (date) => {
 
             <select
               onChange={(e) => setFilters(p => ({ ...p, status: e.target.value }))}
-              className="flex-1 lg:flex-none px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-xl text-sm text-slate-300 cursor-pointer outline-none hover:bg-[#222]"
+              className="flex-1 lg:flex-none px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-sm text-slate-300 cursor-pointer outline-none hover:bg-white/20"
             >
               <option value="">Status</option>
               <option value="active">Active</option>
@@ -126,7 +124,7 @@ const formatDate = (date) => {
         </div>
 
         {/* TABLE */}
-        <div className="bg-[#111] rounded-2xl border border-white/5 overflow-hidden shadow-2xl">
+        <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
@@ -165,9 +163,9 @@ const formatDate = (date) => {
                       </td>
                       <td className="p-4 text-right">
                         <div className="flex justify-end gap-2">
-                          <button 
+                          <button
                             onClick={() => setSelectedStudent(s)}
-                            className="p-2 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-lg transition-all"
+                            className="p-2 text-slate-400 hover:text-[#AA31E4] hover:bg-[#AA31E4]/10 rounded-lg transition-all"
                             title="View Details"
                           >
                             <Eye className="w-4 h-4" />
@@ -197,14 +195,14 @@ const formatDate = (date) => {
             <button
               disabled={filters.page === 1}
               onClick={() => setFilters(p => ({ ...p, page: p.page - 1 }))}
-              className="flex items-center gap-1 px-4 py-2 rounded-xl border border-white/10 bg-[#111] hover:bg-[#1a1a1a] disabled:opacity-30 transition-all text-sm"
+              className="flex items-center gap-1 px-4 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-30 transition-all text-sm"
             >
               <ChevronLeft className="w-4 h-4" /> Prev
             </button>
             <button
               disabled={filters.page === pagination.totalPages}
               onClick={() => setFilters(p => ({ ...p, page: p.page + 1 }))}
-              className="flex items-center gap-1 px-4 py-2 rounded-xl border border-white/10 bg-[#111] hover:bg-[#1a1a1a] disabled:opacity-30 transition-all text-sm"
+              className="flex items-center gap-1 px-4 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-30 transition-all text-sm"
             >
               Next <ChevronRight className="w-4 h-4" />
             </button>
@@ -215,7 +213,7 @@ const formatDate = (date) => {
       {/* --- STUDENT DETAIL MODAL --- */}
       {selectedStudent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-2xl bg-[#111] border border-white/10 rounded-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
+          <div className="relative w-full max-w-2xl bg-black border border-white/10 rounded-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
             
             {/* Modal Header Actions */}
             <div className="absolute top-4 right-4 flex gap-2 z-20">
@@ -228,20 +226,20 @@ const formatDate = (date) => {
             </div>
 
             {/* Banner Background */}
-            <div className="h-28 bg-gradient-to-r from-indigo-900 to-indigo-600"></div>
-            
+            <div className="h-28 bg-gradient-to-r from-[#681CA1] to-[#AA31E4]"></div>
+
             <div className="px-6 pb-8">
               {/* Profile Section */}
               <div className="relative -mt-14 mb-8 flex flex-col md:flex-row items-center md:items-end gap-6 text-center md:text-left">
-                <img 
-                  src={selectedStudent.photo} 
-                  className="w-32 h-32 rounded-2xl object-cover border-4 border-[#111] shadow-2xl ring-1 ring-white/10" 
+                <img
+                  src={selectedStudent.photo}
+                  className="w-32 h-32 rounded-2xl object-cover border-4 border-black shadow-2xl ring-1 ring-white/10"
                   alt={selectedStudent.name}
                 />
                 <div className="pb-2 flex-1">
                   <h2 className="text-3xl font-bold text-white tracking-tight">{selectedStudent.name}</h2>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
-                    <span className="bg-indigo-500/10 text-indigo-400 text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded">
+                    <span className="bg-[#AA31E4]/10 text-[#AA31E4] text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded">
                       Class {selectedStudent.class}-{selectedStudent.section}
                     </span>
                     <span className={`text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded ${
@@ -274,7 +272,7 @@ const formatDate = (date) => {
 
                 <DataCard title="Residential Address">
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-4 h-4 text-indigo-400 mt-1" />
+                    <MapPin className="w-4 h-4 text-[#AA31E4] mt-1" />
                     <div>
                       <p className="text-[10px] text-slate-500 uppercase font-bold mb-1">Address</p>
                       <p className="text-sm text-slate-300 leading-relaxed italic">"{selectedStudent.address}"</p>
@@ -300,8 +298,8 @@ const formatDate = (date) => {
 // --- Sub-Components for Organization ---
 
 const DataCard = ({ title, children }) => (
-  <div className="bg-[#161616] border border-white/5 p-4 rounded-2xl space-y-4">
-    <h3 className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em]">{title}</h3>
+  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-4">
+    <h3 className="text-[10px] font-black text-[#AA31E4] uppercase tracking-[0.2em]">{title}</h3>
     <div className="space-y-4">{children}</div>
   </div>
 );
