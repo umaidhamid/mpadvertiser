@@ -91,14 +91,14 @@ export default function CreateProductPage() {
     /* ================= UI ================= */
 
     return (
-        <div className="max-w-5xl mx-auto py-12 px-6">
-            <h1 className="text-3xl font-bold mb-10 text-gwhite">
+        <div className="max-w-5xl mx-auto py-12 px-6 bg-black min-h-screen">
+            <h1 className="text-3xl font-bold mb-10 text-white">
                 Create Product
             </h1>
 
             <form
                 onSubmit={handleSubmit}
-                className="bg-gray-900 text-white shadow-2xl rounded-3xl p-10 space-y-8 border border-gray-700"
+                className="bg-white/5 text-white shadow-2xl rounded-3xl p-10 space-y-8 border border-white/10"
             >
                 {/* BASIC INFO */}
                 <div className="grid md:grid-cols-2 gap-6">
@@ -138,12 +138,12 @@ export default function CreateProductPage() {
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="text-lg p-4 border border-blue-600 rounded-lg"
+                            className="text-sm p-3 border border-white/10 rounded-lg bg-white/10"
 
                         />
 
                         {preview && (
-                            <div className="w-32 h-32 rounded-xl overflow-hidden border border-gray-200 shadow">
+                            <div className="w-32 h-32 rounded-xl overflow-hidden border border-white/10 shadow">
                                 <img
                                     src={preview}
                                     alt="Preview"
@@ -156,14 +156,14 @@ export default function CreateProductPage() {
 
                 {/* DESCRIPTION */}
                 <div>
-                    <label className="block text-sm font-medium mb-2 text-white-600">
+                    <label className="block text-sm font-medium mb-2 text-gray-400">
                         Description
                     </label>
                     <textarea
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        className="w-full p-4 border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full p-4 rounded-xl bg-white/10 focus:ring-2 focus:ring-[#AA31E4]/50 outline-none"
                         rows="5"
                     />
                 </div>
@@ -172,7 +172,7 @@ export default function CreateProductPage() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all duration-300 disabled:opacity-60"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#681CA1] to-[#AA31E4] text-white font-semibold hover:opacity-90 shadow-lg shadow-[#681CA1]/30 transition-all duration-300 disabled:opacity-60"
                 >
                     {loading ? "Creating..." : "Create Product"}
                 </button>
@@ -186,12 +186,12 @@ export default function CreateProductPage() {
 function Input({ label, ...props }) {
     return (
         <div>
-            <label className="block text-sm font-medium mb-2 text-white">
+            <label className="block text-sm font-medium mb-2 text-gray-400">
                 {label}
             </label>
             <input
                 {...props} placeholder={label}
-                className="w-full p-4 border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                className="w-full p-4 rounded-xl bg-white/10 focus:ring-2 focus:ring-[#AA31E4]/50 outline-none transition"
             />
         </div>
     );
@@ -205,7 +205,7 @@ function Checkbox({ label, ...props }) {
             <input
                 type="checkbox"
                 {...props}
-                className="w-5 h-5 accent-indigo-600"
+                className="w-5 h-5 accent-[#AA31E4]"
             />
             <span className="text-sm font-medium text-white">
                 {label}
