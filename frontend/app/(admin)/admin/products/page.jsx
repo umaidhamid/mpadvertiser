@@ -70,10 +70,10 @@ export default function AdminProductsPage() {
         }
     };
 
-    if (loading) return <p className="p-10 text-gray-400">Loading...</p>;
+    if (loading) return <p className="p-10 text-gray-400 bg-black min-h-screen">Loading...</p>;
 
     return (
-        <div className="py-12 px-6 max-w-7xl mx-auto text-white">
+        <div className="py-12 px-6 max-w-7xl mx-auto text-white bg-black min-h-screen">
 
             {/* HEADER */}
             <div className="flex justify-between items-center mb-10">
@@ -81,14 +81,14 @@ export default function AdminProductsPage() {
 
                 <Link
                     href="/admin/products/create"
-                    className="px-6 py-3 border rounded-xl hover:border-indigo-500 transition"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 transition"
                 >
                     + Create Product
                 </Link>
             </div>
 
             {/* FILTERS */}
-            <div className="border rounded-2xl p-6 mb-12 grid md:grid-cols-4 gap-6">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-12 grid md:grid-cols-4 gap-6">
 
                 <input
                     type="text"
@@ -98,7 +98,7 @@ export default function AdminProductsPage() {
                         setPage(1);
                         setSearch(e.target.value);
                     }}
-                    className="p-3 rounded-xl border bg-transparent"
+                    className="p-3 rounded-xl bg-white/10 outline-none"
                 />
 
                 <input
@@ -109,7 +109,7 @@ export default function AdminProductsPage() {
                         setPage(1);
                         setCategory(e.target.value);
                     }}
-                    className="p-3 rounded-xl border bg-transparent"
+                    className="p-3 rounded-xl bg-white/10 outline-none"
                 />
 
 
@@ -118,12 +118,12 @@ export default function AdminProductsPage() {
                 <select
                     value={sort}
                     onChange={(e) => setSort(e.target.value)}
-                    className="p-3 rounded-xl border bg-black"
+                    className="p-3 rounded-xl bg-white/10 outline-none"
                 >
-                    <option value="" className="bg-black/30">Sort By</option>
-                    <option value="priceLow">Price Low</option>
-                    <option value="priceHigh">Price High</option>
-                    <option value="discount">Highest Discount</option>
+                    <option value="" className="bg-black">Sort By</option>
+                    <option value="priceLow" className="bg-black">Price Low</option>
+                    <option value="priceHigh" className="bg-black">Price High</option>
+                    <option value="discount" className="bg-black">Highest Discount</option>
                 </select>
 
                 <label className="flex items-center gap-2">
@@ -164,7 +164,7 @@ export default function AdminProductsPage() {
                         setSort("");
                         setPage(1);
                     }}
-                    className="border rounded-xl py-3 hover:border-red-500 transition"
+                    className="border border-white/10 rounded-xl py-3 hover:border-red-500 hover:text-red-400 transition"
                 >
                     Reset Filters
                 </button>
@@ -180,7 +180,7 @@ export default function AdminProductsPage() {
                     {products.map((product) => (
                         <div
                             key={product._id}
-                            className="border rounded-3xl overflow-hidden hover:border-indigo-500 transition"
+                            className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-[#AA31E4]/40 transition"
                         >
                             <div className="h-48 overflow-hidden">
                                 <img
@@ -214,13 +214,13 @@ export default function AdminProductsPage() {
                                 <div className="flex gap-4 pt-4">
                                     <Link
                                         href={`/admin/products/edit/${product.slug}`}
-                                        className="flex-1 text-center py-2 border rounded-xl hover:border-yellow-500 transition"
+                                        className="flex-1 text-center py-2 border border-white/10 rounded-xl hover:border-[#AA31E4] hover:text-[#AA31E4] transition"
                                     >
                                         Edit
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(product._id)}
-                                        className="flex-1 py-2 border rounded-xl hover:border-red-500 transition"
+                                        className="flex-1 py-2 border border-white/10 rounded-xl hover:border-red-500 hover:text-red-400 transition"
                                     >
                                         Delete
                                     </button>
@@ -232,23 +232,23 @@ export default function AdminProductsPage() {
             )}
 
             {/* PAGINATION */}
-            <div className="flex justify-center mt-12 gap-6">
+            <div className="flex justify-center items-center mt-12 gap-6">
                 <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="px-4 py-2 border rounded-lg disabled:opacity-40"
+                    className="px-4 py-2 border border-white/10 rounded-lg hover:border-[#AA31E4]/40 disabled:opacity-40 transition"
                 >
                     Prev
                 </button>
 
-                <span>
+                <span className="text-gray-400">
                     Page {page} of {totalPages}
                 </span>
 
                 <button
                     disabled={page === totalPages}
                     onClick={() => setPage(page + 1)}
-                    className="px-4 py-2 border rounded-lg disabled:opacity-40"
+                    className="px-4 py-2 border border-white/10 rounded-lg hover:border-[#AA31E4]/40 disabled:opacity-40 transition"
                 >
                     Next
                 </button>
