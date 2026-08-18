@@ -266,9 +266,9 @@ export default function AdminOrders() {
                         <button
                             key={i}
                             onClick={() => changePage(i + 1)}
-                            className={`px-4 py-2 rounded-xl ${filters.page === i + 1
-                                ? "bg-indigo-600"
-                                : "bg-white/10"
+                            className={`px-4 py-2 rounded-xl transition ${filters.page === i + 1
+                                ? "bg-gradient-to-r from-[#681CA1] to-[#AA31E4] shadow-lg shadow-[#681CA1]/30"
+                                : "bg-white/10 hover:bg-white/20"
                                 }`}
                         >
                             {i + 1}

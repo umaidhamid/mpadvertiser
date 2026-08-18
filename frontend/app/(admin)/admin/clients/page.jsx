@@ -171,7 +171,7 @@ export default function AdminClientsPage() {
             <button
               onClick={handleUpload}
               disabled={uploading}
-              className="bg-blue-600 px-6 py-2 rounded-lg"
+              className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 px-6 py-2 rounded-lg transition disabled:opacity-60"
             >
               {uploading ? "Uploading..." : "Add"}
             </button>
@@ -206,7 +206,7 @@ export default function AdminClientsPage() {
             <div className="mt-6">
               <button
                 onClick={saveOrder}
-                className="bg-blue-600 px-6 py-2 rounded-lg"
+                className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 px-6 py-2 rounded-lg transition"
               >
                 Save Order
               </button>

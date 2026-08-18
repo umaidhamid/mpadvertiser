@@ -220,7 +220,7 @@ export default function AdminTestimonials() {
 
                     <button
                         onClick={handleCreate}
-                        className="bg-blue-600 px-6 py-2 rounded"
+                        className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 px-6 py-2 rounded transition"
                     >
                         Add Testimonial
                     </button>
@@ -290,7 +290,7 @@ export default function AdminTestimonials() {
                         <div className="mt-6">
                             <button
                                 onClick={saveOrder}
-                                className="bg-blue-600 px-6 py-2 rounded"
+                                className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 px-6 py-2 rounded transition"
                             >
                                 Save Order
                             </button>

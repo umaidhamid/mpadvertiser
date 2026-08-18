@@ -144,7 +144,7 @@ export default function AdminGalleryPage() {
                     {...getRootProps()}
                     className={`border-2 border-dashed p-12 text-center rounded-xl mb-12 cursor-pointer transition
           ${isDragActive
-                            ? "border-blue-500 bg-blue-500/10"
+                            ? "border-[#AA31E4] bg-[#AA31E4]/10"
                             : "border-white/20"
                         }`}
                 >
@@ -157,7 +157,7 @@ export default function AdminGalleryPage() {
                             </p>
                             <div className="w-full bg-white/10 rounded-full h-3">
                                 <div
-                                    className="bg-blue-600 h-3 rounded-full transition-all"
+                                    className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] h-3 rounded-full transition-all"
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
@@ -200,7 +200,7 @@ export default function AdminGalleryPage() {
                         <div className="text-center mt-6">
                             <button
                                 onClick={saveOrder}
-                                className="bg-blue-600 px-6 py-2 rounded-lg"
+                                className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 px-6 py-2 rounded-lg transition"
                             >
                                 Save Order
                             </button>

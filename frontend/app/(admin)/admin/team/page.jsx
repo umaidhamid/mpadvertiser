@@ -140,7 +140,7 @@ export default function AdminTeamPage() {
 
                     <button
                         onClick={saveOrder}
-                        className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg text-sm"
+                        className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 px-5 py-2 rounded-lg text-sm transition"
                     >
                         Save Order
                     </button>
@@ -216,7 +216,7 @@ export default function AdminTeamPage() {
                             <button
                                 onClick={handleCreate}
                                 disabled={uploading}
-                                className="bg-blue-600 hover:bg-blue-700 w-full py-3 rounded-lg font-medium transition"
+                                className="bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 w-full py-3 rounded-lg font-medium transition disabled:opacity-60"
                             >
                                 {uploading ? "Uploading..." : "Add Member"}
                             </button>

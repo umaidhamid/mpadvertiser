@@ -164,21 +164,6 @@ export default function AdminCoupons() {
                             />
                         </div>
 
-                        {/* Usage Limit
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">
-                                Usage Limit (Optional)
-                            </label>
-                            <input
-                                type="number"
-                                value={form.usageLimit}
-                                onChange={(e) =>
-                                    setForm({ ...form, usageLimit: e.target.value })
-                                }
-                                className="w-full bg-white/10 p-3 rounded-lg"
-                            />
-                        </div> */}
-
                         {/* Expiry */}
                         <div>
                             <label className="block text-sm text-gray-400 mb-2">
@@ -199,7 +184,7 @@ export default function AdminCoupons() {
                     <button
                         onClick={handleCreate}
                         disabled={creating}
-                        className="mt-8 bg-indigo-600 hover:bg-indigo-700 transition px-8 py-3 rounded-lg font-medium disabled:opacity-50"
+                        className="mt-8 bg-gradient-to-r from-[#681CA1] to-[#AA31E4] hover:opacity-90 shadow-lg shadow-[#681CA1]/30 transition px-8 py-3 rounded-lg font-medium disabled:opacity-50"
                     >
                         {creating ? "Creating..." : "Create Coupon"}
                     </button>
@@ -246,11 +231,6 @@ export default function AdminCoupons() {
                                             ? `${coupon.value}% off`
                                             : `₹${coupon.value} off`}
                                     </p>
-
-                                    {/* <p className="text-xs text-gray-500 mt-1">
-                                        Min ₹{coupon.minOrder} | Used{" "}
-                                        {coupon.usedCount} times
-                                    </p> */}
 
                                     <p className="text-xs text-gray-500">
                                         Expires:{" "}
