@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import routes from "./routes/index.js";
+import { notFound, errorHandler } from "./middleware/error.middleware.js";
 
 
 const app = express();
@@ -26,9 +27,8 @@ app.get("/", (req, res) => {
     res.send("Server is running...");
 });
 
-app.use((req, res) => {
-    res.status(404).json({ success: false, message: "Route not found" });
-});
+app.use(notFound);
+app.use(errorHandler);
 
 const startServer = async () => {
     try {
