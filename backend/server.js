@@ -6,11 +6,11 @@ import express from "express";
 import { env } from "./config/env.js";
 import { corsOptions } from "./config/cors.js";
 import cors from "cors";
-import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import routes from "./routes/index.js";
 import { notFound, errorHandler } from "./middleware/error.middleware.js";
+import { connectDB } from "./config/db.js";
 
 
 const app = express();
@@ -32,7 +32,7 @@ app.use(errorHandler);
 
 const startServer = async () => {
     try {
-        await mongoose.connect(env.MONGO_URI);
+        await connectDB();
         app.listen(env.PORT, () => {
             console.log(`Server running on port ${env.PORT}`);
         });
