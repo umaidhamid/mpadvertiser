@@ -4,7 +4,7 @@ dns.setDefaultResultOrder("ipv4first");
 
 import express from "express";
 import { env } from "./config/env.js";
-import { ALLOWED_ORIGINS } from "./config/constants.js";
+import { corsOptions } from "./config/cors.js";
 import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.routes.js";
@@ -28,23 +28,7 @@ const app = express();
 // Middleware
 app.use(morgan("dev"));
 
-app.use(
-    cors({
-        origin: function (origin, callback) {
-            // allow server-to-server or Postman (no origin)
-            if (!origin) return callback(null, true);
-
-            if (ALLOWED_ORIGINS.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("CORS not allowed for this origin"));
-            }
-        },
-        credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-    })
-);
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/auth", authRoutes)
